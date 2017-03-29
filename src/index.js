@@ -1,10 +1,13 @@
 import "babel-polyfill";
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route} from 'react-router';
+import {Router, Route, IndexRedirect} from 'react-router';
 import history from './history';
 import App from './app/App.js';
-import Index from './app/Index.js';
+import Employee from './app/Employee.js';
+import Esop from './app/Esop.js';
+import Init from './app/Init.js';
+
 import './index.scss';
 import 'flexboxgrid'
 import {createStore, combineReducers, applyMiddleware} from 'redux'
@@ -32,8 +35,11 @@ import reducers from './reducers';
     ReactDOM.render((
             <Provider store={store}>
                 <Router history={syncedHistory}>
-                    <Route component={App}>
-                        <Route path="/" component={Index}/>
+                    <Route path="/" component={App}>
+                        <IndexRedirect to="/esop" />
+                        <Route path="/init" component={Init}/>
+                        <Route path="/esop" component={Esop}/>
+                        <Route path="/employee/:publicKey" component={Employee}/>
                     </Route>
                 </Router>
             </Provider>
