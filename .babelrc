@@ -1,0 +1,13 @@
+{
+  "presets": [
+    "env",
+    "es2015",
+    "react"
+  ],
+  "plugins": [
+    "transform-runtime",
+    "transform-class-properties",
+    "transform-export-extensions",
+    "transform-object-rest-spread"
+  ]
+}
