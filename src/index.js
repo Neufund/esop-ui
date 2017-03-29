@@ -39,6 +39,7 @@ import reducers from './reducers';
                         <IndexRedirect to="/esop" />
                         <Route path="/init" component={Init}/>
                         <Route path="/esop" component={Esop}/>
+                        <Route path="/employee" component={Employee}/>
                         <Route path="/employee/:publicKey" component={Employee}/>
                     </Route>
                 </Router>

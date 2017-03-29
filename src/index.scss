@@ -12,3 +12,7 @@ html {
   -webkit-text-size-adjust: 100%; /* 3 */
 }
 
+body {
+  color: $text-color;
+  font-family: 'Roboto', sans-serif;
+}
