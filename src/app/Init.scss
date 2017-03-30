@@ -1,0 +1,25 @@
+.new_esop {
+
+  .contract_parameters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .contract_parameter {
+    min-width: 17.07rem;
+    margin-right: 1em;
+  }
+
+  .contract_data {
+    .or {
+      margin: 0 1em;
+    }
+  }
+
+  .start {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+}
