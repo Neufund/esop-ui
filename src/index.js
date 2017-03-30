@@ -2,6 +2,9 @@ import "babel-polyfill";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRedirect} from 'react-router';
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import history from './history';
 import App from './app/App.js';
 import Employee from './app/Employee.js';
@@ -17,6 +20,8 @@ import {routerReducer, routerMiddleware, syncHistoryWithStore} from 'react-route
 import reducers from './reducers';
 
 (function app() {
+    injectTapEventPlugin();
+
     // Build the middleware for intercepting and dispatching navigation actions
     const middleware = routerMiddleware(history);
 
