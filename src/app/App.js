@@ -1,13 +1,14 @@
 import React from 'react';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import muiTheme from '../muiTheme';
 
 import './App.scss';
 import Header from '../ui/Header'
 
 export default ({children}) => {
     return (
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={muiTheme}>
             <div>
                 <Header/>
                 <div className="row">
