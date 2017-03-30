@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router'
 
+import FlatButton from 'material-ui/FlatButton';
+
 import './Header.scss';
 
 export default () => {
@@ -16,9 +18,15 @@ export default () => {
 
             <div className="row devMenu">
                 <div className="col-xs-12 col-md-10 col-md-offset-1">
-                    <Link to="/init">init</Link>
-                    <Link to="/esop">esop</Link>
-                    <Link to="/employee">employee</Link>
+                    <Link to="/init">
+                        <FlatButton label="init" />
+                    </Link>
+                    <Link to="/esop">
+                        <FlatButton label="esop" />
+                    </Link>
+                    <Link to="/employee">
+                        <FlatButton label="employee" />
+                    </Link>
                 </div>
             </div>
         </div>
