@@ -3,13 +3,13 @@ import './Esop.scss';
 
 import chart from '../images/esop_chart.jpg';
 
+import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
 
-//export default () => {
 export default class Esop extends React.Component {
 
     state = {
@@ -48,11 +48,11 @@ export default class Esop extends React.Component {
                             <TableBody displayRowCheckbox={false}>
                                 <TableRow >
                                     <TableRowColumn>Root of trust</TableRowColumn>
-                                    <TableRowColumn>0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
+                                    <TableRowColumn><FontIcon onClick={() => alert("well it's not working ;)")} className="material-icons copy_icon">content_copy</FontIcon> 0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
                                 </TableRow>
                                 <TableRow>
                                     <TableRowColumn>ESOP contract</TableRowColumn>
-                                    <TableRowColumn>0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
+                                    <TableRowColumn><FontIcon  onClick={() => alert("well it's not working ;)")} className="material-icons copy_icon">content_copy</FontIcon> 0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
                                 </TableRow>
                             </TableBody>
                         </Table>
