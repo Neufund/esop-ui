@@ -13,15 +13,24 @@ import Dialog from 'material-ui/Dialog';
 export default class Esop extends React.Component {
 
     state = {
-        open: false,
+        esop_desc_open: false,
+        paper_contract_open: false,
     };
 
-    handleOpen = () => {
-        this.setState({open: true});
+    handleEsopDescOpen = () => {
+        this.setState({esop_desc_open: true});
     };
 
-    handleClose = () => {
-        this.setState({open: false});
+    handleEsopDescClose = () => {
+        this.setState({esop_desc_open: false});
+    };
+
+    handlePaperContractOpen = () => {
+        this.setState({paper_contract_open: true});
+    };
+
+    handlePaperContractClose = () => {
+        this.setState({paper_contract_open: false});
     };
 
     render() {
@@ -32,7 +41,7 @@ export default class Esop extends React.Component {
                         <h1>Neufund ESOP details</h1>
                     </div>
                     <div className="col-xs-12 col-md-7 read_more">
-                        <RaisedButton className="read_more_button" label="Read more what ESOP is" onTouchTap={this.handleOpen}/>
+                        <RaisedButton className="read_more_button" label="Read more what ESOP is" onTouchTap={this.handleEsopDescOpen}/>
                     </div>
                 </div>
 
@@ -81,6 +90,8 @@ export default class Esop extends React.Component {
                                            value="10%" disabled={true}/>
                                 <TextField floatingLabelText="total options" className="contract_parameter"
                                            value="1 000 000" disabled={true}/>
+
+                                <RaisedButton label="Show Paper Contract" className="contract_parameter" onTouchTap={this.handlePaperContractOpen}/>
                             </div>
                         </Tab>
                         <Tab label="Visualisation">
@@ -93,7 +104,35 @@ export default class Esop extends React.Component {
 
                 <div className="row">
                     <div className="col-xs-12">
-                        <h2>Contract stats:</h2>
+                        <h2 className="contracts_stats">Contract stats:</h2>
+                        <Table selectable={false}>
+                            <TableBody displayRowCheckbox={false}>
+                                <TableRow >
+                                    <TableRowColumn>ESOP status</TableRowColumn>
+                                    <TableRowColumn>Active</TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>ESOP started</TableRowColumn>
+                                    <TableRowColumn>2017-03-01</TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>Number of participants</TableRowColumn>
+                                    <TableRowColumn>10</TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>Number of <b>active</b> participants</TableRowColumn>
+                                    <TableRowColumn>8</TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>Number of options given</TableRowColumn>
+                                    <TableRowColumn>125 000</TableRowColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>Number of options left in pool</TableRowColumn>
+                                    <TableRowColumn>875 000</TableRowColumn>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
                     </div>
                 </div>
 
@@ -103,17 +142,25 @@ export default class Esop extends React.Component {
                     </div>
                 </div>
 
-
-
                 <Dialog
                     modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
+                    open={this.state.esop_desc_open}
+                    onRequestClose={this.handleEsopDescClose}
                     autoScrollBodyContent={true}
                 >
                     <h2>Short introduction</h2>
                     <p>So generally it should be something short with link to our github page where user will find long detailed description</p>
                     <p><a href="https://github.com/Neufund/ESOP">This is link click me</a></p>
+                </Dialog>
+
+                <Dialog
+                    modal={false}
+                    open={this.state.paper_contract_open}
+                    onRequestClose={this.handlePaperContractClose}
+                    autoScrollBodyContent={true}
+                >
+                    <h2>Paper contract</h2>
+                    <p>Not sure yet if this gonne be here and in what form.</p>
                 </Dialog>
             </div>
         )
