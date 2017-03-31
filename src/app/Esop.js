@@ -4,6 +4,7 @@ import './Esop.scss';
 import chart from '../images/esop_chart.jpg';
 
 import EmployeeList from '../components/EmployeeList'
+import EmployeeAdd from '../components/EmployeeAdd'
 
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton'
@@ -17,6 +18,7 @@ export default class Esop extends React.Component {
     state = {
         esop_desc_open: false,
         paper_contract_open: false,
+        show_add_employee_section: true,
     };
 
     handleEsopDescOpen = () => {
@@ -147,6 +149,14 @@ export default class Esop extends React.Component {
                 <div className="row">
                     <div className="col-xs-12">
                         <h2>Employees:</h2>
+                    </div>
+                </div>
+                {this.state.show_add_employee_section &&
+                    <EmployeeAdd/>
+                }
+
+                <div className="row">
+                    <div className="col-xs-12">
                         <EmployeeList/>
                     </div>
                 </div>
