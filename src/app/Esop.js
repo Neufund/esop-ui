@@ -3,6 +3,8 @@ import './Esop.scss';
 
 import chart from '../images/esop_chart.jpg';
 
+import EmployeeList from '../components/EmployeeList'
+
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
@@ -41,7 +43,8 @@ export default class Esop extends React.Component {
                         <h1>Neufund ESOP details</h1>
                     </div>
                     <div className="col-xs-12 col-md-7 read_more">
-                        <RaisedButton className="read_more_button" label="Read more what ESOP is" onTouchTap={this.handleEsopDescOpen}/>
+                        <RaisedButton className="read_more_button" label="Read more what ESOP is"
+                                      onTouchTap={this.handleEsopDescOpen}/>
                     </div>
                 </div>
 
@@ -57,11 +60,15 @@ export default class Esop extends React.Component {
                             <TableBody displayRowCheckbox={false}>
                                 <TableRow >
                                     <TableRowColumn>Root of trust</TableRowColumn>
-                                    <TableRowColumn><FontIcon onClick={() => alert("well it's not working ;)")} className="material-icons copy_icon">content_copy</FontIcon> 0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
+                                    <TableRowColumn><FontIcon onClick={() => alert("well it's not working ;)")}
+                                                              className="material-icons copy_icon">content_copy</FontIcon>
+                                        0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
                                 </TableRow>
                                 <TableRow>
                                     <TableRowColumn>ESOP contract</TableRowColumn>
-                                    <TableRowColumn><FontIcon  onClick={() => alert("well it's not working ;)")} className="material-icons copy_icon">content_copy</FontIcon> 0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
+                                    <TableRowColumn><FontIcon onClick={() => alert("well it's not working ;)")}
+                                                              className="material-icons copy_icon">content_copy</FontIcon>
+                                        0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
                                 </TableRow>
                             </TableBody>
                         </Table>
@@ -91,7 +98,8 @@ export default class Esop extends React.Component {
                                 <TextField floatingLabelText="total options" className="contract_parameter"
                                            value="1 000 000" disabled={true}/>
 
-                                <RaisedButton label="Show Paper Contract" className="contract_parameter" onTouchTap={this.handlePaperContractOpen}/>
+                                <RaisedButton label="Show Paper Contract" className="contract_parameter"
+                                              onTouchTap={this.handlePaperContractOpen}/>
                             </div>
                         </Tab>
                         <Tab label="Visualisation">
@@ -139,6 +147,7 @@ export default class Esop extends React.Component {
                 <div className="row">
                     <div className="col-xs-12">
                         <h2>Employees:</h2>
+                        <EmployeeList/>
                     </div>
                 </div>
 
@@ -149,7 +158,8 @@ export default class Esop extends React.Component {
                     autoScrollBodyContent={true}
                 >
                     <h2>Short introduction</h2>
-                    <p>So generally it should be something short with link to our github page where user will find long detailed description</p>
+                    <p>So generally it should be something short with link to our github page where user will find long
+                        detailed description</p>
                     <p><a href="https://github.com/Neufund/ESOP">This is link click me</a></p>
                 </Dialog>
 
