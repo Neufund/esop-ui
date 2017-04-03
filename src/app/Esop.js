@@ -5,6 +5,7 @@ import chart from '../images/esop_chart.jpg';
 
 import EmployeeList from '../components/EmployeeList'
 import EmployeeAdd from '../components/EmployeeAdd'
+import EmployeeDetails from '../components/EmployeeDetails'
 
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton'
@@ -152,12 +153,29 @@ export default class Esop extends React.Component {
                     </div>
                 </div>
                 {this.state.show_add_employee_section &&
-                    <EmployeeAdd/>
+                <EmployeeAdd/>
                 }
 
                 <div className="row">
                     <div className="col-xs-12">
                         <EmployeeList/>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-xs-12 ">
+                        <EmployeeDetails/>
+                    </div>
+                </div>
+
+
+                <div className="row">
+                    <div className="col-xs-12 convert_options">
+                        <h2>Convert options:</h2>
+                        <TextField floatingLabelText="Convert options contract address" style={{width: "32.000rem"}}/>
+                        <br />
+                        <RaisedButton className="read_more_button" label="Convert options"
+                                      onTouchTap={() => alert("This will close ESOP and convert options")}/>
                     </div>
                 </div>
 

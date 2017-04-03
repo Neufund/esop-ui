@@ -20,6 +20,7 @@ export default (props) => {
 
     return (
         <div>
+            <h3>Employee list:</h3>
             <Table selectable={false}>
                 <TableHeader
                     displaySelectAll={false}
@@ -41,8 +42,8 @@ export default (props) => {
                             <TableRowColumn>{row.optionsNumber}</TableRowColumn>
                         </TableRow>
                     ))}
-                </ TableBody >
-            </ Table >
-        </ div >
+                </TableBody>
+            </Table>
+        </div>
     )
 }

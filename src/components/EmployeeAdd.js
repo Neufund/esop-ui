@@ -10,7 +10,7 @@ export default (props) => {
     return (
         <div className="row">
             <div className="col-xs-12 employee_add">
-                <h3>Add employee</h3>
+                <h3>Add employee:</h3>
                 <TextField floatingLabelText="public key" className="employee_parameter"/>
                 <TextField floatingLabelText="started working" className="employee_parameter"/>
                 <TextField floatingLabelText="time to sign [days]" className="employee_parameter"/>
