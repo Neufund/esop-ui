@@ -7,7 +7,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import history from './history';
 import App from './app/App.js';
-import Employee from './app/Employee.js';
 import Esop from './app/Esop.js';
 import Init from './app/Init.js';
 
@@ -44,8 +43,6 @@ import reducers from './reducers';
                         <IndexRedirect to="/esop" />
                         <Route path="/init" component={Init}/>
                         <Route path="/esop" component={Esop}/>
-                        <Route path="/employee" component={Employee}/>
-                        <Route path="/employee/:publicKey" component={Employee}/>
                     </Route>
                 </Router>
             </Provider>

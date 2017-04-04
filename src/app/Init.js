@@ -45,8 +45,7 @@ export default () => {
 
             <div className="row">
                 <div className="col-xs-12 contract_data">
-                    <TextField floatingLabelText="IPFS hash" style={{width: "32.000rem"}}/> <span className="or">OR</span>
-                    <RaisedButton label="Upload contract"/> &nbsp;&nbsp; - we re not sure how we gonna implement it yet
+                    <TextField floatingLabelText="IPFS hash" style={{width: "32.000rem"}}/>
                 </div>
             </div>
 

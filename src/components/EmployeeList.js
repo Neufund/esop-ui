@@ -13,8 +13,13 @@ export default (props) => {
         },
         {
             publicKey: "0x0046adE103035E8d9B1E8143Ec0as37cfcB47c2f",
-            vestingStart: "2014-12-30",
+            vestingStart: "2015-01-15",
             optionsNumber: 31245054
+        },
+        {
+            publicKey: "0x0046adE103035E8d9B1E8143Ec0as37cfcB47c2f",
+            vestingStart: "2016-08-17",
+            optionsNumber: 24567
         }
     ];
 
