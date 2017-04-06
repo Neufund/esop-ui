@@ -5,9 +5,10 @@ import muiTheme from '../muiTheme';
 
 import './App.scss';
 import Header from '../ui/Header'
+import Esop from './Esop'
 
-export default (props) => {
-    let store = props.route.store;
+export default ({store}) => {
+
 
     return (
         <MuiThemeProvider muiTheme={muiTheme}>
@@ -15,7 +16,7 @@ export default (props) => {
                 <Header store={store}/>
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
-                        {props.children}
+                        <Esop store={store}/>
                     </div>
                 </div>
             </div>

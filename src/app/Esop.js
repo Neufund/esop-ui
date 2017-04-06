@@ -21,7 +21,7 @@ export default class Esop extends React.Component {
 
     constructor(props) {
         super(props);
-        this.store = props.route.store;
+        this.store = props.store;
 
         this.state = {
             esop_desc_open: false,

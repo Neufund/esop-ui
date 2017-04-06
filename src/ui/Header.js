@@ -42,15 +42,6 @@ export default class Header extends React.Component {
                 <div className="row ">
                     <div className="col-xs-12 col-md-10 col-md-offset-1 devMenu">
                         <div>
-                            <Link to="/init">
-                                <FlatButton className="button" label="init"/>
-                            </Link>
-                            <Link to="/esop">
-                                <FlatButton label="esop"/>
-                            </Link>
-                        </div>
-
-                        <div>
                             <FlatButton disabled={userState.userType == "anonymous"} label="anonymous"
                                         onClick={this.userTypeButtonClick("anonymous")}/>
                             <FlatButton disabled={userState.userType == "ceo"} label="ceo"
