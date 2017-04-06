@@ -9,9 +9,26 @@ export default class Header extends React.Component {
 
     constructor(props) {
         super(props);
+        this.store = props.store;
     }
 
+    componentDidMount() {
+        this.unsubscribe = this.store.subscribe(() => this.forceUpdate());
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    userTypeButtonClick = userType => {
+        return () => this.store.dispatch({
+            type: "SET_USER_TYPE",
+            userType: userType
+        });
+    };
+
     render() {
+        let userState = this.store.getState().user;
         return (
             <div>
                 <div className="row">
@@ -32,13 +49,15 @@ export default class Header extends React.Component {
                                 <FlatButton label="esop"/>
                             </Link>
                         </div>
-                        {/*
+
                         <div>
-                            <FlatButton label="anonymous"/>
-                            <FlatButton label="ceo"/>
-                            <FlatButton label="employee"/>
+                            <FlatButton disabled={userState.userType == "anonymous"} label="anonymous"
+                                        onClick={this.userTypeButtonClick("anonymous")}/>
+                            <FlatButton disabled={userState.userType == "ceo"} label="ceo"
+                                        onClick={this.userTypeButtonClick("ceo")}/>
+                            <FlatButton disabled={userState.userType == "employee"} label="employee"
+                                        onClick={this.userTypeButtonClick("employee")}/>
                         </div>
-                         */}
                     </div>
                 </div>
             </div>

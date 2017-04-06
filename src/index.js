@@ -16,7 +16,7 @@ import {createStore, combineReducers, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 import {createDevTools} from 'redux-devtools'
 import {routerReducer, routerMiddleware, syncHistoryWithStore} from 'react-router-redux'
-import reducers from './reducers';
+import reducersUser from './reducers/reducersUser';
 
 (function app() {
     injectTapEventPlugin();
@@ -28,7 +28,7 @@ import reducers from './reducers';
     // You can store it elsewhere by specifying a custom `routerStateSelector`
     // in the store enhancer below
     const reducer = combineReducers({
-        ...reducers,
+        user: reducersUser,
         routing: routerReducer
     });
 
@@ -39,8 +39,8 @@ import reducers from './reducers';
     ReactDOM.render((
             <Provider store={store}>
                 <Router history={syncedHistory}>
-                    <Route path="/" component={App}>
-                        <IndexRedirect to="/esop" />
+                    <Route path="/" component={App} store={store}>
+                        <IndexRedirect to="/esop"/>
                         <Route path="/init" component={Init}/>
                         <Route path="/esop" component={Esop}/>
                     </Route>
