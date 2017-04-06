@@ -7,18 +7,15 @@ import paperContract from '../images/contract.png';
 import EmployeeList from '../components/EmployeeList'
 import EmployeeAdd from '../components/EmployeeAdd'
 import EmployeeDetails from '../components/EmployeeDetails'
-
 import ContractAddresses from '../components/ContractAddresses'
+import ContractStats from '../components/ContractStats'
 
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
-
 import {Tabs, Tab} from 'material-ui/Tabs';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
-
 
 export default class Esop extends React.Component {
 
@@ -59,6 +56,14 @@ export default class Esop extends React.Component {
     render() {
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
+
+        let contractStats = {
+            ESOPState: ESOPState.ESOPState,
+            employeesNo: ESOPState.employees.length,
+            optionsGiven: ESOPState.totalOptions - ESOPState.remainingOptions,
+            optionsLeft: ESOPState.remainingOptions
+        };
+
         const actions = [
             <IconButton tooltip="Download">
                 <FontIcon className="material-icons">file_download</FontIcon>
@@ -85,41 +90,7 @@ export default class Esop extends React.Component {
                         <ContractAddresses RoTAddress="0xc41e8639e44d551eb9f96149de3d2bc3e9cd72df"
                                            ESOPAddress={ESOPState.ESOPAddress}
                                            OptionsConverterAddress={ESOPState.optionsConverter}/>
-
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <h2 className="contracts_stats">Contract stats:</h2>
-                                <Table selectable={false}>
-                                    <TableBody displayRowCheckbox={false}>
-                                        <TableRow >
-                                            <TableRowColumn>ESOP status</TableRowColumn>
-                                            <TableRowColumn>Active</TableRowColumn>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableRowColumn>ESOP started</TableRowColumn>
-                                            <TableRowColumn>2017-03-01</TableRowColumn>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableRowColumn>Number of participants</TableRowColumn>
-                                            <TableRowColumn>10</TableRowColumn>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableRowColumn>Number of <b>active</b> participants</TableRowColumn>
-                                            <TableRowColumn>8</TableRowColumn>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableRowColumn>Number of options given</TableRowColumn>
-                                            <TableRowColumn>125 000</TableRowColumn>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableRowColumn>Number of options left in pool</TableRowColumn>
-                                            <TableRowColumn>875 000</TableRowColumn>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </div>
-                        </div>
-
+                        <ContractStats contractStats={contractStats}/>
                         <div className="row">
                             <div className="col-xs-12">
                                 <h2>Contract parameters:</h2>
