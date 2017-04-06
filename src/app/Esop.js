@@ -8,6 +8,8 @@ import EmployeeList from '../components/EmployeeList'
 import EmployeeAdd from '../components/EmployeeAdd'
 import EmployeeDetails from '../components/EmployeeDetails'
 
+import ContractAddresses from '../components/ContractAddresses'
+
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
@@ -16,6 +18,7 @@ import IconButton from 'material-ui/IconButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
+
 
 export default class Esop extends React.Component {
 
@@ -55,6 +58,7 @@ export default class Esop extends React.Component {
 
     render() {
         let userState = this.store.getState().user;
+        let ESOPState = this.store.getState().ESOP;
         const actions = [
             <IconButton tooltip="Download">
                 <FontIcon className="material-icons">file_download</FontIcon>
@@ -78,41 +82,9 @@ export default class Esop extends React.Component {
                             </div>
                         </div>
 
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <h2>Contract addresses:</h2>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <Table selectable={false}>
-                                    <TableBody displayRowCheckbox={false}>
-                                        <TableRow >
-                                            <TableRowColumn>Root of trust</TableRowColumn>
-                                            <TableRowColumn><FontIcon
-                                                className="material-icons copy_icon">content_copy</FontIcon>
-                                                0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableRowColumn>ESOP contract</TableRowColumn>
-                                            <TableRowColumn><FontIcon
-                                                className="material-icons copy_icon">content_copy</FontIcon>
-                                                0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
-                                        </TableRow>
-
-                                        <TableRow>
-                                            <TableRowColumn>Conversion contract (visible only if its
-                                                set)</TableRowColumn>
-                                            <TableRowColumn><FontIcon
-                                                className="material-icons copy_icon">content_copy</FontIcon>
-                                                0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </div>
-                        </div>
-
+                        <ContractAddresses RoTAddress="0xc41e8639e44d551eb9f96149de3d2bc3e9cd72df"
+                                           ESOPAddress={ESOPState.ESOPAddress}
+                                           OptionsConverterAddress={ESOPState.optionsConverter}/>
 
                         <div className="row">
                             <div className="col-xs-12">
