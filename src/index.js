@@ -17,36 +17,40 @@ import {Provider} from 'react-redux'
 import {createDevTools} from 'redux-devtools'
 import {routerReducer, routerMiddleware, syncHistoryWithStore} from 'react-router-redux'
 import reducersUser from './reducers/reducersUser';
+import reducersESOP from './reducers/reducersESOP';
 
-(function app() {
-    injectTapEventPlugin();
+import ContractComService from './ContractComService';
 
-    // Build the middleware for intercepting and dispatching navigation actions
-    const middleware = routerMiddleware(history);
+injectTapEventPlugin();
 
-    // Configure reducer to store state at state.router
-    // You can store it elsewhere by specifying a custom `routerStateSelector`
-    // in the store enhancer below
-    const reducer = combineReducers({
-        user: reducersUser,
-        routing: routerReducer
-    });
+// Build the middleware for intercepting and dispatching navigation actions
+const middleware = routerMiddleware(history);
 
-    const store = createStore(reducer, applyMiddleware(middleware));
+// Configure reducer to store state at state.router
+// You can store it elsewhere by specifying a custom `routerStateSelector`
+// in the store enhancer below
+const reducer = combineReducers({
+    ESOP: reducersESOP,
+    user: reducersUser,
+    routing: routerReducer
+});
 
-    const syncedHistory = syncHistoryWithStore(history, store);
+const store = createStore(reducer, applyMiddleware(middleware));
+const syncedHistory = syncHistoryWithStore(history, store);
 
-    ReactDOM.render((
-            <Provider store={store}>
-                <Router history={syncedHistory}>
-                    <Route path="/" component={App} store={store}>
-                        <IndexRedirect to="/esop"/>
-                        <Route path="/init" component={Init}/>
-                        <Route path="/esop" component={Esop} store={store}/>
-                    </Route>
-                </Router>
-            </Provider>
-        ),
-        document.getElementById('root')
-    );
-})();
+const ESOPService = new ContractComService(store);
+ESOPService.getESOPDataFromContract();
+
+ReactDOM.render((
+        <Provider store={store}>
+            <Router history={syncedHistory}>
+                <Route path="/" component={App} store={store}>
+                    <IndexRedirect to="/esop"/>
+                    <Route path="/init" component={Init}/>
+                    <Route path="/esop" component={Esop} store={store}/>
+                </Route>
+            </Router>
+        </Provider>
+    ),
+    document.getElementById('root')
+);

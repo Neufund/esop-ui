@@ -27,13 +27,15 @@
     "redux": "^3.6.0",
     "redux-devtools": "^3.3.2",
     "style-loader": "^0.14.1",
+    "truffle-contract": "^2.0.0",
     "url-loader": "^0.5.8",
+    "web3": "^0.18.4",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.2"
   },
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server --https --open --colors --progress --history-api-fallback"
+    "dev": "webpack-dev-server --open --colors --progress --history-api-fallback"
   },
   "devDependencies": {
     "node-sass": "^4.5.0",
