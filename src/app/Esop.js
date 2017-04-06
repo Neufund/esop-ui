@@ -140,7 +140,7 @@ export default class Esop extends React.Component {
 
                         <div className="row">
                             <div className="col-xs-12">
-                                <EmployeeList/>
+                                <EmployeeList employeeList={ESOPState.employees}/>
                             </div>
                         </div>
 

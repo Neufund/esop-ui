@@ -1,28 +1,8 @@
 import React from 'react';
-import './EmployeeList.scss';
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-export default (props) => {
-
-    let users = [
-        {
-            publicKey: "0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f",
-            vestingStart: "2014-12-30",
-            optionsNumber: 1245
-        },
-        {
-            publicKey: "0x0046adE103035E8d9B1E8143Ec0as37cfcB47c2f",
-            vestingStart: "2015-01-15",
-            optionsNumber: 31245054
-        },
-        {
-            publicKey: "0x0046adE103035E8d9B1E8143Ec0as37cfcB47c2f",
-            vestingStart: "2016-08-17",
-            optionsNumber: 24567
-        }
-    ];
-
+export default ({employeeList}) => {
     return (
         <div>
             <h3>Employee list:</h3>
@@ -33,18 +13,25 @@ export default (props) => {
                 >
                     <TableRow>
                         <TableHeaderColumn>Public key</TableHeaderColumn>
-                        <TableHeaderColumn>Vesting starts</TableHeaderColumn>
+                        <TableHeaderColumn>Vesting started</TableHeaderColumn>
+                        <TableHeaderColumn>Terminated At</TableHeaderColumn>
                         <TableHeaderColumn>Options number</TableHeaderColumn>
+                        <TableHeaderColumn>Extra options</TableHeaderColumn>
+                        <TableHeaderColumn>Status</TableHeaderColumn>
+
                     </TableRow>
                 </TableHeader>
                 <TableBody
                     displayRowCheckbox={false}
                 >
-                    {users.map((row, index) => (
+                    {employeeList.map((row, index) => (
                         <TableRow key={index}>
-                            <TableRowColumn>{row.publicKey}</TableRowColumn>
-                            <TableRowColumn>{row.vestingStart}</TableRowColumn>
-                            <TableRowColumn>{row.optionsNumber}</TableRowColumn>
+                            <TableRowColumn>{row.address}</TableRowColumn>
+                            <TableRowColumn>{row.vestingStarted}</TableRowColumn>
+                            <TableRowColumn>{row.terminatedAt}</TableRowColumn>
+                            <TableRowColumn>{row.options}</TableRowColumn>
+                            <TableRowColumn>{row.extraOptions}</TableRowColumn>
+                            <TableRowColumn>{row.state}</TableRowColumn>
                         </TableRow>
                     ))}
                 </TableBody>
