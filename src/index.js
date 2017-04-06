@@ -42,7 +42,7 @@ import reducersUser from './reducers/reducersUser';
                     <Route path="/" component={App} store={store}>
                         <IndexRedirect to="/esop"/>
                         <Route path="/init" component={Init}/>
-                        <Route path="/esop" component={Esop}/>
+                        <Route path="/esop" component={Esop} store={store}/>
                     </Route>
                 </Router>
             </Provider>

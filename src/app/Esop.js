@@ -19,11 +19,23 @@ import Dialog from 'material-ui/Dialog';
 
 export default class Esop extends React.Component {
 
-    state = {
-        esop_desc_open: false,
-        paper_contract_open: false,
-        show_add_employee_section: true,
-    };
+    constructor(props) {
+        super(props);
+        this.store = props.route.store;
+
+        this.state = {
+            esop_desc_open: false,
+            paper_contract_open: false
+        };
+    }
+
+    componentDidMount() {
+        this.unsubscribe = this.store.subscribe(() => this.forceUpdate());
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
 
     handleEsopDescOpen = () => {
         this.setState({esop_desc_open: true});
@@ -42,6 +54,7 @@ export default class Esop extends React.Component {
     };
 
     render() {
+        let userState = this.store.getState().user;
         const actions = [
             <IconButton tooltip="Download">
                 <FontIcon className="material-icons">file_download</FontIcon>
@@ -75,18 +88,21 @@ export default class Esop extends React.Component {
                             <TableBody displayRowCheckbox={false}>
                                 <TableRow >
                                     <TableRowColumn>Root of trust</TableRowColumn>
-                                    <TableRowColumn><FontIcon className="material-icons copy_icon">content_copy</FontIcon>
+                                    <TableRowColumn><FontIcon
+                                        className="material-icons copy_icon">content_copy</FontIcon>
                                         0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
                                 </TableRow>
                                 <TableRow>
                                     <TableRowColumn>ESOP contract</TableRowColumn>
-                                    <TableRowColumn><FontIcon className="material-icons copy_icon">content_copy</FontIcon>
+                                    <TableRowColumn><FontIcon
+                                        className="material-icons copy_icon">content_copy</FontIcon>
                                         0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
                                 </TableRow>
 
                                 <TableRow>
                                     <TableRowColumn>Conversion contract (visible only if its set)</TableRowColumn>
-                                    <TableRowColumn><FontIcon className="material-icons copy_icon">content_copy</FontIcon>
+                                    <TableRowColumn><FontIcon
+                                        className="material-icons copy_icon">content_copy</FontIcon>
                                         0x0046adE103035E8d9B1E8143Ec077F7cfcB47c2f</TableRowColumn>
                                 </TableRow>
                             </TableBody>
@@ -169,7 +185,7 @@ export default class Esop extends React.Component {
                         <h2>Employees:</h2>
                     </div>
                 </div>
-                {this.state.show_add_employee_section &&
+                {userState.userType == "ceo" &&
                 <EmployeeAdd/>
                 }
 
@@ -179,13 +195,15 @@ export default class Esop extends React.Component {
                     </div>
                 </div>
 
+                {(userState.userType == "ceo" || userState.userType == "employee") &&
                 <div className="row">
                     <div className="col-xs-12 ">
-                        <EmployeeDetails/>
+                        <EmployeeDetails store={this.store}/>
                     </div>
                 </div>
+                }
 
-
+                {userState.userType == "ceo" &&
                 <div className="row">
                     <div className="col-xs-12 convert_options">
                         <h2>Convert options:</h2>
@@ -195,6 +213,7 @@ export default class Esop extends React.Component {
                                       onTouchTap={() => alert("This will close ESOP and convert options")}/>
                     </div>
                 </div>
+                }
 
                 <Dialog
                     modal={false}
@@ -202,10 +221,21 @@ export default class Esop extends React.Component {
                     onRequestClose={this.handleEsopDescClose}
                 >
                     <h2>Short introduction</h2>
-                    <p>So generally it should be something short with link to our github page where user will find long detailed description</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Audax negotium, dicerem impudens, nisi hoc institutum postea translatum ad philosophos nostros esset. Igitur ne dolorem quidem.</p>
-                    <p>Mihi enim satis est, ipsis non satis. Duo Reges: constructio interrete. Deinde disputat, quod cuiusque generis animantium statui deceat extremum. Indicant pueri, in quibus ut in speculis natura cernitur. Qui non moveatur et offensione turpitudinis et comprobatione honestatis? Ait enim se, si uratur, Quam hoc suave! dicturum. Urgent tamen et nihil remittunt. An hoc usque quaque, aliter in vita? Ille vero, si insipiens-quo certe, quoniam tyrannus -, numquam beatus; Quis non odit sordidos, vanos, leves, futtiles?</p>
-                    <p>Progredientibus autem aetatibus sensim tardeve potius quasi nosmet ipsos cognoscimus. Quam illa ardentis amores excitaret sui! Cur tandem? Hoc est non modo cor non habere, sed ne palatum quidem. At iste non dolendi status non vocatur voluptas. Ratio quidem vestra sic cogit. Videsne quam sit magna dissensio? Qui igitur convenit ab alia voluptate dicere naturam proficisci, in alia summum bonum ponere? Quamquam id quidem licebit iis existimare, qui legerint.</p>
+                    <p>So generally it should be something short with link to our github page where user will find long
+                        detailed description</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Audax negotium, dicerem impudens, nisi
+                        hoc institutum postea translatum ad philosophos nostros esset. Igitur ne dolorem quidem.</p>
+                    <p>Mihi enim satis est, ipsis non satis. Duo Reges: constructio interrete. Deinde disputat, quod
+                        cuiusque generis animantium statui deceat extremum. Indicant pueri, in quibus ut in speculis
+                        natura cernitur. Qui non moveatur et offensione turpitudinis et comprobatione honestatis? Ait
+                        enim se, si uratur, Quam hoc suave! dicturum. Urgent tamen et nihil remittunt. An hoc usque
+                        quaque, aliter in vita? Ille vero, si insipiens-quo certe, quoniam tyrannus -, numquam beatus;
+                        Quis non odit sordidos, vanos, leves, futtiles?</p>
+                    <p>Progredientibus autem aetatibus sensim tardeve potius quasi nosmet ipsos cognoscimus. Quam illa
+                        ardentis amores excitaret sui! Cur tandem? Hoc est non modo cor non habere, sed ne palatum
+                        quidem. At iste non dolendi status non vocatur voluptas. Ratio quidem vestra sic cogit. Videsne
+                        quam sit magna dissensio? Qui igitur convenit ab alia voluptate dicere naturam proficisci, in
+                        alia summum bonum ponere? Quamquam id quidem licebit iis existimare, qui legerint.</p>
 
                     <p><a target="_blank" href="https://github.com/Neufund/ESOP">This is link click me</a></p>
                 </Dialog>
