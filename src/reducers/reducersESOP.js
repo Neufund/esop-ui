@@ -11,7 +11,7 @@ export default (state = {waitingForData: true}, action) => {
                 exitBonusPromille: action.exitBonusPromille,
                 totalOptions: action.totalOptions,
                 remainingOptions: action.remainingOptions,
-                esopState: action.esopState,
+                ESOPState: action.ESOPState,
                 totalExtraOptions: action.totalExtraOptions,
                 conversionEventTime: action.conversionEventTime,
                 employeeConversionDeadline: action.employeeConversionDeadline,

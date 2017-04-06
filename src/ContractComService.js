@@ -50,7 +50,7 @@ export default class ContractComService {
         ret.exitBonusPromille = data[3].c[0];
         ret.totalOptions = data[4].c[0];
         ret.remainingOptions = data[5].c[0];
-        ret.esopState = data[6].c[0];
+        ret.ESOPState = data[6].c[0];
         ret.totalExtraOptions = data[7].c[0];
         ret.conversionEventTime = data[8].c[0];
         ret.employeeConversionDeadline = data[9].c[0];
