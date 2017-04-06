@@ -1,9 +1,10 @@
-export default (state = {state: "New"}, action) => {
+export default (state = {waitingForData: true}, action) => {
 
     switch (action.type) {
         case "SET_ESOP_DATA":
             return {
                 ...state,
+                waitingForData: false,
                 cliffDuration: action.cliffDuration,
                 vestingDuration: action.vestingDuration,
                 maxFadeoutPromille: action.maxFadeoutPromille,

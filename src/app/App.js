@@ -6,20 +6,37 @@ import muiTheme from '../muiTheme';
 import './App.scss';
 import Header from '../ui/Header'
 import Esop from './Esop'
+import Waiting from './Waiting'
 
-export default ({store}) => {
+export default class App extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.store = props.store;
+    }
 
-    return (
-        <MuiThemeProvider muiTheme={muiTheme}>
-            <div>
-                <Header store={store}/>
-                <div className="row">
-                    <div className="col-xs-12 col-md-10 col-md-offset-1">
-                        <Esop store={store}/>
-                    </div>
+    componentDidMount() {
+        this.unsubscribe = this.store.subscribe(() => this.forceUpdate());
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    render() {
+        let state = this.store.getState().ESOP;
+        return (
+            <MuiThemeProvider muiTheme={muiTheme}>
+                <div>
+                    <Header store={this.store}/>
+                    {
+                        state.waitingForData ?
+                            <Waiting/>
+                            :
+                            <Esop store={this.store}/>
+                    }
                 </div>
-            </div>
-        </MuiThemeProvider>
-    )
+            </MuiThemeProvider>
+        )
+    }
 };
