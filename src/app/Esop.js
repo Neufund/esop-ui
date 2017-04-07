@@ -9,6 +9,7 @@ import EmployeeAdd from '../components/EmployeeAdd'
 import EmployeeDetails from '../components/EmployeeDetails'
 import ContractAddresses from '../components/ContractAddresses'
 import ContractStats from '../components/ContractStats'
+import ContractParameters from '../components/ContractParameters'
 
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton'
@@ -64,6 +65,15 @@ export default class Esop extends React.Component {
             optionsLeft: ESOPState.remainingOptions
         };
 
+        let contractParameters = {
+            cliffDuration: ESOPState.cliffDuration,
+            vestingDuration: ESOPState.vestingDuration,
+            maxFadeoutPromille: ESOPState.maxFadeoutPromille,
+            totalOptions: ESOPState.totalOptions,
+            exitBonusPromille: ESOPState.exitBonusPromille,
+            percentForNew: 10,
+        };
+
         const actions = [
             <IconButton tooltip="Download">
                 <FontIcon className="material-icons">file_download</FontIcon>
@@ -100,26 +110,8 @@ export default class Esop extends React.Component {
                         <div className="row">
                             <Tabs>
                                 <Tab label="Parameters">
-                                    <div className="col-xs-12 contract_parameters">
-                                        <TextField floatingLabelText="cliff duration" className="contract_parameter"
-                                                   value="1 year" disabled={true}/>
-                                        <TextField floatingLabelText="vesting duration" className="contract_parameter"
-                                                   value="4 years" disabled={true}/>
-                                        <TextField floatingLabelText="max fadeout promille"
-                                                   className="contract_parameter"
-                                                   value="20%" disabled={true}/>
-                                        <TextField floatingLabelText="exit bonus promille"
-                                                   className="contract_parameter"
-                                                   value="25%" disabled={true}/>
-                                        <TextField floatingLabelText="new employee pool promille"
-                                                   className="contract_parameter"
-                                                   value="10%" disabled={true}/>
-                                        <TextField floatingLabelText="total options" className="contract_parameter"
-                                                   value="1 000 000" disabled={true}/>
-
-                                        <RaisedButton label="Show Paper Contract" className="contract_parameter"
-                                                      onTouchTap={this.handlePaperContractOpen}/>
-                                    </div>
+                                    <ContractParameters contractParameters={contractParameters}
+                                                        onClickTap={this.handlePaperContractOpen}/>
                                 </Tab>
                                 <Tab label="Visualisation">
                                     <div className="col-xs-12">
@@ -134,6 +126,7 @@ export default class Esop extends React.Component {
                                 <h2>Employees:</h2>
                             </div>
                         </div>
+
                         {userState.userType == "ceo" &&
                         <EmployeeAdd/>
                         }
