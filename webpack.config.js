@@ -18,6 +18,14 @@ module.exports = {
     node: {
         __filename: true
     },
+    devServer: {
+        proxy: {
+            "/api": {
+                target: "http://localhost:8545",
+                pathRewrite: {"^/api": ""}
+            }
+        }
+    },
     module: {
         rules: [
             {

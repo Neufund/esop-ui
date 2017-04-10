@@ -9,7 +9,7 @@ export default class ContractComService {
     constructor(store) {
         this.store = store;
 
-        let provider = new Web3.providers.HttpProvider("http://localhost:8545");
+        let provider = new Web3.providers.HttpProvider("/api");
 
         this.RoTContract = contractBuilder(RoTDef);
         this.RoTContract.setProvider(provider);

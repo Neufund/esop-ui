@@ -33,7 +33,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server --open --colors --progress --history-api-fallback"
+    "dev": "webpack-dev-server --https --open --colors --progress --history-api-fallback"
   },
   "devDependencies": {
     "node-sass": "^4.5.0",
