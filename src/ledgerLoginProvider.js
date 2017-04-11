@@ -48,7 +48,9 @@ class LedgerLoginProvider {
 
     _checkLedgerConnected() {
         if (this.isStarted) {
-            toPromise(ledger.getAppConfig, [], [CHECK_INTERVAL/2]).then(this._isConnected.bind(this)).catch(this._isDisconnected.bind(this));
+            toPromise(ledger.getAppConfig, [], [CHECK_INTERVAL/2])
+                .then(this._isConnected.bind(this))
+                .catch(this._isDisconnected.bind(this));
         }
     }
 
