@@ -8,7 +8,7 @@ import EmployeeList from '../components/EmployeeList'
 import EmployeeAdd from '../components/EmployeeAdd'
 import EmployeeDetails from '../components/EmployeeDetails'
 import ContractAddresses from '../components/ContractAddresses'
-import ContractStats from '../components/ContractStats'
+import ContractState from '../components/ContractState'
 import ContractParameters from '../components/ContractParameters'
 
 import FontIcon from 'material-ui/FontIcon';
@@ -58,22 +58,6 @@ export default class Esop extends React.Component {
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
 
-        let contractStats = {
-            ESOPState: ESOPState.ESOPState,
-            employeesNo: ESOPState.employees.length,
-            optionsGiven: ESOPState.totalOptions - ESOPState.remainingOptions,
-            optionsLeft: ESOPState.remainingOptions
-        };
-
-        let contractParameters = {
-            cliffDuration: ESOPState.cliffDuration,
-            vestingDuration: ESOPState.vestingDuration,
-            maxFadeoutPromille: ESOPState.maxFadeoutPromille,
-            totalOptions: ESOPState.totalOptions,
-            exitBonusPromille: ESOPState.exitBonusPromille,
-            percentForNew: 10,
-        };
-
         const actions = [
             <IconButton tooltip="Download">
                 <FontIcon className="material-icons">file_download</FontIcon>
@@ -97,10 +81,10 @@ export default class Esop extends React.Component {
                             </div>
                         </div>
 
-                        <ContractAddresses RoTAddress="0xc41e8639e44d551eb9f96149de3d2bc3e9cd72df"
+                        <ContractAddresses RoTAddress={ESOPState.RoTAddress}
                                            ESOPAddress={ESOPState.ESOPAddress}
                                            OptionsConverterAddress={ESOPState.optionsConverter}/>
-                        <ContractStats contractStats={contractStats}/>
+                        <ContractState contractState={ESOPState}/>
                         <div className="row">
                             <div className="col-xs-12">
                                 <h2>Contract parameters:</h2>
@@ -110,7 +94,7 @@ export default class Esop extends React.Component {
                         <div className="row">
                             <Tabs>
                                 <Tab label="Parameters">
-                                    <ContractParameters contractParameters={contractParameters}
+                                    <ContractParameters contractParameters={ESOPState}
                                                         onClickTap={this.handlePaperContractOpen}/>
                                 </Tab>
                                 <Tab label="Visualisation">

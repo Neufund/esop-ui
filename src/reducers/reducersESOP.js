@@ -1,22 +1,25 @@
-export default (state = {waitingForData: true}, action) => {
+export default (state = {waitingForData: true, RoTAddress: "find way to write it here"}, action) => {
 
     switch (action.type) {
         case "SET_ESOP_DATA":
             return {
                 ...state,
                 waitingForData: false,
-                cliffDuration: action.cliffDuration,
-                vestingDuration: action.vestingDuration,
+                cliffPeriod: action.cliffPeriod,
+                vestingPeriod: action.vestingPeriod,
                 maxFadeoutPromille: action.maxFadeoutPromille,
-                exitBonusPromille: action.exitBonusPromille,
-                totalOptions: action.totalOptions,
-                remainingOptions: action.remainingOptions,
-                ESOPState: action.ESOPState,
+                bonusOptionsPromille: action.bonusOptionsPromille,
+                newEmployeePoolPromille: action.newEmployeePoolPromille,
+                totalPoolOptions: action.totalPoolOptions,
+                ESOPLegalWrapperIPFSHash: action.ESOPLegalWrapperIPFSHash,
+                strikePrice: action.strikePrice,
+                waitForSignPeriod: action.waitForSignPeriod,
+                remainingPoolOptions: action.remainingPoolOptions,
+                esopState: action.esopState,
                 totalExtraOptions: action.totalExtraOptions,
-                conversionEventTime: action.conversionEventTime,
-                employeeConversionDeadline: action.employeeConversionDeadline,
+                conversionOfferedAt: action.conversionOfferedAt,
+                exerciseOptionsDeadline: action.exerciseOptionsDeadline,
                 optionsConverter: action.optionsConverter,
-                poolEstablishmentDocIPFSHash: action.poolEstablishmentDocIPFSHash,
                 ESOPAddress: action.ESOPAddress,
                 employees: action.employees,
             };

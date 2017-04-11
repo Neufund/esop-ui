@@ -13,11 +13,12 @@ export default ({employeeList}) => {
                 >
                     <TableRow>
                         <TableHeaderColumn>Public key</TableHeaderColumn>
-                        <TableHeaderColumn>Vesting started</TableHeaderColumn>
-                        <TableHeaderColumn>Terminated At</TableHeaderColumn>
-                        <TableHeaderColumn>Options number</TableHeaderColumn>
-                        <TableHeaderColumn>Extra options</TableHeaderColumn>
-                        <TableHeaderColumn>Status</TableHeaderColumn>
+                        <TableHeaderColumn>Issue date</TableHeaderColumn>
+                        <TableHeaderColumn>Terminated at</TableHeaderColumn>
+                        <TableHeaderColumn>Fadeout starts</TableHeaderColumn>
+                        <TableHeaderColumn>Pool options</TableHeaderColumn>
+                        <TableHeaderColumn>Suspended at</TableHeaderColumn>
+                        <TableHeaderColumn>State</TableHeaderColumn>
 
                     </TableRow>
                 </TableHeader>
@@ -27,10 +28,11 @@ export default ({employeeList}) => {
                     {employeeList.map((row, index) => (
                         <TableRow key={index}>
                             <TableRowColumn>{row.address}</TableRowColumn>
-                            <TableRowColumn>{row.vestingStarted}</TableRowColumn>
+                            <TableRowColumn>{row.issueDate}</TableRowColumn>
                             <TableRowColumn>{row.terminatedAt}</TableRowColumn>
-                            <TableRowColumn>{row.options}</TableRowColumn>
-                            <TableRowColumn>{row.extraOptions}</TableRowColumn>
+                            <TableRowColumn>{row.fadeoutStarts}</TableRowColumn>
+                            <TableRowColumn>{row.poolOptions}</TableRowColumn>
+                            <TableRowColumn>{row.suspendedAt}</TableRowColumn>
                             <TableRowColumn>{row.state}</TableRowColumn>
                         </TableRow>
                     ))}
