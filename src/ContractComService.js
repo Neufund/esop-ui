@@ -22,6 +22,8 @@ export default class ContractComService {
 
     getESOPAddress = rotContract => rotContract.deployed().then(contract => contract.ESOPAddress());
 
+    getCompanyAddress = rotContract => rotContract.deployed().then(contract => contract.owner());
+
     getEmployeesListAddress = (esopContract, address) => esopContract.at(address).then(contract => contract.employees());
 
     getESOPData = (ESOPContract, address) => ESOPContract.at(address).then(contract => {
@@ -112,6 +114,7 @@ export default class ContractComService {
 
     async obtainESOPData() {
         let ESOPAddress = await this.getESOPAddress(this.RoTContract);
+        let companyAddress = this.getCompanyAddress(this.RoTContract);
         //console.log(ESOPAddress);
 
         let ESOPData = this.getESOPData(this.ESOPContract, ESOPAddress).then(result => this.parseESOPData(result));
@@ -119,13 +122,19 @@ export default class ContractComService {
         //console.log(employeesAddress);
 
         let employees = this.getEmployeesList(this.EmployeesListContract, employeesAddress).then(result => this.parseEmployeesList(result));
-        return {ESOPAddress: ESOPAddress, ESOPData: await ESOPData, employees: await employees}
+        return {
+            companyAddress: await companyAddress,
+            ESOPAddress: ESOPAddress,
+            ESOPData: await ESOPData,
+            employees: await employees
+        }
     }
 
     getESOPDataFromContract() {
-        this.obtainESOPData().then(({ESOPAddress, ESOPData, employees}) => {
+        this.obtainESOPData().then(({companyAddress, ESOPAddress, ESOPData, employees}) => {
             this.store.dispatch({
                 type: "SET_ESOP_DATA",
+                companyAddress: companyAddress,
                 ESOPAddress: ESOPAddress,
                 ...ESOPData,
                 employees: employees

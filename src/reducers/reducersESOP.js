@@ -5,6 +5,7 @@ export default (state = {waitingForData: true, RoTAddress: "find way to write it
             return {
                 ...state,
                 waitingForData: false,
+                companyAddress: action.companyAddress,
                 cliffPeriod: action.cliffPeriod,
                 vestingPeriod: action.vestingPeriod,
                 maxFadeoutPromille: action.maxFadeoutPromille,
