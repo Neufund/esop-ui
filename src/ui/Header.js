@@ -38,6 +38,13 @@ export default class Header extends React.Component {
                         </div>
                     </div>
                 </div>
+                {userState.userPK != undefined &&
+                <div className="row">
+                    <div className="col-xs-12 col-md-10 col-md-offset-1">
+                        Hello user: {userState.userPK}
+                    </div>
+                </div>
+                }
 
                 <div className="row ">
                     <div className="col-xs-12 col-md-10 col-md-offset-1 devMenu">

@@ -4,13 +4,15 @@ import RpcSubprovider from 'web3-provider-engine/subproviders/rpc';
 
 import LedgerWalletSubproviderFactory from 'ledger-wallet-provider';
 
+let externalWeb3 = null;
 let ledger = null;
 const NODE_URL = '/api/';
 
 let initWeb3 = async function () {
     // Checking if Web3 has been injected by the browser (Mist/MetaMask/Parity)
     if (typeof window.web3 !== 'undefined') {
-        console.warn("web3 already exists");
+        console.info("web3 already exists");
+        externalWeb3 = true;
     } else {
         let engine = new ProviderEngine();
         let ledgerWalletSubProvider = await LedgerWalletSubproviderFactory();
@@ -21,12 +23,16 @@ let initWeb3 = async function () {
         }));
         engine.start();
         window.web3 = new Web3(engine);
+        externalWeb3 = false;
     }
 };
 
 let exportObject = {
     get ledger() {
         return ledger;
+    },
+    get externalWeb3() {
+        return externalWeb3
     },
     initWeb3,
     get web3() {
