@@ -1,24 +1,22 @@
-import Web3 from 'web3'
+import {web3} from './web3';
 import contractBuilder from "truffle-contract"
 
-import RoTDef from '../contracts/RoT.json'
-import ESOPDef from '../contracts/ESOP.json'
-import EmployeesListDef from '../contracts/EmployeesList.json'
+import RoTDef from '/home/banciur/projects/neufund/ESOP/build/contracts/RoT.json'
+import ESOPDef from '/home/banciur/projects/neufund/ESOP/build/contracts/ESOP.json'
+import EmployeesListDef from '/home/banciur/projects/neufund/ESOP/build/contracts/EmployeesList.json'
 
 export default class ContractComService {
     constructor(store) {
         this.store = store;
 
-        let provider = new Web3.providers.HttpProvider("/api");
-
         this.RoTContract = contractBuilder(RoTDef);
-        this.RoTContract.setProvider(provider);
+        this.RoTContract.setProvider(web3.currentProvider);
 
         this.ESOPContract = contractBuilder(ESOPDef);
-        this.ESOPContract.setProvider(provider);
+        this.ESOPContract.setProvider(web3.currentProvider);
 
         this.EmployeesListContract = contractBuilder(EmployeesListDef);
-        this.EmployeesListContract.setProvider(provider);
+        this.EmployeesListContract.setProvider(web3.currentProvider);
     }
 
     getESOPAddress = rotContract => rotContract.deployed().then(contract => contract.ESOPAddress());
