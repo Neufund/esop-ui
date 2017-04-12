@@ -196,7 +196,11 @@ export default class ContractComService {
                 strikePrice: "1",
                 waitForSignPeriod: "1209600",
                 remainingPoolOptions: "656100",
+                esopState: 1,
                 totalExtraOptions: "0",
+                conversionOfferedAt: "1209600",
+                exerciseOptionsDeadline: "1209600",
+                optionsConverter: "0x0000000000000000000000000000000000000000",
                 employees: employees
 
             });
