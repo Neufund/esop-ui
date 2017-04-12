@@ -152,4 +152,36 @@ export default class ContractComService {
             });
         });
     }
+
+    openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash) {
+
+        console.log("openESOP method commented out as have problems running it");
+        console.log("totalPoolOptions: " + totalPoolOptions);
+        console.log("ESOPLegalWrapperIPFSHash: " + ESOPLegalWrapperIPFSHash);
+        console.log("ESOPstate.OptionsCalculatorAddress: " + ESOPstate.OptionsCalculatorAddress);
+        console.log("ESOPstate.EmployeesList: " + ESOPstate.EmployeesList);
+        console.log("ESOPstate.EmployeesList: " + ESOPstate.EmployeesList);
+
+        let ESOPstate = this.store.getState().ESOP;
+
+        let ipfsHash = new Buffer(ESOPLegalWrapperIPFSHash, 'ascii');
+        let encoedESOPLegalWrapperIPFSHash = web3.toBigNumber('0x' + ipfsHash.toString('hex'));
+
+
+/*        this.ESOPContract
+            .then(contract => contract.openESOP(
+                ESOPstate.OptionsCalculatorAddress,
+                ESOPstate.EmployeesList,
+                totalPoolOptions,
+                encoedESOPLegalWrapperIPFSHash))
+            .then(
+                result => {
+                    console.log("success");
+                    console.log(result);
+                }, error => {
+                    console.log("error");
+                    console.log(error);
+                }
+            );*/
+    }
 }

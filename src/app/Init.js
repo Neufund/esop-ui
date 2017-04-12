@@ -9,6 +9,9 @@ export default class Init extends React.Component {
     constructor(props) {
         super(props);
         this.store = props.store;
+        this.services = props.services;
+
+        this.state = {}
     }
 
     componentDidMount() {
@@ -19,6 +22,9 @@ export default class Init extends React.Component {
         this.unsubscribe();
     }
 
+    handleOpenEsopButton = () => {
+        this.services.ESOPService.openESOP(this.state.totalPoolOptions, this.state.ESOPLegalWrapperIPFSHash);
+    };
 
     render() {
         let ESOPState = this.store.getState().ESOP;
@@ -55,15 +61,16 @@ export default class Init extends React.Component {
 
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
-                        <TextField floatingLabelText="total pool options" className="contract_parameter"/> <br />
-                        <TextField floatingLabelText="ESOP Legal Wrapper IPFS Hash" style={{width: "32.000rem"}}/>
+                        <TextField floatingLabelText="total pool options" className="contract_parameter"
+                                   onChange={(event, newValue) => this.setState({totalPoolOptions: newValue})}/> <br />
+                        <TextField floatingLabelText="ESOP Legal Wrapper IPFS Hash" style={{width: "32.000rem"}}
+                                   onChange={(event, newValue) => this.setState({ESOPLegalWrapperIPFSHash: newValue})}/>
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1 start">
-                        <RaisedButton label="Start ESOP!"
-                                      onClick={() => alert("This will start ESOP you will see nice spinner and after some time will be redirected to public view of contract")}/>
+                        <RaisedButton label="Start ESOP!" onClick={this.handleOpenEsopButton}/>
                     </div>
                 </div>
 

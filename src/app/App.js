@@ -14,6 +14,7 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.store = props.store;
+        this.services = props.services;
     }
 
     componentDidMount() {
@@ -32,7 +33,7 @@ export default class App extends React.Component {
             componentToRender = <Waiting/>
         } else {
             if (state.esopState == 0) {
-                componentToRender = <Init store={this.store}/>
+                componentToRender = <Init store={this.store} services={this.services}/>
             } else {
                 componentToRender = <Esop store={this.store}/>
             }

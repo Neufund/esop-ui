@@ -21,26 +21,26 @@ import UserManagment from './UserManagment'
     });
 
     const store = createStore(reducer);
+    const services = {};
 
     ReactDOM.render((
-            <App store={store}/>
+            <App store={store} services={services}/>
         ),
         document.getElementById('root')
     );
 
-    let userManagment = new UserManagment(store);
     await initWeb3();
-
-    const ESOPService = new ContractComService(store);
-    ESOPService.getESOPDataFromContract();
+    services.userManagment = new UserManagment(store);
+    services.ESOPService = new ContractComService(store);
+    services.ESOPService.getESOPDataFromContract();
 
     if (externalWeb3) {
-        userManagment.getAccount()
+        services.userManagment.getAccount()
     } else {
         LedgerLoginProvider.start();
         LedgerLoginProvider.onConnect(() => {
             LedgerLoginProvider.stop();
-            userManagment.getAccount();
+            services.userManagment.getAccount();
         });
     }
 
