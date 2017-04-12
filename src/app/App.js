@@ -7,6 +7,7 @@ import './App.scss';
 import Header from '../ui/Header'
 import Esop from './Esop'
 import Waiting from './Waiting'
+import Init from './Init'
 
 export default class App extends React.Component {
 
@@ -25,16 +26,23 @@ export default class App extends React.Component {
 
     render() {
         let state = this.store.getState().ESOP;
+
+        let componentToRender;
+        if (state.waitingForData) {
+            componentToRender = <Waiting/>
+        } else {
+            if (state.esopState == 0) {
+                componentToRender = <Init store={this.store}/>
+            } else {
+                componentToRender = <Esop store={this.store}/>
+            }
+        }
+
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <Header store={this.store}/>
-                    {
-                        state.waitingForData ?
-                            <Waiting/>
-                            :
-                            <Esop store={this.store}/>
-                    }
+                    {componentToRender}
                 </div>
             </MuiThemeProvider>
         )
