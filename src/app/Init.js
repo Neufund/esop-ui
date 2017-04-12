@@ -21,9 +21,7 @@ export default class Init extends React.Component {
 
 
     render() {
-
         let ESOPState = this.store.getState().ESOP;
-
         return (
             <div className="new_esop">
                 <div className="row">

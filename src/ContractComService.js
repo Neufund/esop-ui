@@ -11,18 +11,19 @@ export default class ContractComService {
     constructor(store) {
         this.store = store;
 
-        this.RoTContract = contractBuilder(RoTDef);
-        this.RoTContract.setProvider(web3.currentProvider);
+        let RoTContractAbstr = contractBuilder(RoTDef);
+        RoTContractAbstr.setProvider(web3.currentProvider);
+        this.RoTContract = RoTContractAbstr.deployed();
 
-        this.ESOPContract = contractBuilder(ESOPDef);
-        this.ESOPContract.setProvider(web3.currentProvider);
+        let ESOPContractAbstr = contractBuilder(ESOPDef);
+        ESOPContractAbstr.setProvider(web3.currentProvider);
+        this.ESOPContract = ESOPContractAbstr.deployed();
 
-        this.EmployeesListContract = contractBuilder(EmployeesListDef);
-        this.EmployeesListContract.setProvider(web3.currentProvider);
+        let EmployeesListContractAbstr = contractBuilder(EmployeesListDef);
+        EmployeesListContractAbstr.setProvider(web3.currentProvider);
+        this.EmployeesListContract = EmployeesListContractAbstr.deployed();
 
         let OptionsCalculatorContract = contractBuilder(OptionsCalculatorDef);
-
-        console.log();
 
         //TODO: change how contract addresses are obtained - depend on deployment procedure
         this.store.dispatch({
@@ -34,13 +35,9 @@ export default class ContractComService {
         });
     }
 
-    getESOPAddress = rotContract => rotContract.deployed().then(contract => contract.ESOPAddress());
+    getCompanyAddress = rotContract => rotContract.then(contract => contract.owner());
 
-    getCompanyAddress = rotContract => rotContract.deployed().then(contract => contract.owner());
-
-    getEmployeesListAddress = (esopContract, address) => esopContract.at(address).then(contract => contract.employees());
-
-    getESOPData = (ESOPContract, address) => ESOPContract.at(address).then(contract => {
+    getESOPData = ESOPContract => ESOPContract.then(contract => {
         let dataPromises = [
             //CONFIG
             contract.cliffPeriod(), // cliff duration in seconds
@@ -84,12 +81,11 @@ export default class ContractComService {
         };
     };
 
-    getEmployeesList = async(EmployeesListContract, address) => {
+    getEmployeesList = async EmployeesListContract => {
 
-        let contractPromise = EmployeesListContract.at(address);
-        let employeeNumber = await contractPromise.then(contract => contract.size());
+        let employeeNumber = await EmployeesListContract.then(contract => contract.size());
 
-        let employeeAddresses = await contractPromise.then(contract => {
+        let employeeAddresses = await EmployeesListContract.then(contract => {
             let dataPromises = [];
             for (let i = 0; i < employeeNumber; i++) {
                 dataPromises.push(contract.addresses(i));
@@ -97,7 +93,7 @@ export default class ContractComService {
             return Promise.all(dataPromises);
         });
 
-        return contractPromise.then(contract => {
+        return EmployeesListContract.then(contract => {
             let dataPromises = [];
             for (let i = 0; i < employeeNumber; i++) {
                 let employeeAddress = employeeAddresses[i];
@@ -127,111 +123,24 @@ export default class ContractComService {
     };
 
     async obtainESOPData() {
-        let ESOPAddress = await this.getESOPAddress(this.RoTContract);
         let companyAddress = this.getCompanyAddress(this.RoTContract);
-        //console.log(ESOPAddress);
 
-        let ESOPData = this.getESOPData(this.ESOPContract, ESOPAddress).then(result => this.parseESOPData(result));
-        let employeesAddress = await this.getEmployeesListAddress(this.ESOPContract, ESOPAddress);
-        //console.log(employeesAddress);
+        let ESOPData = this.getESOPData(this.ESOPContract).then(result => this.parseESOPData(result));
 
-        let employees = this.getEmployeesList(this.EmployeesListContract, employeesAddress).then(result => this.parseEmployeesList(result));
+        let employees = this.getEmployeesList(this.EmployeesListContract).then(result => this.parseEmployeesList(result));
+
         return {
             companyAddress: await companyAddress,
-            ESOPAddress: ESOPAddress,
             ESOPData: await ESOPData,
             employees: await employees
         }
     }
 
     getESOPDataFromContract() {
-
-        window.setTimeout(() => {
-
-            let employees = [
-                {
-                    address: "0x2671859bdd553677190be73c9146c8dc22932022",
-                    extraOptions: "0",
-                    fadeoutStarts: "0",
-                    issueDate: "1583435129",
-                    poolOptions: "100000",
-                    state: "1",
-                    suspendedAt: "0",
-                    terminatedAt: "0",
-                    timeToSign: "1586459129"
-                },
-                {
-                    address: "0x00b8d1e19ac30308bb5186125785901c158bf07f",
-                    extraOptions: "0",
-                    fadeoutStarts: "0",
-                    issueDate: "1583435129",
-                    poolOptions: "90000",
-                    state: "1",
-                    suspendedAt: "0",
-                    terminatedAt: "0",
-                    timeToSign: "1586459129"
-                },
-                {
-                    address: "0x00a329c0648769a73afac7f9381e08fb43dbea72",
-                    extraOptions: "0",
-                    fadeoutStarts: "0",
-                    issueDate: "1583435129",
-                    poolOptions: "81000",
-                    state: "1",
-                    suspendedAt: "0",
-                    terminatedAt: "0",
-                    timeToSign: "1586459129"
-                },
-                {
-                    address: "0x0001071c75285b9886a8d30fb0670659ce94eaaf",
-                    extraOptions: "0",
-                    fadeoutStarts: "0",
-                    issueDate: "1583435129",
-                    poolOptions: "72900",
-                    state: "1",
-                    suspendedAt: "0",
-                    terminatedAt: "0",
-                    timeToSign: "1586459129"
-                }];
-
-            let companyAddress = "0x6C1086C292a7E1FdF66C68776eA972038467A370";
-
+        this.obtainESOPData().then(({companyAddress, ESOPData, employees}) => {
             this.store.dispatch({
                 type: "SET_ESOP_DATA",
                 companyAddress: companyAddress,
-                ESOPAddress: "0x8803f89f5ef2243989bd1c19bcc917070deb3aeb",
-                cliffPeriod: "31536000",
-                vestingPeriod: "126144000",
-                maxFadeoutPromille: "2000",
-                bonusOptionsPromille: "2000",
-                newEmployeePoolPromille: "1000",
-                totalPoolOptions: "1000000",
-                ESOPLegalWrapperIPFSHash: "0x516d52736a6e4e6b45706e44646d59423…",
-                strikePrice: "1",
-                waitForSignPeriod: "1209600",
-                remainingPoolOptions: "656100",
-                esopState: 1,
-                totalExtraOptions: "0",
-                conversionOfferedAt: "1209600",
-                exerciseOptionsDeadline: "1209600",
-                optionsConverter: "0x0000000000000000000000000000000000000000",
-                employees: employees
-
-            });
-
-            this.store.dispatch({
-                type: "SET_USER_TYPE",
-                companyAddress: companyAddress,
-                employees: employees
-            });
-        }, 1000);
-
-        /*
-        this.obtainESOPData().then(({companyAddress, ESOPAddress, ESOPData, employees}) => {
-            this.store.dispatch({
-                type: "SET_ESOP_DATA",
-                companyAddress: companyAddress,
-                ESOPAddress: ESOPAddress,
                 ...ESOPData,
                 employees: employees
             });
@@ -242,6 +151,5 @@ export default class ContractComService {
                 employees: employees
             });
         });
-        */
     }
 }

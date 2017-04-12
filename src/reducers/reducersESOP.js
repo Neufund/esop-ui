@@ -31,7 +31,6 @@ export default (state = {waitingForData: true}, action) => {
                 conversionOfferedAt: action.conversionOfferedAt,
                 exerciseOptionsDeadline: action.exerciseOptionsDeadline,
                 optionsConverter: action.optionsConverter,
-                ESOPAddress: action.ESOPAddress,
                 employees: action.employees,
             };
             break;
