@@ -1,6 +1,16 @@
-export default (state = {waitingForData: true, RoTAddress: "find way to write it here"}, action) => {
+export default (state = {waitingForData: true}, action) => {
 
     switch (action.type) {
+        case "SET_CONTRACT_ADDRESSES":
+            return {
+                ...state,
+                RoTAddress: action.RoTAddress,
+                ESOPAddress: action.ESOPAddress,
+                OptionsCalculatorAddress: action.OptionsCalculatorAddress,
+                EmployeesList: action.EmployeesList
+            };
+            break;
+
         case "SET_ESOP_DATA":
             return {
                 ...state,
@@ -25,6 +35,7 @@ export default (state = {waitingForData: true, RoTAddress: "find way to write it
                 employees: action.employees,
             };
             break;
+
         default:
             return state;
     }

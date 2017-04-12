@@ -4,6 +4,7 @@ import contractBuilder from "truffle-contract"
 import RoTDef from '/home/banciur/projects/neufund/ESOP/build/contracts/RoT.json'
 import ESOPDef from '/home/banciur/projects/neufund/ESOP/build/contracts/ESOP.json'
 import EmployeesListDef from '/home/banciur/projects/neufund/ESOP/build/contracts/EmployeesList.json'
+import OptionsCalculatorDef from '/home/banciur/projects/neufund/ESOP/build/contracts/OptionsCalculator.json'
 
 
 export default class ContractComService {
@@ -18,6 +19,19 @@ export default class ContractComService {
 
         this.EmployeesListContract = contractBuilder(EmployeesListDef);
         this.EmployeesListContract.setProvider(web3.currentProvider);
+
+        let OptionsCalculatorContract = contractBuilder(OptionsCalculatorDef);
+
+        console.log();
+
+        //TODO: change how contract addresses are obtained - depend on deployment procedure
+        this.store.dispatch({
+            type: "SET_CONTRACT_ADDRESSES",
+            RoTAddress: RoTDef.networks[Object.keys(RoTDef.networks)[0]].address,
+            ESOPAddress: ESOPDef.networks[Object.keys(ESOPDef.networks)[0]].address,
+            OptionsCalculatorAddress: EmployeesListDef.networks[Object.keys(EmployeesListDef.networks)[0]].address,
+            EmployeesList: OptionsCalculatorDef.networks[Object.keys(OptionsCalculatorDef.networks)[0]].address
+        });
     }
 
     getESOPAddress = rotContract => rotContract.deployed().then(contract => contract.ESOPAddress());
