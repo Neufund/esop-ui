@@ -25,13 +25,13 @@ export default class Init extends React.Component {
         return (
             <div className="new_esop">
                 <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col-xs-12 col-md-10 col-md-offset-1">
                         <h1>New ESOP</h1>
                     </div>
                 </div>
 
                 <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col-xs-12 col-md-10 col-md-offset-1">
                         <h2>ESOP contract addresses</h2>
                         <TextField floatingLabelText="RoT contract address" value={ESOPState.RoTAddress}
                                    style={{width: "32.000rem"}}
@@ -48,20 +48,20 @@ export default class Init extends React.Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col-xs-12 col-md-10 col-md-offset-1">
                         <h2>ESOP contract parameters</h2>
                     </div>
                 </div>
 
                 <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col-xs-12 col-md-10 col-md-offset-1">
                         <TextField floatingLabelText="total pool options" className="contract_parameter"/> <br />
                         <TextField floatingLabelText="ESOP Legal Wrapper IPFS Hash" style={{width: "32.000rem"}}/>
                     </div>
                 </div>
 
                 <div className="row">
-                    <div className="col-xs-12 start">
+                    <div className="col-xs-12 col-md-10 col-md-offset-1 start">
                         <RaisedButton label="Start ESOP!"
                                       onClick={() => alert("This will start ESOP you will see nice spinner and after some time will be redirected to public view of contract")}/>
                     </div>
