@@ -131,6 +131,84 @@ export default class ContractComService {
     }
 
     getESOPDataFromContract() {
+
+        window.setTimeout(() => {
+
+            let employees = [
+                {
+                    address: "0x2671859bdd553677190be73c9146c8dc22932022",
+                    extraOptions: "0",
+                    fadeoutStarts: "0",
+                    issueDate: "1583435129",
+                    poolOptions: "100000",
+                    state: "1",
+                    suspendedAt: "0",
+                    terminatedAt: "0",
+                    timeToSign: "1586459129"
+                },
+                {
+                    address: "0x00b8d1e19ac30308bb5186125785901c158bf07f",
+                    extraOptions: "0",
+                    fadeoutStarts: "0",
+                    issueDate: "1583435129",
+                    poolOptions: "90000",
+                    state: "1",
+                    suspendedAt: "0",
+                    terminatedAt: "0",
+                    timeToSign: "1586459129"
+                },
+                {
+                    address: "0x00a329c0648769a73afac7f9381e08fb43dbea72",
+                    extraOptions: "0",
+                    fadeoutStarts: "0",
+                    issueDate: "1583435129",
+                    poolOptions: "81000",
+                    state: "1",
+                    suspendedAt: "0",
+                    terminatedAt: "0",
+                    timeToSign: "1586459129"
+                },
+                {
+                    address: "0x0001071c75285b9886a8d30fb0670659ce94eaaf",
+                    extraOptions: "0",
+                    fadeoutStarts: "0",
+                    issueDate: "1583435129",
+                    poolOptions: "72900",
+                    state: "1",
+                    suspendedAt: "0",
+                    terminatedAt: "0",
+                    timeToSign: "1586459129"
+                }];
+
+            let companyAddress = "0x6C1086C292a7E1FdF66C68776eA972038467A370";
+
+            this.store.dispatch({
+                type: "SET_ESOP_DATA",
+                companyAddress: companyAddress,
+                ESOPAddress: "0x8803f89f5ef2243989bd1c19bcc917070deb3aeb",
+                cliffPeriod: "31536000",
+                vestingPeriod: "126144000",
+                maxFadeoutPromille: "2000",
+                bonusOptionsPromille: "2000",
+                newEmployeePoolPromille: "1000",
+                totalPoolOptions: "1000000",
+                ESOPLegalWrapperIPFSHash: "0x516d52736a6e4e6b45706e44646d59423…",
+                strikePrice: "1",
+                waitForSignPeriod: "1209600",
+                remainingPoolOptions: "656100",
+                totalExtraOptions: "0",
+                employees: employees
+
+            });
+
+            this.store.dispatch({
+                type: "SET_USER_TYPE",
+                companyAddress: companyAddress,
+                employees: employees
+            });
+        }, 1000);
+
+        /*
         this.obtainESOPData().then(({companyAddress, ESOPAddress, ESOPData, employees}) => {
             this.store.dispatch({
                 type: "SET_ESOP_DATA",
@@ -146,5 +224,6 @@ export default class ContractComService {
                 employees: employees
             });
         });
+        */
     }
 }
