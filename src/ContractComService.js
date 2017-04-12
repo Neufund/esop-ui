@@ -139,6 +139,12 @@ export default class ContractComService {
                 ...ESOPData,
                 employees: employees
             });
+
+            this.store.dispatch({
+                type: "SET_USER_TYPE",
+                companyAddress: companyAddress,
+                employees: employees
+            });
         });
     }
 }

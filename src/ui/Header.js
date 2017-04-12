@@ -22,7 +22,7 @@ export default class Header extends React.Component {
 
     userTypeButtonClick = userType => {
         return () => this.store.dispatch({
-            type: "SET_USER_TYPE",
+            type: "SET_USER_TYPE_DEV",
             userType: userType
         });
     };
@@ -42,6 +42,14 @@ export default class Header extends React.Component {
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
                         Hello user: {userState.userPK}
+                    </div>
+                </div>
+                }
+
+                {userState.userType != "anonymous" &&
+                <div className="row">
+                    <div className="col-xs-12 col-md-10 col-md-offset-1">
+                        We identified you as: {userState.userType}
                     </div>
                 </div>
                 }

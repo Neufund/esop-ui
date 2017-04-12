@@ -12,6 +12,13 @@ export default class UserManagment {
                 type: "SET_USER_PK",
                 userPK: publicKey
             });
+            let esopState = this.store.getState().ESOP;
+            this.store.dispatch({
+                type: "SET_USER_TYPE",
+                userPK: publicKey,
+                companyAddress: esopState.companyAddress,
+                employees: esopState.employees
+            });
         });
-    }
+    };
 };
