@@ -32,6 +32,7 @@ import UserManagment from './UserManagment'
     await initWeb3();
     services.userManagment = new UserManagment(store);
     services.ESOPService = new ContractComService(store);
+    await services.ESOPService.obtainContractAddreses();
     services.ESOPService.getESOPDataFromContract();
 
     if (externalWeb3) {

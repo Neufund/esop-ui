@@ -1,13 +1,10 @@
 export default (state = {waitingForData: true}, action) => {
 
     switch (action.type) {
-        case "SET_CONTRACT_ADDRESSES":
+        case "SET_CONTRACT_ADDRESS":
             return {
                 ...state,
-                RoTAddress: action.RoTAddress,
-                ESOPAddress: action.ESOPAddress,
-                OptionsCalculatorAddress: action.OptionsCalculatorAddress,
-                EmployeesList: action.EmployeesList
+                ...action.address
             };
             break;
 

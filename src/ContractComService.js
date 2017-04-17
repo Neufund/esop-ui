@@ -1,39 +1,58 @@
 import {web3} from './web3';
 import contractBuilder from "truffle-contract"
 
+//TODO: actually we need just ABI contracts here - find way to provide those during build process
 import RoTDef from '/home/banciur/projects/neufund/ESOP/build/contracts/RoT.json'
 import ESOPDef from '/home/banciur/projects/neufund/ESOP/build/contracts/ESOP.json'
 import EmployeesListDef from '/home/banciur/projects/neufund/ESOP/build/contracts/EmployeesList.json'
-import OptionsCalculatorDef from '/home/banciur/projects/neufund/ESOP/build/contracts/OptionsCalculator.json'
-
 
 export default class ContractComService {
     constructor(store) {
         this.store = store;
 
-        let RoTContractAbstr = contractBuilder(RoTDef);
-        RoTContractAbstr.setProvider(web3.currentProvider);
-        this.RoTContract = RoTContractAbstr.deployed();
+        this.RoTContractAbstr = contractBuilder(RoTDef);
+        this.RoTContractAbstr.setProvider(web3.currentProvider);
+        //TODO: it should be not deployed but .at() with address set through configuration created build deployment
+        this.RoTContract = this.RoTContractAbstr.deployed();
 
-        let ESOPContractAbstr = contractBuilder(ESOPDef);
-        ESOPContractAbstr.setProvider(web3.currentProvider);
-        this.ESOPContract = ESOPContractAbstr.deployed();
+        this.ESOPContractAbstr = contractBuilder(ESOPDef);
+        this.ESOPContractAbstr.setProvider(web3.currentProvider);
 
-        let EmployeesListContractAbstr = contractBuilder(EmployeesListDef);
-        EmployeesListContractAbstr.setProvider(web3.currentProvider);
-        this.EmployeesListContract = EmployeesListContractAbstr.deployed();
-
-        let OptionsCalculatorContract = contractBuilder(OptionsCalculatorDef);
-
-        //TODO: change how contract addresses are obtained - depend on deployment procedure
-        this.store.dispatch({
-            type: "SET_CONTRACT_ADDRESSES",
-            RoTAddress: RoTDef.networks[Object.keys(RoTDef.networks)[0]].address,
-            ESOPAddress: ESOPDef.networks[Object.keys(ESOPDef.networks)[0]].address,
-            OptionsCalculatorAddress: EmployeesListDef.networks[Object.keys(EmployeesListDef.networks)[0]].address,
-            EmployeesList: OptionsCalculatorDef.networks[Object.keys(OptionsCalculatorDef.networks)[0]].address
-        });
+        this.EmployeesListContractAbstr = contractBuilder(EmployeesListDef);
+        this.EmployeesListContractAbstr.setProvider(web3.currentProvider);
     }
+
+    obtainContractAddreses = async() => {
+
+        let ESOPAddress = await this.RoTContract.then(contract => {
+            this.store.dispatch({
+                type: "SET_CONTRACT_ADDRESS",
+                address: {RoTAddress: contract.address}
+            });
+            return contract.ESOPAddress()
+        });
+        this.store.dispatch({
+            type: "SET_CONTRACT_ADDRESS",
+            address: {ESOPAddress}
+        });
+
+        this.ESOPContract = this.ESOPContractAbstr.deployed();
+        //this.ESOPContract = this.ESOPContractAbstr.at(ESOPAddress);
+
+        let EmployeesListAddress = await this.ESOPContract.then(contract => contract.employees());
+        this.store.dispatch({
+            type: "SET_CONTRACT_ADDRESS",
+            address: {EmployeesListAddress}
+        });
+        this.EmployeesListContract = this.EmployeesListContractAbstr.deployed();
+        //this.EmployeesListContract = this.EmployeesListContractAbstr.at(EmployeesListAddress);
+
+        await this.ESOPContract.then(contract => contract.optionsConverter())
+            .then(result => this.store.dispatch({
+                type: "SET_CONTRACT_ADDRESS",
+                address: {OptionsCalculatorAddress: result}
+            }));
+    };
 
     getCompanyAddress = rotContract => rotContract.then(contract => contract.owner());
 

@@ -83,7 +83,7 @@ export default class Esop extends React.Component {
 
                         <ContractAddresses RoTAddress={ESOPState.RoTAddress}
                                            ESOPAddress={ESOPState.ESOPAddress}
-                                           OptionsConverterAddress={ESOPState.optionsConverter}/>
+                                           OptionsConverterAddress={ESOPState.OptionsCalculatorAddress}/>
                         <ContractState contractState={ESOPState}/>
                         <div className="row">
                             <div className="col-xs-12">
