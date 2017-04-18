@@ -3,7 +3,7 @@ import React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-export default ({RoTAddress, ESOPAddress, OptionsConverterAddress}) => {
+export default ({RoTAddress, ESOPAddress, EmployeesListAddress, OptionsCalculatorAddress, OptionsConverterAddress}) => {
     return (
         <div>
             <div className="row">
@@ -28,6 +28,20 @@ export default ({RoTAddress, ESOPAddress, OptionsConverterAddress}) => {
                                 <TableRowColumn>
                                     <FontIcon className="material-icons copy_icon">content_copy</FontIcon>
                                     {ESOPAddress}
+                                </TableRowColumn>
+                            </TableRow>
+                            <TableRow>
+                                <TableRowColumn>Employees contract</TableRowColumn>
+                                <TableRowColumn>
+                                    <FontIcon className="material-icons copy_icon">content_copy</FontIcon>
+                                    {EmployeesListAddress}
+                                </TableRowColumn>
+                            </TableRow>
+                            <TableRow>
+                                <TableRowColumn>OptionsCalculator contract</TableRowColumn>
+                                <TableRowColumn>
+                                    <FontIcon className="material-icons copy_icon">content_copy</FontIcon>
+                                    {OptionsCalculatorAddress}
                                 </TableRowColumn>
                             </TableRow>
                             {

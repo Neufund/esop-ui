@@ -5,6 +5,7 @@ import contractBuilder from "truffle-contract"
 import RoTDef from '/home/banciur/projects/neufund/ESOP/build/contracts/RoT.json'
 import ESOPDef from '/home/banciur/projects/neufund/ESOP/build/contracts/ESOP.json'
 import EmployeesListDef from '/home/banciur/projects/neufund/ESOP/build/contracts/EmployeesList.json'
+import OptionsCalculatorDef from '/home/banciur/projects/neufund/ESOP/build/contracts/OptionsCalculator.json'
 
 export default class ContractComService {
     constructor(store) {
@@ -20,6 +21,9 @@ export default class ContractComService {
 
         this.EmployeesListContractAbstr = contractBuilder(EmployeesListDef);
         this.EmployeesListContractAbstr.setProvider(web3.currentProvider);
+
+        this.OptionsCalculatorAbstr = contractBuilder(OptionsCalculatorDef);
+        this.OptionsCalculatorAbstr.setProvider(web3.currentProvider);
     }
 
     obtainContractAddreses = async() => {
@@ -40,6 +44,8 @@ export default class ContractComService {
         //this.ESOPContract = this.ESOPContractAbstr.at(ESOPAddress);
 
         let EmployeesListAddress = await this.ESOPContract.then(contract => contract.employees());
+        let OptionsCalculatorAddress = await this.ESOPContract.then(contract => contract.optionsCalculator());
+
         this.store.dispatch({
             type: "SET_CONTRACT_ADDRESS",
             address: {EmployeesListAddress}
@@ -47,26 +53,23 @@ export default class ContractComService {
         this.EmployeesListContract = this.EmployeesListContractAbstr.deployed();
         //this.EmployeesListContract = this.EmployeesListContractAbstr.at(EmployeesListAddress);
 
-        await this.ESOPContract.then(contract => contract.optionsConverter())
-            .then(result => this.store.dispatch({
-                type: "SET_CONTRACT_ADDRESS",
-                address: {OptionsCalculatorAddress: result}
-            }));
+        this.store.dispatch({
+            type: "SET_CONTRACT_ADDRESS",
+            address: {OptionsCalculatorAddress}
+        });
+        this.OptionsCalculatorContract = this.OptionsCalculatorAbstr.deployed();
+        //this.OptionsCalculatorContract = this.OptionsCalculatorAbstr.at(EmployeesListAddress);
+
+        //TODO: also there should be options converter address
     };
 
     getCompanyAddress = rotContract => rotContract.then(contract => contract.owner());
 
-    getESOPData = ESOPContract => ESOPContract.then(contract => {
+    getESOPData = () => this.ESOPContract.then(contract => {
         let dataPromises = [
             //CONFIG
-            contract.cliffPeriod(), // cliff duration in seconds
-            contract.vestingPeriod(), // vesting duration in seconds
-            contract.maxFadeoutPromille(), // maximum promille that can fade out
-            contract.bonusOptionsPromille(), // exit bonus promille
-            contract.newEmployeePoolPromille(), // per mille of unassigned poolOptions that new employee gets
             contract.totalPoolOptions(), // total poolOptions in The Pool
             contract.ESOPLegalWrapperIPFSHash(), // ipfs hash of document establishing this ESOP
-            contract.strikePrice(), // options strike price
             contract.waitForSignPeriod(), // default period for employee signature
 
             // STATE
@@ -75,28 +78,45 @@ export default class ContractComService {
             contract.totalExtraOptions(), // how many extra options inserted
             contract.conversionOfferedAt(), // when conversion event happened
             contract.exerciseOptionsDeadline(), // employee conversion deadline
-            contract.optionsConverter() // option conversion proxy
         ];
         return Promise.all(dataPromises);
     });
 
     parseESOPData = data => {
         return {
+            totalPoolOptions: data[0].toString(),
+            ESOPLegalWrapperIPFSHash: data[1].toString(),
+            waitForSignPeriod: data[2].toString(),
+            remainingPoolOptions: data[3].toString(),
+            esopState: data[4].toString(),
+            totalExtraOptions: data[5].toString(),
+            conversionOfferedAt: data[6].toString(),
+            exerciseOptionsDeadline: data[7].toString(),
+        };
+    };
+
+    getOptionsData = () => this.OptionsCalculatorContract.then(contract => {
+        let dataPromises = [
+            contract.cliffPeriod(), // cliff duration in seconds
+            contract.vestingPeriod(), // vesting duration in seconds
+            contract.maxFadeoutPromille(), // maximum promille that can fade out
+            contract.bonusOptionsPromille(), // exit bonus promille
+            contract.newEmployeePoolPromille(), // per mille of unassigned poolOptions that new employee gets
+            contract.optionsPerShare(), // per mille of unassigned poolOptions that new employee gets
+            contract.strikePrice(), // options strike price
+        ];
+        return Promise.all(dataPromises);
+    });
+
+    perseOptionsData  = data => {
+        return {
             cliffPeriod: data[0].toString(),
             vestingPeriod: data[1].toString(),
             maxFadeoutPromille: data[2].toString(),
             bonusOptionsPromille: data[3].toString(),
             newEmployeePoolPromille: data[4].toString(),
-            totalPoolOptions: data[5].toString(),
-            ESOPLegalWrapperIPFSHash: data[6].toString(),
-            strikePrice: data[7].toString(),
-            waitForSignPeriod: data[8].toString(),
-            remainingPoolOptions: data[9].toString(),
-            esopState: data[10].toString(),
-            totalExtraOptions: data[11].toString(),
-            conversionOfferedAt: data[12].toString(),
-            exerciseOptionsDeadline: data[13].toString(),
-            optionsConverter: data[14].toString(),
+            optionsPerShare: data[5].toString(),
+            strikePrice: data[6].toString(),
         };
     };
 
@@ -143,24 +163,25 @@ export default class ContractComService {
 
     async obtainESOPData() {
         let companyAddress = this.getCompanyAddress(this.RoTContract);
-
-        let ESOPData = this.getESOPData(this.ESOPContract).then(result => this.parseESOPData(result));
-
+        let ESOPData = this.getESOPData().then(result => this.parseESOPData(result));
+        let OptionsData = this.getOptionsData().then(result => this.perseOptionsData(result));
         let employees = this.getEmployeesList(this.EmployeesListContract).then(result => this.parseEmployeesList(result));
 
         return {
             companyAddress: await companyAddress,
             ESOPData: await ESOPData,
+            OptionsData: await OptionsData,
             employees: await employees
         }
     }
 
     getESOPDataFromContract() {
-        this.obtainESOPData().then(({companyAddress, ESOPData, employees}) => {
+        this.obtainESOPData().then(({companyAddress, ESOPData, OptionsData, employees}) => {
             this.store.dispatch({
                 type: "SET_ESOP_DATA",
                 companyAddress: companyAddress,
                 ...ESOPData,
+                ...OptionsData,
                 employees: employees
             });
 
