@@ -193,35 +193,34 @@ export default class ContractComService {
         });
     }
 
-    openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash) {
+    /**
+     *
+     * @param {String} optionsCalculatorAddress
+     * @param {String} employeesListAddress
+     * @param {int} totalPoolOptions
+     * @param {BigNumber} ESOPLegalWrapperIPFSHash
+     * @returns {Promise.<void>}
+     */
+    async openESOP(optionsCalculatorAddress, employeesListAddress, totalPoolOptions, ESOPLegalWrapperIPFSHash) {
+        let userState = this.store.getState().user;
 
-        console.log("openESOP method commented out as have problems running it");
-        console.log("totalPoolOptions: " + totalPoolOptions);
-        console.log("ESOPLegalWrapperIPFSHash: " + ESOPLegalWrapperIPFSHash);
-        console.log("ESOPstate.OptionsCalculatorAddress: " + ESOPstate.OptionsCalculatorAddress);
-        console.log("ESOPstate.EmployeesList: " + ESOPstate.EmployeesList);
-        console.log("ESOPstate.EmployeesList: " + ESOPstate.EmployeesList);
+        this.ESOPContractAbstr.defaults({
+            from: userState.userPK
+        });
 
-        let ESOPstate = this.store.getState().ESOP;
-
-        let ipfsHash = new Buffer(ESOPLegalWrapperIPFSHash, 'ascii');
-        let encoedESOPLegalWrapperIPFSHash = web3.toBigNumber('0x' + ipfsHash.toString('hex'));
-
-
-/*        this.ESOPContract
-            .then(contract => contract.openESOP(
-                ESOPstate.OptionsCalculatorAddress,
-                ESOPstate.EmployeesList,
+        this.ESOPContractAbstr.deployed().then(contract =>
+            contract.openESOP(
+                optionsCalculatorAddress,
+                employeesListAddress,
                 totalPoolOptions,
-                encoedESOPLegalWrapperIPFSHash))
-            .then(
-                result => {
-                    console.log("success");
-                    console.log(result);
-                }, error => {
-                    console.log("error");
-                    console.log(error);
-                }
-            );*/
+                ESOPLegalWrapperIPFSHash)
+        ).then(
+            result => {
+                this.getESOPDataFromContract();
+                this.obtainContractAddreses();
+            }, error => {
+                console.log(error);
+            }
+        );
     }
 }

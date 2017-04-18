@@ -1,5 +1,6 @@
 import React from 'react';
 import './Init.scss';
+import {web3} from '../web3'
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -23,7 +24,11 @@ export default class Init extends React.Component {
     }
 
     handleOpenEsopButton = () => {
-        this.services.ESOPService.openESOP(this.state.totalPoolOptions, this.state.ESOPLegalWrapperIPFSHash);
+        let optionsCalculatorAddress = this.state.OptionsCalculatorAddress;
+        let employeesListAddress = this.state.EmployeesListAddress;
+        let totalPoolOptions = parseInt(this.state.totalPoolOptions);
+        let ESOPLegalWrapperIPFSHash = web3.toBigNumber('0x' + new Buffer(this.state.ESOPLegalWrapperIPFSHash, 'ascii').toString('hex'));
+        this.services.ESOPService.openESOP(optionsCalculatorAddress, employeesListAddress, totalPoolOptions, ESOPLegalWrapperIPFSHash);
     };
 
     render() {
@@ -40,16 +45,9 @@ export default class Init extends React.Component {
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
                         <h2>ESOP contract addresses</h2>
                         <TextField floatingLabelText="RoT contract address" value={ESOPState.RoTAddress}
-                                   style={{width: "32.000rem"}}
-                                   disabled={true}/> <br />
-                        <TextField floatingLabelText="ESOP contract address" value={ESOPState.ESOPAddress}
-                                   style={{width: "32.000rem"}}
-                                   disabled={true}/> <br />
-                        <TextField floatingLabelText="OptionsCalculator contract address"
-                                   value={ESOPState.OptionsCalculatorAddress}
                                    style={{width: "32.000rem"}} disabled={true}/> <br />
-                        <TextField floatingLabelText="EmployeesList contract address" value={ESOPState.EmployeesList}
-                                   style={{width: "32.000rem"}} disabled={true}/>
+                        <TextField floatingLabelText="ESOP contract address" value={ESOPState.ESOPAddress}
+                                   style={{width: "32.000rem"}} disabled={true}/> <br />
                     </div>
                 </div>
 
@@ -61,6 +59,12 @@ export default class Init extends React.Component {
 
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
+                        <TextField floatingLabelText="OptionsCalculator contract address" style={{width: "32.000rem"}}
+                                   onChange={(event, newValue) => this.setState({OptionsCalculatorAddress: newValue})}/>
+                        <br />
+                        <TextField floatingLabelText="EmployeesList contract address" style={{width: "32.000rem"}}
+                                   onChange={(event, newValue) => this.setState({EmployeesListAddress: newValue})}/>
+                        <br />
                         <TextField floatingLabelText="total pool options" className="contract_parameter"
                                    onChange={(event, newValue) => this.setState({totalPoolOptions: newValue})}/> <br />
                         <TextField floatingLabelText="ESOP Legal Wrapper IPFS Hash" style={{width: "32.000rem"}}
