@@ -108,7 +108,7 @@ export default class ContractComService {
         return Promise.all(dataPromises);
     });
 
-    perseOptionsData  = data => {
+    perseOptionsData = data => {
         return {
             cliffPeriod: data[0].toString(),
             vestingPeriod: data[1].toString(),
@@ -218,7 +218,12 @@ export default class ContractComService {
             result => {
                 this.getESOPDataFromContract();
                 this.obtainContractAddreses();
-            }, error => {
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
                 console.log(error);
             }
         );
