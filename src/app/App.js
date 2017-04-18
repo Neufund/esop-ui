@@ -35,7 +35,7 @@ export default class App extends React.Component {
             if (state.esopState == 0) {
                 componentToRender = <Init store={this.store} services={this.services}/>
             } else {
-                componentToRender = <Esop store={this.store}/>
+                componentToRender = <Esop store={this.store} services={this.services}/>
             }
         }
 

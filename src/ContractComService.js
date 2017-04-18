@@ -224,6 +224,36 @@ export default class ContractComService {
             }
         );
     }
+
+    addEmployee(employeePublicKey, issueDate, timeToSign, extraOptions) {
+        let userState = this.store.getState().user;
+
+        this.ESOPContractAbstr.defaults({
+            from: userState.userPK
+        });
+
+        this.ESOPContractAbstr.deployed().then(contract => {
+                if (extraOptions == 0) {
+                    return contract.offerOptionsToEmployee(
+                        employeePublicKey,
+                        issueDate,
+                        timeToSign,
+                        0,
+                        true)
+                } else {
+                    return contract.offerOptionsToEmployeeOnlyExtra(
+                        employeePublicKey,
+                        issueDate,
+                        timeToSign,
+                        extraOptions)
+                }
+            }
+        ).then(
+            result => {
+                console.log(result);
+                this.getESOPDataFromContract();
+            },
+            error => {
                 console.log(error);
             }
         );

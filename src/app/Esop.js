@@ -23,6 +23,7 @@ export default class Esop extends React.Component {
     constructor(props) {
         super(props);
         this.store = props.store;
+        this.services = props.services;
 
         this.state = {
             esop_desc_open: false,
@@ -86,7 +87,9 @@ export default class Esop extends React.Component {
                                            EmployeesListAddress={ESOPState.EmployeesListAddress}
                                            OptionsCalculatorAddress={ESOPState.OptionsCalculatorAddress}
                                            OptionsConverterAddress="0x0000000000000000000000000000000000000000"/>
+
                         <ContractState contractState={ESOPState}/>
+
                         <div className="row">
                             <div className="col-xs-12">
                                 <h2>Contract parameters:</h2>
@@ -114,7 +117,7 @@ export default class Esop extends React.Component {
                         </div>
 
                         {userState.userType == "ceo" &&
-                        <EmployeeAdd/>
+                        <EmployeeAdd services={this.services}/>
                         }
 
                         <div className="row">
