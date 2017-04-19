@@ -44,7 +44,14 @@ import UserManagment from './UserManagment'
         LedgerLoginProvider.start();
         LedgerLoginProvider.onConnect(() => {
             LedgerLoginProvider.stop();
-            services.userManagment.getAccount();
+            store.dispatch({
+                type: "SHOW_NANO_CONFIRM_ACCOUNT_DIALOG",
+                nanoConfirmAccountDialog: true
+            });
+            services.userManagment.getAccount().then(() => store.dispatch({
+                type: "SHOW_NANO_CONFIRM_ACCOUNT_DIALOG",
+                nanoConfirmAccountDialog: false
+            }));
         });
     }
 

@@ -2,6 +2,7 @@ import React from 'react';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import muiTheme from '../muiTheme';
+import Dialog from 'material-ui/Dialog';
 
 import './App.scss';
 import Header from '../ui/Header'
@@ -26,13 +27,14 @@ export default class App extends React.Component {
     }
 
     render() {
-        let state = this.store.getState().ESOP;
+        let ESOPstate = this.store.getState().ESOP;
+        let UIstate = this.store.getState().UI;
 
         let componentToRender;
-        if (state.waitingForData) {
+        if (ESOPstate.waitingForData) {
             componentToRender = <Waiting/>
         } else {
-            if (state.esopState == 0) {
+            if (ESOPstate.esopState == 0) {
                 componentToRender = <Init store={this.store} services={this.services}/>
             } else {
                 componentToRender = <Esop store={this.store} services={this.services}/>
@@ -44,6 +46,12 @@ export default class App extends React.Component {
                 <div>
                     <Header store={this.store}/>
                     {componentToRender}
+                    <Dialog
+                        title="Please confirm account on your nano"
+                        modal={true}
+                        open={UIstate.nanoConfirmAccountDialog}>
+                        Handle timeout - timer and then instruction to disconnect and F5
+                    </Dialog>
                 </div>
             </MuiThemeProvider>
         )
