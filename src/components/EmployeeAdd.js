@@ -15,7 +15,7 @@ export default class EmployeeAdd extends React.Component {
 
         this.state = {
             extraOptions: false,
-            timeToSign: "14"
+            timeToSign: "15"
         }
     }
 
@@ -29,8 +29,8 @@ export default class EmployeeAdd extends React.Component {
         const day = 24 * 60 * 60;
 
         let employeePublicKey = this.state.employeePublicKey;
-        let issueDate = this.state.issueDate / 1;
-        let timeToSign = issueDate + day * parseInt(this.state.timeToSign);
+        let issueDate = Math.floor(this.state.issueDate / 1000);
+        let timeToSign = Math.floor(new Date() / 1000) + day * parseInt(this.state.timeToSign);
         let grantExtraOptions = this.state.extraOptions;
         let extraOptionsNumber = parseInt(this.state.extraOptionsNumber);
 
@@ -49,21 +49,19 @@ export default class EmployeeAdd extends React.Component {
                     <h3>Add employee:</h3>
                     <TextField floatingLabelText="public key" className="employee_parameter"
                                onChange={(event, newValue) => this.setState({employeePublicKey: newValue})}
-                               style={{width: "32.000rem"}}/><br />
-                    <DatePicker hintText="Landscape Dialog" mode="landscape"
-                                onChange={(event, newValue) => this.setState({issueDate: newValue})}/> <br />
+                               style={{width: "32.000rem"}}/>
+                    <DatePicker hintText="ESOP issue date" mode="landscape"
+                                onChange={(event, newValue) => this.setState({issueDate: newValue})}/>
                     <TextField floatingLabelText="time to sign [days]" className="employee_parameter"
                                onChange={(event, newValue) => this.setState({timeToSign: newValue})}
-                               value={this.state.timeToSign}
-                    /> <br />
+                               value={this.state.timeToSign}/>
                     <Checkbox label="Use extra options" checked={this.state.extraOptions}
                               onCheck={this.handleExtraOptionsCheckbox}/>
                     {
                         this.state.extraOptions &&
                         <div>
                             <TextField floatingLabelText="extra options" className="employee_parameter"
-                                       onChange={(event, newValue) => this.setState({extraOptionsNumber: newValue})}
-                            />
+                                       onChange={(event, newValue) => this.setState({extraOptionsNumber: newValue})}/>
                         </div>
                     }
 
