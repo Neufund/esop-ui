@@ -201,7 +201,7 @@ export default class ContractComService {
      * @param {BigNumber} ESOPLegalWrapperIPFSHash
      * @returns {Promise.<void>}
      */
-    async openESOP(optionsCalculatorAddress, employeesListAddress, totalPoolOptions, ESOPLegalWrapperIPFSHash) {
+    openESOP(optionsCalculatorAddress, employeesListAddress, totalPoolOptions, ESOPLegalWrapperIPFSHash) {
         let userState = this.store.getState().user;
 
         this.ESOPContractAbstr.defaults({
