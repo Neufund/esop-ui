@@ -58,6 +58,14 @@ export default class Esop extends React.Component {
     render() {
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
+        let UIState = this.store.getState().UI;
+
+        let selectedUser;
+
+        if(userState.userType == "ceo")
+            selectedUser = UIState.selectedUser;
+        else if (userState.userType == "employee")
+            selectedUser = userState.userPK;
 
         const actions = [
             <IconButton tooltip="Download">
@@ -122,14 +130,14 @@ export default class Esop extends React.Component {
 
                         <div className="row">
                             <div className="col-xs-12">
-                                <EmployeeList employeeList={ESOPState.employees}/>
+                                <EmployeeList store={this.store}/>
                             </div>
                         </div>
 
-                        {(userState.userType == "ceo" || userState.userType == "employee") &&
+                        {((userState.userType == "ceo" || userState.userType == "employee") && selectedUser != undefined) &&
                         <div className="row">
                             <div className="col-xs-12 ">
-                                <EmployeeDetails store={this.store}/>
+                                <EmployeeDetails selectedUser={selectedUser} store={this.store}/>
                             </div>
                         </div>
                         }

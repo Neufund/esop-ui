@@ -10,6 +10,8 @@ import {createStore, combineReducers} from 'redux'
 import {createDevTools} from 'redux-devtools'
 import reducersUser from './reducers/reducersUser';
 import reducersESOP from './reducers/reducersESOP';
+import reducersUI from './reducers/reducersUI';
+
 import ContractComService from './ContractComService';
 import UserManagment from './UserManagment'
 
@@ -17,7 +19,8 @@ import UserManagment from './UserManagment'
     injectTapEventPlugin();
     const reducer = combineReducers({
         ESOP: reducersESOP,
-        user: reducersUser
+        user: reducersUser,
+        UI: reducersUI
     });
 
     const store = createStore(reducer);
