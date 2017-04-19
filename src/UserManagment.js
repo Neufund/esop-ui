@@ -5,8 +5,11 @@ export default class UserManagment {
         this.store = store;
     }
 
-    getAccount = () => {
+    getAccount = () => new Promise((resolve, reject) => {
         web3.eth.getAccounts((error, result) => {
+            if(error) {
+                reject(error);
+            }
             let publicKey = result[0];
             this.store.dispatch({
                 type: "SET_USER_PK",
@@ -19,6 +22,7 @@ export default class UserManagment {
                 companyAddress: esopState.companyAddress,
                 employees: esopState.employees
             });
-        });
-    };
+            resolve();
+        })
+    });
 };
