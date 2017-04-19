@@ -7,6 +7,7 @@ import paperContract from '../images/contract.png';
 import EmployeeList from '../components/EmployeeList'
 import EmployeeAdd from '../components/EmployeeAdd'
 import EmployeeListDetails from '../components/EmployeeListDetails'
+import EmployeeDetails from '../components/EmployeeDetails'
 import ContractAddresses from '../components/ContractAddresses'
 import ContractState from '../components/ContractState'
 import ContractParameters from '../components/ContractParameters'
@@ -90,6 +91,10 @@ export default class Esop extends React.Component {
                             </div>
                         </div>
 
+                        {(userState.userType == 'employee') &&
+                            <EmployeeDetails services={this.services} store={this.store}/>
+                        }
+
                         <ContractAddresses RoTAddress={ESOPState.RoTAddress}
                                            ESOPAddress={ESOPState.ESOPAddress}
                                            EmployeesListAddress={ESOPState.EmployeesListAddress}
@@ -137,7 +142,7 @@ export default class Esop extends React.Component {
                         {(userState.userType == "ceo" && selectedUser != undefined) &&
                         <div className="row">
                             <div className="col-xs-12 ">
-                                <EmployeeDetails selectedUser={selectedUser} store={this.store}/>
+                                <EmployeeListDetails selectedUser={selectedUser} store={this.store}/>
                             </div>
                         </div>
                         }
