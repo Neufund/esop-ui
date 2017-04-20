@@ -19,13 +19,14 @@ export default class Init extends React.Component {
     handleRowSelection = (index) => {
         let selectedEmployee;
 
-        if(index[0] != undefined) {
+        if (index[0] != undefined) {
             let ESOPState = this.store.getState().ESOP;
             let employeeList = ESOPState.employees;
             selectedEmployee = employeeList[index[0]].address;
         } else {
             selectedEmployee = undefined
         }
+
         this.store.dispatch({
             type: "SET_SELECTED_USER",
             selectedUser: selectedEmployee
@@ -63,6 +64,7 @@ export default class Init extends React.Component {
                     <TableBody
                         displayRowCheckbox={false}
                         stripedRows={false} //TODO: there is problem with colors - same for selected row and stripped row fix it before turning on
+                        deselectOnClickaway={false}
                     >
                         {employeeList.map((row, index) => (
                             <TableRow key={index}>
