@@ -24,8 +24,6 @@ export default class Init extends React.Component {
     }
 
     handleOpenEsopButton = () => {
-        let optionsCalculatorAddress = this.state.OptionsCalculatorAddress;
-        let employeesListAddress = this.state.EmployeesListAddress;
         let totalPoolOptions = parseInt(this.state.totalPoolOptions);
         let ESOPLegalWrapperIPFSHash = web3.toBigNumber('0x' + new Buffer(this.state.ESOPLegalWrapperIPFSHash, 'ascii').toString('hex'));
 
@@ -34,7 +32,7 @@ export default class Init extends React.Component {
             confirmTransactionDialog: true
         });
 
-        this.services.ESOPService.openESOP(optionsCalculatorAddress, employeesListAddress, totalPoolOptions, ESOPLegalWrapperIPFSHash).then(
+        this.services.ESOPService.openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash).then(
             success => {
                 this.services.ESOPService.getESOPDataFromContract();
                 this.services.ESOPService.obtainContractAddreses();
@@ -68,7 +66,7 @@ export default class Init extends React.Component {
                     </div>
                 </div>
 
-                <div className="row">
+           <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
                         <h2>ESOP contract addresses</h2>
                         <TextField floatingLabelText="RoT contract address" value={ESOPState.RoTAddress}
@@ -86,12 +84,6 @@ export default class Init extends React.Component {
 
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
-                        <TextField floatingLabelText="OptionsCalculator contract address" style={{width: "32.000rem"}}
-                                   onChange={(event, newValue) => this.setState({OptionsCalculatorAddress: newValue})}/>
-                        <br />
-                        <TextField floatingLabelText="EmployeesList contract address" style={{width: "32.000rem"}}
-                                   onChange={(event, newValue) => this.setState({EmployeesListAddress: newValue})}/>
-                        <br />
                         <TextField floatingLabelText="total pool options" className="contract_parameter"
                                    onChange={(event, newValue) => this.setState({totalPoolOptions: newValue})}/> <br />
                         <TextField floatingLabelText="ESOP Legal Wrapper IPFS Hash" style={{width: "32.000rem"}}

@@ -195,13 +195,11 @@ export default class ContractComService {
 
     /**
      *
-     * @param {String} optionsCalculatorAddress
-     * @param {String} employeesListAddress
      * @param {int} totalPoolOptions
      * @param {BigNumber} ESOPLegalWrapperIPFSHash
      * @returns {Promise.<void>}
      */
-    openESOP(optionsCalculatorAddress, employeesListAddress, totalPoolOptions, ESOPLegalWrapperIPFSHash) {
+    openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash) {
         let userState = this.store.getState().user;
 
         this.ESOPContractAbstr.defaults({
@@ -209,8 +207,7 @@ export default class ContractComService {
         });
 
         return this.ESOPContractAbstr.deployed()
-            .then(contract => contract.openESOP(optionsCalculatorAddress, employeesListAddress,
-                totalPoolOptions, ESOPLegalWrapperIPFSHash))
+            .then(contract => contract.openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash))
             .then(
                 success => {
                     return new Promise((resolve, reject) => {
