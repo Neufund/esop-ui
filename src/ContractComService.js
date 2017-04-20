@@ -146,7 +146,7 @@ export default class ContractComService {
     };
 
     parseEmployeesList = data => {
-        return data.map((employee) => {
+        return data.filter(employee => parseInt(employee.address, 16) != 0).map((employee) => {
             return {
                 address: employee.address,
                 issueDate: employee.data[0].toString(), // when vesting starts
