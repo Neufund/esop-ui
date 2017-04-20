@@ -271,14 +271,18 @@ export default class ContractComService {
             from: userState.userPK
         });
 
-        this.ESOPContractAbstr.deployed().then(contract => contract.employeeSignsToESOP()).then(
-            result => {
-                // "EmployeeSignedToESOP"
-                console.log(result);
-                this.getESOPDataFromContract();
+        return this.ESOPContractAbstr.deployed().then(contract => contract.employeeSignsToESOP()).then(
+            success => {
+                return new Promise((resolve, reject) => {
+                    if(success.logs[0].event == "EmployeeSignedToESOP") {
+                        resolve(success);
+                    } else {
+                        reject(success);
+                    }
+                });
             },
             error => {
-                console.log(error);
+                return Promise.reject(error);
             }
         );
     }

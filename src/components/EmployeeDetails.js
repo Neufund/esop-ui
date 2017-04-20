@@ -22,7 +22,32 @@ export default class EmployeeDetails extends React.Component {
     }
 
     signEmployeeHandler = () => {
-        this.services.ESOPService.employeeSignsToESOP();
+        this.store.dispatch({
+            type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+            confirmTransactionDialog: true
+        });
+
+        this.services.ESOPService.employeeSignsToESOP().then(
+            success => {
+                this.services.ESOPService.getESOPDataFromContract();
+                this.store.dispatch({
+                    type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                    confirmTransactionDialog: false
+                });
+            },
+            error => {
+                this.store.dispatch({
+                    type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                    confirmTransactionDialog: false
+                });
+
+                this.store.dispatch({
+                    type: "SHOW_ERROR_DIALOG",
+                    errorDialog: true
+                });
+                console.log(error);
+            }
+        );
     };
 
     render() {
