@@ -11,10 +11,10 @@ import EmployeeDetails from '../components/EmployeeDetails'
 import ContractAddresses from '../components/ContractAddresses'
 import ContractState from '../components/ContractState'
 import ContractParameters from '../components/ContractParameters'
+import ConvertOptions from '../components/ConvertOptions'
 
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Dialog from 'material-ui/Dialog';
@@ -141,17 +141,8 @@ export default class Esop extends React.Component {
                         </div>
                         }
 
-                        {userState.userType == "ceo" &&
-                        <div className="row">
-                            <div className="col-xs-12 convert_options">
-                                <h2>Convert options:</h2>
-                                <TextField floatingLabelText="Convert options contract address"
-                                           style={{width: "32.000rem"}}/>
-                                <br />
-                                <RaisedButton className="read_more_button" label="Convert options"
-                                              onTouchTap={() => alert("This will close ESOP and convert options")}/>
-                            </div>
-                        </div>
+                        {(userState.userType == "ceo" && ESOPState.esopState == 1 && false) &&
+                            <ConvertOptions store={this.store} services={this.services}/>
                         }
 
                         <Dialog

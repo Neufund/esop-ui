@@ -72,7 +72,7 @@ export default class ContractComService {
             contract.ESOPLegalWrapperIPFSHash(), // ipfs hash of document establishing this ESOP
             contract.minimumManualSignPeriod(), // default period for employee signature
 
-            // STATE
+            //STATE
             contract.remainingPoolOptions(), // poolOptions that remain to be assigned
             contract.esopState(), // state of ESOP (0)New, (1)Open, (2)Conversion
             contract.totalExtraOptions(), // how many extra options inserted
@@ -88,7 +88,7 @@ export default class ContractComService {
             ESOPLegalWrapperIPFSHash: data[1].toString(),
             minimumManualSignPeriod: data[2].toString(),
             remainingPoolOptions: data[3].toString(),
-            esopState: data[4].toString(),
+            esopState: data[4].toNumber(),
             totalExtraOptions: data[5].toString(),
             conversionOfferedAt: data[6].toString(),
             exerciseOptionsDeadline: data[7].toString(),
@@ -356,4 +356,31 @@ export default class ContractComService {
                 }
             );
     }
+
+    offerOptionsConversion(optionsConverterAddress) {
+        let userState = this.store.getState().user;
+
+        this.ESOPContractAbstr.defaults({
+            from: userState.userPK
+        });
+
+        return this.ESOPContractAbstr.deployed()
+            .then(contract => contract.offerOptionsConversion(optionsConverterAddress))
+            .then(
+                success => {
+                    return new Promise((resolve, reject) => {
+                        if (success.logs[0].event == "OptionsConversionOffered") {
+                            resolve(success);
+                        } else {
+                            reject(success);
+                        }
+                    });
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
+    }
+
+
 }
