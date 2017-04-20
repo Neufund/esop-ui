@@ -41,8 +41,8 @@ export default class EmployeeAdd extends React.Component {
         }
 
         this.store.dispatch({
-            type: "SHOW_NANO_CONFIRM_TRANSACTION_DIALOG",
-            nanoConfirmTransactionDialog: true
+            type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+            confirmTransactionDialog: true
         });
 
         this.services.ESOPService.addEmployee(employeePublicKey, issueDate, timeToSign, extraOptionsNumber).then(
@@ -56,15 +56,15 @@ export default class EmployeeAdd extends React.Component {
                     extraOptionsNumber: ''
                 });
                 this.store.dispatch({
-                    type: "SHOW_NANO_CONFIRM_TRANSACTION_DIALOG",
-                    nanoConfirmTransactionDialog: false
+                    type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                    confirmTransactionDialog: false
                 });
             },
             error => {
 
                 this.store.dispatch({
-                    type: "SHOW_NANO_CONFIRM_TRANSACTION_DIALOG",
-                    nanoConfirmTransactionDialog: false
+                    type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                    confirmTransactionDialog: false
                 });
 
                 this.store.dispatch({

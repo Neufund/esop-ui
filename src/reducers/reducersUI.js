@@ -1,8 +1,8 @@
 export default (state = {
-    selectedUser: undefined,
+    errorDialog: false,
     nanoConfirmAccountDialog: false,
-    nanoConfirmTransactionDialog: false,
-    errorDialog: false
+    confirmTransactionDialog: false,
+    selectedUser: undefined,
 }, action) => {
     switch (action.type) {
         case "SHOW_ERROR_DIALOG":
@@ -17,10 +17,10 @@ export default (state = {
                 nanoConfirmAccountDialog: action.nanoConfirmAccountDialog
             };
             break;
-        case "SHOW_NANO_CONFIRM_TRANSACTION_DIALOG":
+        case "SHOW_CONFIRM_TRANSACTION_DIALOG":
             return {
                 ...state,
-                nanoConfirmTransactionDialog: action.nanoConfirmTransactionDialog
+                confirmTransactionDialog: action.confirmTransactionDialog
             };
             break;
         case "SET_SELECTED_USER":

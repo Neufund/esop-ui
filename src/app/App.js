@@ -49,7 +49,7 @@ export default class App extends React.Component {
             }
         }
 
-        let closeActions = [<FlatButton label="I get it" onTouchTap={this.handleCloseErrorDialog}/>];
+        let closeActions = [<FlatButton label="I got it" onTouchTap={this.handleCloseErrorDialog}/>];
 
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
@@ -65,10 +65,10 @@ export default class App extends React.Component {
                     </Dialog>
 
                     <Dialog
-                        title="Please confirm transaction on your nano"
+                        title="Please confirm transaction using your signer"
                         modal={true}
-                        open={UIstate.nanoConfirmTransactionDialog}>
-                        Confirm transaction on your nano and wait for network to mine
+                        open={UIstate.confirmTransactionDialog}>
+                        Confirm transaction and wait for network to mine it it might take a while.
                     </Dialog>
 
                     <Dialog
