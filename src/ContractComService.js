@@ -208,28 +208,33 @@ export default class ContractComService {
             from: userState.userPK
         });
 
-        return this.ESOPContractAbstr.deployed().then(contract =>
-            contract.openESOP(
-                optionsCalculatorAddress,
-                employeesListAddress,
-                totalPoolOptions,
-                ESOPLegalWrapperIPFSHash)
-        ).then(
-            success => {
-                return new Promise((resolve, reject) => {
-                    if (success.logs[0].event == "ESOPOpened") {
-                        resolve(success);
-                    } else {
-                        reject(success);
-                    }
-                });
-            },
-            error => {
-                return Promise.reject(error);
-            }
-        );
+        return this.ESOPContractAbstr.deployed()
+            .then(contract => contract.openESOP(optionsCalculatorAddress, employeesListAddress,
+                totalPoolOptions, ESOPLegalWrapperIPFSHash))
+            .then(
+                success => {
+                    return new Promise((resolve, reject) => {
+                        if (success.logs[0].event == "ESOPOpened") {
+                            resolve(success);
+                        } else {
+                            reject(success);
+                        }
+                    });
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
     }
 
+    /**
+     *
+     * @param {String} employeePublicKey
+     * @param {int} issueDate - Unix time
+     * @param {int} timeToSign - Unix time
+     * @param {int} extraOptions
+     * @returns {Promise.<TResult>}
+     */
     addEmployee(employeePublicKey, issueDate, timeToSign, extraOptions) {
         let userState = this.store.getState().user;
 
@@ -237,7 +242,8 @@ export default class ContractComService {
             from: userState.userPK
         });
 
-        return this.ESOPContractAbstr.deployed().then(contract => {
+        return this.ESOPContractAbstr.deployed()
+            .then(contract => {
                 if (extraOptions == 0) {
                     return contract.offerOptionsToEmployee(
                         employeePublicKey,
@@ -252,21 +258,20 @@ export default class ContractComService {
                         timeToSign,
                         extraOptions)
                 }
-            }
-        ).then(
-            success => {
-                return new Promise((resolve, reject) => {
-                    if (success.logs[0].event == "ESOPOffered") {
-                        resolve(success);
-                    } else {
-                        reject(success);
-                    }
-                });
-            },
-            error => {
-                return Promise.reject(error);
-            }
-        );
+            }).then(
+                success => {
+                    return new Promise((resolve, reject) => {
+                        if (success.logs[0].event == "ESOPOffered") {
+                            resolve(success);
+                        } else {
+                            reject(success);
+                        }
+                    });
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
     }
 
     employeeSignsToESOP() {
