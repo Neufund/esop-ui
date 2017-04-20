@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ContractUtils from '../ContractUtils'
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 
 export default ({contractState}) => {
@@ -11,7 +11,7 @@ export default ({contractState}) => {
                     <TableBody displayRowCheckbox={false}>
                         <TableRow >
                             <TableRowColumn>ESOP state</TableRowColumn>
-                            <TableRowColumn>{contractState.esopState == 1 ? "Active" : "Converted"}</TableRowColumn>
+                            <TableRowColumn>{ContractUtils.getESOPStateName(contractState.esopState)}</TableRowColumn>
                         </TableRow>
                         <TableRow>
                             <TableRowColumn>Remaning pool options</TableRowColumn>

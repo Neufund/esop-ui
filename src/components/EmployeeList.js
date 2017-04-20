@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ContractUtils from '../ContractUtils'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 export default class Init extends React.Component {
@@ -74,7 +74,7 @@ export default class Init extends React.Component {
                                 <TableRowColumn>{row.fadeoutStarts}</TableRowColumn>
                                 <TableRowColumn>{row.poolOptions}</TableRowColumn>
                                 <TableRowColumn>{row.suspendedAt}</TableRowColumn>
-                                <TableRowColumn>{row.state}</TableRowColumn>
+                                <TableRowColumn>{ContractUtils.getEmployeeStateName(row.state)}</TableRowColumn>
                             </TableRow>
                         ))}
                     </TableBody>
