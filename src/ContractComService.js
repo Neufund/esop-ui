@@ -70,7 +70,7 @@ export default class ContractComService {
             //CONFIG
             contract.totalPoolOptions(), // total poolOptions in The Pool
             contract.ESOPLegalWrapperIPFSHash(), // ipfs hash of document establishing this ESOP
-            contract.waitForSignPeriod(), // default period for employee signature
+            contract.minimumManualSignPeriod(), // default period for employee signature
 
             // STATE
             contract.remainingPoolOptions(), // poolOptions that remain to be assigned
@@ -86,7 +86,7 @@ export default class ContractComService {
         return {
             totalPoolOptions: data[0].toString(),
             ESOPLegalWrapperIPFSHash: data[1].toString(),
-            waitForSignPeriod: data[2].toString(),
+            minimumManualSignPeriod: data[2].toString(),
             remainingPoolOptions: data[3].toString(),
             esopState: data[4].toString(),
             totalExtraOptions: data[5].toString(),

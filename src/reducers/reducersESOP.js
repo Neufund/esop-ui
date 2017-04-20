@@ -21,7 +21,7 @@ export default (state = {waitingForData: true}, action) => {
                 totalPoolOptions: action.totalPoolOptions,
                 ESOPLegalWrapperIPFSHash: action.ESOPLegalWrapperIPFSHash,
                 strikePrice: action.strikePrice,
-                waitForSignPeriod: action.waitForSignPeriod,
+                minimumManualSignPeriod: action.minimumManualSignPeriod,
                 remainingPoolOptions: action.remainingPoolOptions,
                 esopState: action.esopState,
                 totalExtraOptions: action.totalExtraOptions,
