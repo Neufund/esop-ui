@@ -14,7 +14,7 @@ export default ({contractParameters, onClickTap}) => {
             <TextField floatingLabelText="new employee pool promille" className="contract_parameter"  value={contractParameters.newEmployeePoolPromille} disabled={true}/>
             <TextField floatingLabelText="total pool options" className="contract_parameter"  value={contractParameters.totalPoolOptions} disabled={true}/>
             <TextField floatingLabelText="strike price" className="contract_parameter"  value={contractParameters.strikePrice} disabled={true}/>
-            <TextField floatingLabelText="wait for sign period" className="contract_parameter"  value={contractParameters.waitForSignPeriod} disabled={true}/>
+            <TextField floatingLabelText="wait for sign period" className="contract_parameter"  value={contractParameters.minimumManualSignPeriod} disabled={true}/>
             <RaisedButton label="Show Paper Contract" className="contract_parameter" onTouchTap={onClickTap}/>
         </div>
     )
