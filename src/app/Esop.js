@@ -61,13 +61,6 @@ export default class Esop extends React.Component {
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
 
-        let selectedUser;
-
-        if(userState.userType == "ceo")
-            selectedUser = UIState.selectedUser;
-        else if (userState.userType == "employee")
-            selectedUser = userState.userPK;
-
         const actions = [
             <IconButton tooltip="Download">
                 <FontIcon className="material-icons">file_download</FontIcon>
@@ -140,10 +133,10 @@ export default class Esop extends React.Component {
                             </div>
                         </div>
 
-                        {(userState.userType == "ceo" && selectedUser != undefined) &&
+                        {(userState.userType == "ceo" && UIState.selectedUser != undefined) &&
                         <div className="row">
                             <div className="col-xs-12 ">
-                                <EmployeeListDetails selectedUser={selectedUser} store={this.store}/>
+                                <EmployeeListDetails store={this.store} services={this.services}/>
                             </div>
                         </div>
                         }

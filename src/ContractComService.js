@@ -296,4 +296,36 @@ export default class ContractComService {
             }
         );
     }
+
+    /**
+     *
+     * @param {String} employeePublicKey
+     * @param {int} toggledAt - Unix time
+     * @returns {Promise.<TResult>}
+     */
+    toggleEmployeeSuspension(employeePublicKey, toggledAt) {
+        let userState = this.store.getState().user;
+
+        this.ESOPContractAbstr.defaults({
+            from: userState.userPK
+        });
+
+        return this.ESOPContractAbstr.deployed()
+            .then(contract => contract.toggleEmployeeSuspension(employeePublicKey, toggledAt))
+            .then(
+                success => {
+                    return new Promise((resolve, reject) => {
+                        if (success.logs[0].event == "SuspendEmployee"
+                            || success.logs[0].event == "ContinueSuspendedEmployee") {
+                            resolve(success);
+                        } else {
+                            reject(success);
+                        }
+                    });
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
+    }
 }
