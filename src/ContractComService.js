@@ -251,7 +251,7 @@ export default class ContractComService {
         ).then(
             success => {
                 return new Promise((resolve, reject) => {
-                    if(success.logs[0].event == "EmployeeSignedToESOP") {
+                    if(success.logs[0].event == "ESOPOffered") {
                         resolve(success);
                     } else {
                         reject(success);
