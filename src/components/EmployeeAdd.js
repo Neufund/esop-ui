@@ -14,8 +14,10 @@ export default class EmployeeAdd extends React.Component {
         this.services = props.services;
 
         this.state = {
+            employeePublicKey: '',
             extraOptions: false,
-            timeToSign: "15"
+            timeToSign: "15",
+            extraOptionsNumber: ''
         }
     }
 
@@ -38,7 +40,23 @@ export default class EmployeeAdd extends React.Component {
             extraOptionsNumber = 0;
         }
 
-        this.services.ESOPService.addEmployee(employeePublicKey, issueDate, timeToSign, extraOptionsNumber);
+        this.services.ESOPService.addEmployee(employeePublicKey, issueDate, timeToSign, extraOptionsNumber).then(
+            success => {
+                this.services.ESOPService.getESOPDataFromContract();
+                this.setState({
+                    employeePublicKey: '',
+                    issueDate: undefined,
+                    extraOptions: false,
+                    timeToSign: "15",
+                    extraOptionsNumber: ''
+                })
+            },
+            error => {
+                console.log(error);
+            }
+        );
+
+
     };
 
 
@@ -48,19 +66,22 @@ export default class EmployeeAdd extends React.Component {
                 <div className="col-xs-12 employee_add">
                     <h3>Add employee:</h3>
                     <TextField floatingLabelText="public key" className="employee_parameter"
+                               value={this.state.employeePublicKey}
                                onChange={(event, newValue) => this.setState({employeePublicKey: newValue})}
                                style={{width: "32.000rem"}}/>
                     <DatePicker hintText="ESOP issue date" mode="landscape"
+                                value={this.state.issueDate}
                                 onChange={(event, newValue) => this.setState({issueDate: newValue})}/>
                     <TextField floatingLabelText="time to sign [days]" className="employee_parameter"
-                               onChange={(event, newValue) => this.setState({timeToSign: newValue})}
-                               value={this.state.timeToSign}/>
+                               value={this.state.timeToSign}
+                               onChange={(event, newValue) => this.setState({timeToSign: newValue})}/>
                     <Checkbox label="Use extra options" checked={this.state.extraOptions}
                               onCheck={this.handleExtraOptionsCheckbox}/>
                     {
                         this.state.extraOptions &&
                         <div>
                             <TextField floatingLabelText="extra options" className="employee_parameter"
+                                       value={this.state.extraOptionsNumber}
                                        onChange={(event, newValue) => this.setState({extraOptionsNumber: newValue})}/>
                         </div>
                     }
