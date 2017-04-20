@@ -92,20 +92,8 @@ export default class Esop extends React.Component {
                                            EmployeesListAddress={ESOPState.EmployeesListAddress}
                                            OptionsCalculatorAddress={ESOPState.OptionsCalculatorAddress}
                                            OptionsConverterAddress="0x0000000000000000000000000000000000000000"/>
-
                         <ContractState contractState={ESOPState}/>
-
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <h2>Contract parameters:</h2>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <ContractParameters contractParameters={ESOPState} onClickTap={this.handlePaperContractOpen}/>
-                            </div>
-                        </div>
+                        <ContractParameters contractParameters={ESOPState} onClickTap={this.handlePaperContractOpen}/>
 
                         <div className="row">
                             <div className="col-xs-12">
