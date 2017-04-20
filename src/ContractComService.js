@@ -328,4 +328,35 @@ export default class ContractComService {
                 }
             );
     }
+
+    /**
+     *
+     * @param {String} employeePublicKey
+     * @param {int} terminatedAt - Unix time
+     * @param {int} terminationType 0 - Regular, 1 - BadLeave
+     */
+    terminateEmployee(employeePublicKey, terminatedAt, terminationType) {
+        let userState = this.store.getState().user;
+
+        this.ESOPContractAbstr.defaults({
+            from: userState.userPK
+        });
+
+        return this.ESOPContractAbstr.deployed()
+            .then(contract => contract.terminateEmployee(employeePublicKey, terminatedAt, terminationType))
+            .then(
+                success => {
+                    return new Promise((resolve, reject) => {
+                        if (success.logs[0].event == "TerminateEmployee") {
+                            resolve(success);
+                        } else {
+                            reject(success);
+                        }
+                    });
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
+    }
 }

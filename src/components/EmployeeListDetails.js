@@ -3,6 +3,7 @@ import './EmployeeListDetails.scss';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import DatePicker from 'material-ui/DatePicker';
 
 export default class EmployeeListDetails extends React.Component {
     constructor(props) {
@@ -10,15 +11,25 @@ export default class EmployeeListDetails extends React.Component {
         this.store = props.store;
         this.services = props.services;
 
-        let ESOPState = this.store.getState().ESOP;
-        let UIState = this.store.getState().UI;
+        this.state = {
+            terminateDate: new Date
+        };
+    }
 
-        this.employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
+    componentDidMount() {
+        this.unsubscribe = this.store.subscribe(() => this.forceUpdate());
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     handleToggleSuspendButton = () => {
 
-        let employeePublicKey = this.employee.address;
+        let ESOPState = this.store.getState().ESOP;
+        let UIState = this.store.getState().UI;
+        let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
+        let employeePublicKey = employee.address;
         let toggledAt = new Date() / 1000;
 
         this.store.dispatch({
@@ -49,33 +60,99 @@ export default class EmployeeListDetails extends React.Component {
         );
     };
 
+    /**
+     *
+     * @param terminationType 0 - Regular, 1 - BadLeaver
+     * @returns {function()}
+     */
+    handleTerminateUserButton = (terminationType) => {
+
+        let ESOPState = this.store.getState().ESOP;
+        let UIState = this.store.getState().UI;
+        let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
+
+        let tType;
+        if (terminationType === "Regular") {
+            tType = 0;
+        } else if (terminationType === "BadLeaver") {
+            tType = 1;
+        }
+
+        let terminatedAt = Math.floor(this.state.terminateDate / 1000);
+
+        return () => {
+            this.store.dispatch({
+                type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                confirmTransactionDialog: true
+            });
+
+            this.services.ESOPService.terminateEmployee(employee.address, terminatedAt, tType).then(
+                success => {
+                    this.services.ESOPService.getESOPDataFromContract();
+                    this.store.dispatch({
+                        type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                        confirmTransactionDialog: false
+                    });
+                    this.setState({terminateDate: undefined});
+                },
+                error => {
+                    this.store.dispatch({
+                        type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                        confirmTransactionDialog: false
+                    });
+
+                    this.store.dispatch({
+                        type: "SHOW_ERROR_DIALOG",
+                        errorDialog: true
+                    });
+                    console.log(error);
+                }
+            );
+        };
+    };
+
     render() {
-        let toggleSuspendButtonLabel = this.employee.suspendedAt == 0 ? "Suspend" : "Unsuspend";
+        let ESOPState = this.store.getState().ESOP;
+        let UIState = this.store.getState().UI;
+        let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
+        let toggleSuspendButtonLabel = employee.suspendedAt == 0 ? "Suspend" : "Unsuspend";
+
+        let showSuspendButton = employee.state == 1 || employee.state == 2; // WaitingForSignature or Employed
+        let showTerminateButtons = employee.state < 3; // not Terminated  and not OptionsExercised
 
         return (
             <div className="employee_details">
                 <h3>Employee details:</h3>
                 <TextField floatingLabelText="Issue date" className="employee_parameter"
-                           value={this.employee.issueDate} disabled={true}/>
+                           value={employee.issueDate} disabled={true}/>
                 <TextField floatingLabelText="Time to sign" className="employee_parameter"
-                           value={this.employee.timeToSign} disabled={true}/>
+                           value={employee.timeToSign} disabled={true}/>
                 <TextField floatingLabelText="Terminated at" className="employee_parameter"
-                           value={this.employee.terminatedAt} disabled={true}/>
+                           value={employee.terminatedAt} disabled={true}/>
                 <TextField floatingLabelText="Fadeout starts" className="employee_parameter"
-                           value={this.employee.fadeoutStarts} disabled={true}/>
+                           value={employee.fadeoutStarts} disabled={true}/>
                 <TextField floatingLabelText="Pool options" className="employee_parameter"
-                           value={this.employee.poolOptions} disabled={true}/>
+                           value={employee.poolOptions} disabled={true}/>
                 <TextField floatingLabelText="Extra options" className="employee_parameter"
-                           value={this.employee.extraOptions} disabled={true}/>
+                           value={employee.extraOptions} disabled={true}/>
                 <TextField floatingLabelText="Suspened at" className="employee_parameter"
-                           value={this.employee.suspendedAt} disabled={true}/>
+                           value={employee.suspendedAt} disabled={true}/>
                 <TextField floatingLabelText="State" className="employee_parameter"
-                           value={this.employee.state} disabled={true}/>
+                           value={employee.state} disabled={true}/>
+                <br />
+                {showSuspendButton &&
+                <RaisedButton label={toggleSuspendButtonLabel} onTouchTap={this.handleToggleSuspendButton}/>
+                }
+                {showTerminateButtons &&
                 <div>
-                    <RaisedButton label="Terminate"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <RaisedButton label="Good will terminate"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <RaisedButton label={toggleSuspendButtonLabel} onTouchTap={this.handleToggleSuspendButton}/>
+                    <DatePicker hintText="Terminate date" mode="landscape"
+                                onChange={(event, newValue) => this.setState({terminateDate: newValue})}/>
+                    <RaisedButton label="Terminate"
+                                  onTouchTap={this.handleTerminateUserButton("BadLeaver")}/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <RaisedButton label="Good will terminate"
+                                  onTouchTap={this.handleTerminateUserButton("Regular")}/>
                 </div>
+                }
             </div>
         )
     }
