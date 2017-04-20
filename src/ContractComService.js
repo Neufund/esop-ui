@@ -208,19 +208,24 @@ export default class ContractComService {
             from: userState.userPK
         });
 
-        this.ESOPContractAbstr.deployed().then(contract =>
+        return this.ESOPContractAbstr.deployed().then(contract =>
             contract.openESOP(
                 optionsCalculatorAddress,
                 employeesListAddress,
                 totalPoolOptions,
                 ESOPLegalWrapperIPFSHash)
         ).then(
-            result => {
-                this.getESOPDataFromContract();
-                this.obtainContractAddreses();
+            success => {
+                return new Promise((resolve, reject) => {
+                    if (success.logs[0].event == "ESOPOpened") {
+                        resolve(success);
+                    } else {
+                        reject(success);
+                    }
+                });
             },
             error => {
-                console.log(error);
+                return Promise.reject(error);
             }
         );
     }
@@ -251,7 +256,7 @@ export default class ContractComService {
         ).then(
             success => {
                 return new Promise((resolve, reject) => {
-                    if(success.logs[0].event == "ESOPOffered") {
+                    if (success.logs[0].event == "ESOPOffered") {
                         resolve(success);
                     } else {
                         reject(success);
@@ -274,7 +279,7 @@ export default class ContractComService {
         return this.ESOPContractAbstr.deployed().then(contract => contract.employeeSignsToESOP()).then(
             success => {
                 return new Promise((resolve, reject) => {
-                    if(success.logs[0].event == "EmployeeSignedToESOP") {
+                    if (success.logs[0].event == "EmployeeSignedToESOP") {
                         resolve(success);
                     } else {
                         reject(success);

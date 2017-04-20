@@ -28,7 +28,34 @@ export default class Init extends React.Component {
         let employeesListAddress = this.state.EmployeesListAddress;
         let totalPoolOptions = parseInt(this.state.totalPoolOptions);
         let ESOPLegalWrapperIPFSHash = web3.toBigNumber('0x' + new Buffer(this.state.ESOPLegalWrapperIPFSHash, 'ascii').toString('hex'));
-        this.services.ESOPService.openESOP(optionsCalculatorAddress, employeesListAddress, totalPoolOptions, ESOPLegalWrapperIPFSHash);
+
+        this.store.dispatch({
+            type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+            confirmTransactionDialog: true
+        });
+
+        this.services.ESOPService.openESOP(optionsCalculatorAddress, employeesListAddress, totalPoolOptions, ESOPLegalWrapperIPFSHash).then(
+            success => {
+                this.services.ESOPService.getESOPDataFromContract();
+                this.services.ESOPService.obtainContractAddreses();
+                this.store.dispatch({
+                    type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                    confirmTransactionDialog: false
+                });
+            },
+            error => {
+                this.store.dispatch({
+                    type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                    confirmTransactionDialog: false
+                });
+
+                this.store.dispatch({
+                    type: "SHOW_ERROR_DIALOG",
+                    errorDialog: true
+                });
+                console.log(error);
+            }
+        );
     };
 
     render() {
