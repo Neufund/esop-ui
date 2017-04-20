@@ -232,7 +232,7 @@ export default class ContractComService {
             from: userState.userPK
         });
 
-        this.ESOPContractAbstr.deployed().then(contract => {
+        return this.ESOPContractAbstr.deployed().then(contract => {
                 if (extraOptions == 0) {
                     return contract.offerOptionsToEmployee(
                         employeePublicKey,
@@ -249,12 +249,17 @@ export default class ContractComService {
                 }
             }
         ).then(
-            result => {
-                console.log(result);
-                this.getESOPDataFromContract();
+            success => {
+                return new Promise((resolve, reject) => {
+                    if(success.logs[0].event == "EmployeeSignedToESOP") {
+                        resolve(success);
+                    } else {
+                        reject(success);
+                    }
+                });
             },
             error => {
-                console.log(error);
+                return Promise.reject(error);
             }
         );
     }
