@@ -1,7 +1,6 @@
 import React from 'react';
 import './Esop.scss';
 
-import chart from '../images/esop_chart.jpg';
 import paperContract from '../images/contract.png';
 
 import EmployeeList from '../components/EmployeeList'
@@ -16,7 +15,6 @@ import ConvertOptions from '../components/ConvertOptions'
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton'
 import IconButton from 'material-ui/IconButton';
-import {Tabs, Tab} from 'material-ui/Tabs';
 import Dialog from 'material-ui/Dialog';
 
 export default class Esop extends React.Component {
@@ -104,17 +102,9 @@ export default class Esop extends React.Component {
                         </div>
 
                         <div className="row">
-                            <Tabs>
-                                <Tab label="Parameters">
-                                    <ContractParameters contractParameters={ESOPState}
-                                                        onClickTap={this.handlePaperContractOpen}/>
-                                </Tab>
-                                <Tab label="Visualisation">
-                                    <div className="col-xs-12">
-                                        <img className="contract_chart" src={chart}/>
-                                    </div>
-                                </Tab>
-                            </Tabs>
+                            <div className="col-xs-12">
+                                <ContractParameters contractParameters={ESOPState} onClickTap={this.handlePaperContractOpen}/>
+                            </div>
                         </div>
 
                         <div className="row">
