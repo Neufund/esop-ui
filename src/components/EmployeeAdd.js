@@ -6,7 +6,6 @@ import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 
-
 export default class EmployeeAdd extends React.Component {
 
     constructor(props) {
@@ -74,10 +73,7 @@ export default class EmployeeAdd extends React.Component {
                 console.log(error);
             }
         );
-
-
     };
-
 
     render() {
         return (
@@ -96,15 +92,13 @@ export default class EmployeeAdd extends React.Component {
                                onChange={(event, newValue) => this.setState({timeToSign: newValue})}/>
                     <Checkbox label="Use extra options" checked={this.state.extraOptions}
                               onCheck={this.handleExtraOptionsCheckbox}/>
-                    {
-                        this.state.extraOptions &&
-                        <div>
-                            <TextField floatingLabelText="extra options" className="employee_parameter"
-                                       value={this.state.extraOptionsNumber}
-                                       onChange={(event, newValue) => this.setState({extraOptionsNumber: newValue})}/>
-                        </div>
+                    {this.state.extraOptions &&
+                    <div>
+                        <TextField floatingLabelText="extra options" className="employee_parameter"
+                                   value={this.state.extraOptionsNumber}
+                                   onChange={(event, newValue) => this.setState({extraOptionsNumber: newValue})}/>
+                    </div>
                     }
-
                     <RaisedButton label="Add employee" onClick={this.handleAddUserButton}/>
                 </div>
             </div>
