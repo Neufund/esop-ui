@@ -1,5 +1,4 @@
 import React from 'react';
-import './EmployeeAdd.scss';
 
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';

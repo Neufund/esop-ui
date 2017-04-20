@@ -1,5 +1,4 @@
 import React from 'react';
-import './EmployeeDetails.scss';
 
 import EmployeeSignESOP from './EmployeeSignESOP'
 
