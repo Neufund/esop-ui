@@ -12,6 +12,7 @@ export default class EmployeeAdd extends React.Component {
     constructor(props) {
         super(props);
         this.services = props.services;
+        this.store = props.store;
 
         this.state = {
             employeePublicKey: '',
@@ -20,7 +21,6 @@ export default class EmployeeAdd extends React.Component {
             extraOptionsNumber: ''
         }
     }
-
 
     handleExtraOptionsCheckbox = (event, isInputChecked) => {
         this.setState({extraOptions: isInputChecked});
@@ -40,6 +40,11 @@ export default class EmployeeAdd extends React.Component {
             extraOptionsNumber = 0;
         }
 
+        this.store.dispatch({
+            type: "SHOW_NANO_CONFIRM_TRANSACTION_DIALOG",
+            nanoConfirmTransactionDialog: true
+        });
+
         this.services.ESOPService.addEmployee(employeePublicKey, issueDate, timeToSign, extraOptionsNumber).then(
             success => {
                 this.services.ESOPService.getESOPDataFromContract();
@@ -49,9 +54,23 @@ export default class EmployeeAdd extends React.Component {
                     extraOptions: false,
                     timeToSign: "15",
                     extraOptionsNumber: ''
-                })
+                });
+                this.store.dispatch({
+                    type: "SHOW_NANO_CONFIRM_TRANSACTION_DIALOG",
+                    nanoConfirmTransactionDialog: false
+                });
             },
             error => {
+
+                this.store.dispatch({
+                    type: "SHOW_NANO_CONFIRM_TRANSACTION_DIALOG",
+                    nanoConfirmTransactionDialog: false
+                });
+
+                this.store.dispatch({
+                    type: "SHOW_ERROR_DIALOG",
+                    errorDialog: true
+                });
                 console.log(error);
             }
         );

@@ -81,6 +81,7 @@ export default class Esop extends React.Component {
             <div className="row">
                 <div className="col-xs-12 col-md-10 col-md-offset-1">
                     <div className="esop">
+
                         <div className="row">
                             <div className="col-xs-12 col-md-3">
                                 <h1>Neufund ESOP details</h1>
@@ -130,7 +131,7 @@ export default class Esop extends React.Component {
                         </div>
 
                         {userState.userType == "ceo" &&
-                        <EmployeeAdd services={this.services}/>
+                        <EmployeeAdd services={this.services} store={this.store}/>
                         }
 
                         <div className="row">

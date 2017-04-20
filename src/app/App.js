@@ -3,6 +3,7 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import muiTheme from '../muiTheme';
 import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 import './App.scss';
 import Header from '../ui/Header'
@@ -26,6 +27,13 @@ export default class App extends React.Component {
         this.unsubscribe();
     }
 
+    handleCloseErrorDialog = () => {
+        this.store.dispatch({
+            type: "SHOW_ERROR_DIALOG",
+            errorDialog: false
+        });
+    };
+
     render() {
         let ESOPstate = this.store.getState().ESOP;
         let UIstate = this.store.getState().UI;
@@ -41,16 +49,34 @@ export default class App extends React.Component {
             }
         }
 
+        let closeActions = [<FlatButton label="I get it" onTouchTap={this.handleCloseErrorDialog}/>];
+
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <Header store={this.store}/>
                     {componentToRender}
+
                     <Dialog
                         title="Please confirm account on your nano"
                         modal={true}
                         open={UIstate.nanoConfirmAccountDialog}>
                         Handle timeout - timer and then instruction to disconnect and F5
+                    </Dialog>
+
+                    <Dialog
+                        title="Please confirm transaction on your nano"
+                        modal={true}
+                        open={UIstate.nanoConfirmTransactionDialog}>
+                        Confirm transaction on your nano and wait for network to mine
+                    </Dialog>
+
+                    <Dialog
+                        title="Ups we have a problem"
+                        modal={true}
+                        open={UIstate.errorDialog}
+                        actions={closeActions}>
+                        You can see error in console but you should contact someone from tech team.
                     </Dialog>
                 </div>
             </MuiThemeProvider>
