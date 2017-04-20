@@ -20,13 +20,6 @@ export default class Header extends React.Component {
         this.unsubscribe();
     }
 
-    userTypeButtonClick = userType => {
-        return () => this.store.dispatch({
-            type: "SET_USER_TYPE_DEV",
-            userType: userType
-        });
-    };
-
     render() {
         let userState = this.store.getState().user;
         return (
@@ -53,19 +46,6 @@ export default class Header extends React.Component {
                     </div>
                 </div>
                 }
-
-                <div className="row ">
-                    <div className="col-xs-12 col-md-10 col-md-offset-1 devMenu">
-                        <div>
-                            <FlatButton disabled={userState.userType == "anonymous"} label="anonymous"
-                                        onClick={this.userTypeButtonClick("anonymous")}/>
-                            <FlatButton disabled={userState.userType == "ceo"} label="ceo"
-                                        onClick={this.userTypeButtonClick("ceo")}/>
-                            <FlatButton disabled={userState.userType == "employee"} label="employee"
-                                        onClick={this.userTypeButtonClick("employee")}/>
-                        </div>
-                    </div>
-                </div>
             </div>
         )
     }

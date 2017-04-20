@@ -29,12 +29,6 @@ export default (state = {userType: "anonymous", userPK: undefined}, action) => {
             }
             return {...state, userType: "anonymous"};
             break;
-        case "SET_USER_TYPE_DEV":
-            return {
-                ...state,
-                userType: action.userType
-            };
-            break;
         default:
             return state;
     }
