@@ -1,6 +1,7 @@
 import React from 'react';
-import ContractUtils from '../ContractUtils'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import moment from 'moment'
+import ContractUtils from '../ContractUtils'
 
 export default class Init extends React.Component {
     constructor(props) {
@@ -38,18 +39,13 @@ export default class Init extends React.Component {
         let ESOPState = this.store.getState().ESOP;
         let employeeList = ESOPState.employees;
         let allowUserSelection = userState.userType == 'ceo';
+        let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
 
         return (
             <div>
                 <h3>Employee list:</h3>
-                <Table
-                    selectable={allowUserSelection}
-                    onRowSelection={this.handleRowSelection}
-                >
-                    <TableHeader
-                        displaySelectAll={false}
-                        adjustForCheckbox={false}
-                    >
+                <Table selectable={allowUserSelection} onRowSelection={this.handleRowSelection}>
+                    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                         <TableRow>
                             <TableHeaderColumn>Public key</TableHeaderColumn>
                             <TableHeaderColumn>Issue date</TableHeaderColumn>
@@ -58,22 +54,18 @@ export default class Init extends React.Component {
                             <TableHeaderColumn>Pool options</TableHeaderColumn>
                             <TableHeaderColumn>Suspended at</TableHeaderColumn>
                             <TableHeaderColumn>State</TableHeaderColumn>
-
                         </TableRow>
                     </TableHeader>
-                    <TableBody
-                        displayRowCheckbox={false}
-                        stripedRows={false} //TODO: there is problem with colors - same for selected row and stripped row fix it before turning on
-                        deselectOnClickaway={false}
-                    >
+                    //TODO: there is problem with colors - same for selected row and stripped row fix it before turning on
+                    <TableBody displayRowCheckbox={false} stripedRows={false} deselectOnClickaway={false}>
                         {employeeList.map((row, index) => (
                             <TableRow key={index}>
                                 <TableRowColumn>{row.address}</TableRowColumn>
-                                <TableRowColumn>{row.issueDate}</TableRowColumn>
-                                <TableRowColumn>{row.terminatedAt}</TableRowColumn>
-                                <TableRowColumn>{row.fadeoutStarts}</TableRowColumn>
+                                <TableRowColumn>{moment.unix(row.issueDate).format(dateFormat)}</TableRowColumn>
+                                <TableRowColumn>{row.terminatedAt != 0 ? moment.unix(row.terminatedAt).format(dateFormat) : "-"}</TableRowColumn>
+                                <TableRowColumn>{row.fadeoutStarts != 0 ? moment.unix(row.fadeoutStarts).format(dateFormat) : "-"}</TableRowColumn>
                                 <TableRowColumn>{row.poolOptions}</TableRowColumn>
-                                <TableRowColumn>{row.suspendedAt}</TableRowColumn>
+                                <TableRowColumn>{row.suspendedAt != 0 ? moment.unix(row.suspendedAt).format(dateFormat) : "-"}</TableRowColumn>
                                 <TableRowColumn>{ContractUtils.getEmployeeStateName(row.state)}</TableRowColumn>
                             </TableRow>
                         ))}

@@ -1,8 +1,8 @@
 import React from 'react';
 import './ContractParameters.scss';
-
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton'
+import {humanReadableDuration} from '../utils'
 
 export default ({contractParameters, onClickTap}) => {
     return (
@@ -15,9 +15,9 @@ export default ({contractParameters, onClickTap}) => {
             <div className="row">
                 <div className="col-xs-12 contract_parameters">
                     <TextField floatingLabelText="cliff period" className="contract_parameter"
-                               value={contractParameters.cliffPeriod} disabled={true}/>
+                               value={humanReadableDuration(contractParameters.cliffPeriod)} disabled={true}/>
                     <TextField floatingLabelText="vesting period" className="contract_parameter"
-                               value={contractParameters.vestingPeriod} disabled={true}/>
+                               value={humanReadableDuration(contractParameters.vestingPeriod)} disabled={true}/>
                     <TextField floatingLabelText="max fadeout promille" className="contract_parameter"
                                value={contractParameters.maxFadeoutPromille} disabled={true}/>
                     <TextField floatingLabelText="bonus options promille" className="contract_parameter"
@@ -29,10 +29,11 @@ export default ({contractParameters, onClickTap}) => {
                     <TextField floatingLabelText="strike price" className="contract_parameter"
                                value={contractParameters.strikePrice} disabled={true}/>
                     <TextField floatingLabelText="wait for sign period" className="contract_parameter"
-                               value={contractParameters.minimumManualSignPeriod} disabled={true}/>
+                               value={humanReadableDuration(contractParameters.minimumManualSignPeriod)} disabled={true}/>
                     <RaisedButton label="Show Paper Contract" className="contract_parameter" onTouchTap={onClickTap}/>
                 </div>
             </div>
         </div>
     )
 };
+

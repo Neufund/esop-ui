@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 const failableCallback = (resolve, reject) => {
     return (error, data) => {
         if (error) {
@@ -54,6 +56,17 @@ const makeCancelable = (promise) => {
     };
 };
 
+/**
+ * Reuturn duration in human readable format
+ * @param {int} timeDuration - Unix time
+ * @returns {String}
+ */
+function humanReadableDuration(timeDuration) {
+    let duration = moment.duration(timeDuration * 1000);
+    return duration.asDays() + ' days';
+}
+
 export {
+    humanReadableDuration,
     toPromise
 }

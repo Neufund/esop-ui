@@ -84,14 +84,14 @@ export default class ContractComService {
 
     parseESOPData = data => {
         return {
-            totalPoolOptions: data[0].toString(),
+            totalPoolOptions: data[0].toNumber(),
             ESOPLegalWrapperIPFSHash: data[1].toString(),
-            minimumManualSignPeriod: data[2].toString(),
-            remainingPoolOptions: data[3].toString(),
+            minimumManualSignPeriod: data[2].toNumber(),
+            remainingPoolOptions: data[3].toNumber(),
             esopState: data[4].toNumber(),
-            totalExtraOptions: data[5].toString(),
-            conversionOfferedAt: data[6].toString(),
-            exerciseOptionsDeadline: data[7].toString(),
+            totalExtraOptions: data[5].toNumber(),
+            conversionOfferedAt: data[6].toNumber(),
+            exerciseOptionsDeadline: data[7].toNumber(),
         };
     };
 
@@ -110,13 +110,13 @@ export default class ContractComService {
 
     perseOptionsData = data => {
         return {
-            cliffPeriod: data[0].toString(),
-            vestingPeriod: data[1].toString(),
-            maxFadeoutPromille: data[2].toString(),
-            bonusOptionsPromille: data[3].toString(),
-            newEmployeePoolPromille: data[4].toString(),
-            optionsPerShare: data[5].toString(),
-            strikePrice: data[6].toString(),
+            cliffPeriod: data[0].toNumber(),
+            vestingPeriod: data[1].toNumber(),
+            maxFadeoutPromille: data[2].toNumber(),
+            bonusOptionsPromille: data[3].toNumber(),
+            newEmployeePoolPromille: data[4].toNumber(),
+            optionsPerShare: data[5].toNumber(),
+            strikePrice: data[6].toNumber(),
         };
     };
 
@@ -149,13 +149,13 @@ export default class ContractComService {
         return data.filter(employee => parseInt(employee.address, 16) != 0).map((employee) => {
             return {
                 address: employee.address,
-                issueDate: employee.data[0].toString(), // when vesting starts
-                timeToSign: employee.data[1].toString(), // wait for employee signature until that time
-                terminatedAt: employee.data[2].toString(), // date when employee was terminated, 0 for not terminated
-                fadeoutStarts: employee.data[3].toString(),
+                issueDate: employee.data[0].toNumber(), // when vesting starts
+                timeToSign: employee.data[1].toNumber(), // wait for employee signature until that time
+                terminatedAt: employee.data[2].toNumber(), // date when employee was terminated, 0 for not terminated
+                fadeoutStarts: employee.data[3].toNumber(),
                 poolOptions: employee.data[4].toString(), // poolOptions employee gets (exit bonus not included)
                 extraOptions: employee.data[5].toString(),
-                suspendedAt: employee.data[6].toString(), // time at which employee got suspended, 0 - not suspended
+                suspendedAt: employee.data[6].toNumber(), // time at which employee got suspended, 0 - not suspended
                 state: employee.data[7].toNumber(), // (0)NotSet, (1)WaitingForSignature, (2)Employed, (3)Terminated, (4)OptionsExercised
             }
         });
