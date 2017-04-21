@@ -66,7 +66,7 @@ export default class Init extends React.Component {
                     </div>
                 </div>
 
-           <div className="row">
+                <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
                         <h2>ESOP contract addresses</h2>
                         <TextField floatingLabelText="RoT contract address" value={ESOPState.RoTAddress}
