@@ -36,6 +36,7 @@ export default class App extends React.Component {
     render() {
         let ESOPstate = this.store.getState().ESOP;
         let UIstate = this.store.getState().UI;
+        let userState = this.store.getState().user;
 
         let componentToRender;
         if (ESOPstate.waitingForData) {
@@ -53,7 +54,7 @@ export default class App extends React.Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
-                    <Header store={this.store}/>
+                    <Header userPK={userState.userPK} userType={userState.userType}/>
                     {componentToRender}
 
                     <Dialog
