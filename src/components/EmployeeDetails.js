@@ -1,6 +1,7 @@
 import React from 'react';
 
 import EmployeeSignESOP from './EmployeeSignESOP'
+import EmployeeESOPDetails from './EmployeeESOPDetails'
 
 import RaisedButton from 'material-ui/RaisedButton'
 
@@ -61,12 +62,14 @@ export default class EmployeeDetails extends React.Component {
                 <div className="row">
                     <div className="col-xs-12">
                         <h2>Employee details:</h2>
-
                         <p>Hello {userState.userPK}</p>
                     </div>
                 </div>
                 {employee.state == 1 &&
                 <EmployeeSignESOP employee={employee} ESOPState={ESOPState} signHandler={this.signEmployeeHandler}/>
+                }
+                {employee.state > 1 &&
+                <EmployeeESOPDetails employee={employee} ESOPState={ESOPState}/>
                 }
             </div>
         )
