@@ -1,9 +1,10 @@
 import React from 'react';
 import './EmployeeListDetails.scss';
-
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
+import ContractUtils from '../ContractUtils'
+import moment from 'moment'
 
 export default class EmployeeListDetails extends React.Component {
     constructor(props) {
@@ -120,25 +121,27 @@ export default class EmployeeListDetails extends React.Component {
         let showSuspendButton = employee.state == 1 || employee.state == 2; // WaitingForSignature or Employed
         let showTerminateButtons = employee.state < 3; // not Terminated  and not OptionsExercised
 
+        let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
+
         return (
             <div className="employee_details">
                 <h3>Employee details:</h3>
                 <TextField floatingLabelText="Issue date" className="employee_parameter"
-                           value={employee.issueDate} disabled={true}/>
+                           value={moment.unix(employee.issueDate).format(dateFormat)} disabled={true}/>
                 <TextField floatingLabelText="Time to sign" className="employee_parameter"
-                           value={employee.timeToSign} disabled={true}/>
+                           value={employee.timeToSign != 0 ? moment.unix(employee.timeToSign).format(dateFormat) : "-"} disabled={true}/>
                 <TextField floatingLabelText="Terminated at" className="employee_parameter"
-                           value={employee.terminatedAt} disabled={true}/>
+                           value={employee.terminatedAt != 0 ? moment.unix(employee.terminatedAt).format(dateFormat) : "-"} disabled={true}/>
                 <TextField floatingLabelText="Fadeout starts" className="employee_parameter"
-                           value={employee.fadeoutStarts} disabled={true}/>
+                           value={employee.fadeoutStarts != 0 ? moment.unix(employee.fadeoutStarts).format(dateFormat) : "-"} disabled={true}/>
                 <TextField floatingLabelText="Pool options" className="employee_parameter"
                            value={employee.poolOptions} disabled={true}/>
                 <TextField floatingLabelText="Extra options" className="employee_parameter"
                            value={employee.extraOptions} disabled={true}/>
                 <TextField floatingLabelText="Suspened at" className="employee_parameter"
-                           value={employee.suspendedAt} disabled={true}/>
+                           value={employee.suspendedAt != 0 ? moment.unix(employee.suspendedAt).format(dateFormat) : "-"} disabled={true}/>
                 <TextField floatingLabelText="State" className="employee_parameter"
-                           value={employee.state} disabled={true}/>
+                           value={ContractUtils.getEmployeeStateName(employee.state)} disabled={true}/>
                 <br />
                 {showSuspendButton &&
                 <RaisedButton label={toggleSuspendButtonLabel} onTouchTap={this.handleToggleSuspendButton}/>
