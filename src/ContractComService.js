@@ -2,10 +2,10 @@ import {web3} from './web3';
 import contractBuilder from "truffle-contract"
 
 //TODO: actually we need just ABI contracts here - find way to provide those during build process
-import RoTDef from '/home/banciur/projects/neufund/ESOP/build/contracts/RoT.json'
-import ESOPDef from '/home/banciur/projects/neufund/ESOP/build/contracts/ESOP.json'
-import EmployeesListDef from '/home/banciur/projects/neufund/ESOP/build/contracts/EmployeesList.json'
-import OptionsCalculatorDef from '/home/banciur/projects/neufund/ESOP/build/contracts/OptionsCalculator.json'
+import RoTDef from '../../ESOP/build/contracts/RoT.json'
+import ESOPDef from '../../ESOP/build/contracts/ESOP.json'
+import EmployeesListDef from '../../ESOP/build/contracts/EmployeesList.json'
+import OptionsCalculatorDef from '../../ESOP/build/contracts/OptionsCalculator.json'
 
 export default class ContractComService {
     constructor(store) {
