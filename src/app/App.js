@@ -5,7 +5,7 @@ import muiTheme from '../muiTheme';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
-import Header from '../ui/Header'
+import Header from '../components/Header'
 import Esop from './Esop'
 import Waiting from './Waiting'
 import Init from './Init'
