@@ -8,7 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Header from '../components/Header'
 import Esop from './Esop'
 import Waiting from './Waiting'
-import Init from './Init'
+import OpenESOP from './OpenESOP'
 
 export default class App extends React.Component {
 
@@ -43,7 +43,7 @@ export default class App extends React.Component {
             componentToRender = <Waiting/>
         } else {
             if (ESOPstate.esopState == 0) {
-                componentToRender = <Init store={this.store} services={this.services}/>
+                componentToRender = <OpenESOP store={this.store} services={this.services}/>
             } else {
                 componentToRender = <Esop store={this.store} services={this.services}/>
             }
