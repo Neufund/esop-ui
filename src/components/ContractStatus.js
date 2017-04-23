@@ -22,7 +22,7 @@ export default ({contractState}) => {
                             <TableRowColumn>{contractState.remainingPoolOptions}</TableRowColumn>
                         </TableRow>
                         <TableRow>
-                            <TableRowColumn>total extra options</TableRowColumn>
+                            <TableRowColumn>Extra options issued</TableRowColumn>
                             <TableRowColumn>{contractState.totalExtraOptions}</TableRowColumn>
                         </TableRow>
                         <TableRow>
