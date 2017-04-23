@@ -161,15 +161,19 @@ export default class ContractComService {
         });
     };
 
+    getNewEmployeePoolOptions = remainingPoolOptions => this.OptionsCalculatorContract
+        .then(contract => contract.calcNewEmployeePoolOptions(remainingPoolOptions));
+
     async obtainESOPData() {
         let companyAddress = this.getCompanyAddress(this.RoTContract);
-        let ESOPData = this.getESOPData().then(result => this.parseESOPData(result));
+        let ESOPData = await this.getESOPData().then(result => this.parseESOPData(result));
         let OptionsData = this.getOptionsData().then(result => this.perseOptionsData(result));
         let employees = this.getEmployeesList(this.EmployeesListContract).then(result => this.parseEmployeesList(result));
+        ESOPData.newEmployeePoolOption = await this.getNewEmployeePoolOptions(ESOPData.remainingPoolOptions);
 
         return {
             companyAddress: await companyAddress,
-            ESOPData: await ESOPData,
+            ESOPData: ESOPData,
             OptionsData: await OptionsData,
             employees: await employees
         }
