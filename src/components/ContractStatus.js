@@ -15,6 +15,14 @@ export default ({contractState}) => {
                             <TableRowColumn>{ContractUtils.getESOPStateName(contractState.esopState)}</TableRowColumn>
                         </TableRow>
                         <TableRow>
+                            <TableRowColumn>Employees in esop</TableRowColumn>
+                            <TableRowColumn>{contractState.employees.length}</TableRowColumn>
+                        </TableRow>
+                        <TableRow>
+                            <TableRowColumn>Total pool options</TableRowColumn>
+                            <TableRowColumn>{contractState.totalPoolOptions}</TableRowColumn>
+                        </TableRow>
+                        <TableRow>
                             <TableRowColumn>Remaning pool options</TableRowColumn>
                             <TableRowColumn>{contractState.remainingPoolOptions}</TableRowColumn>
                         </TableRow>
