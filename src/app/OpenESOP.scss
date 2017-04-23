@@ -1,13 +1,15 @@
 .new_esop {
 
-  .contract_parameters {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
   .contract_parameter {
     min-width: 17.07rem;
+    margin-right: 1rem;
+  }
+
+  .paramter_wrapper {
+    display: inline-block;
+  }
+
+  .material-icons {
     margin-right: 1rem;
   }
 
@@ -16,8 +18,7 @@
     margin-bottom: 2rem;
   }
 
-  .validate_button{
+  .validate_button {
     margin-left: 2rem;
   }
-
 }
