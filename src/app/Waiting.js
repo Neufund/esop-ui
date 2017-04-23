@@ -20,8 +20,8 @@ export default () => {
                         status="loading"
                         style={{
                             position: "relative",
-                            "margin-left": "auto",
-                            "margin-right": "auto"
+                            "marginLeft": "auto",
+                            "marginRight": "auto"
                         }}
                     />
                 </div>
