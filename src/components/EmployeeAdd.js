@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
+import FontIcon from 'material-ui/FontIcon';
 
 export default class EmployeeAdd extends React.Component {
 
@@ -79,25 +80,35 @@ export default class EmployeeAdd extends React.Component {
             <div className="row">
                 <div className="col-xs-12 employee_add">
                     <h3>Add employee:</h3>
+                    <TextField floatingLabelText="pool options for new employee" className="employee_parameter"
+                               value={this.store.getState().ESOP.newEmployeePoolOption}
+                               disabled={true}/>
+                    <br />
                     <TextField floatingLabelText="public key" className="employee_parameter"
                                value={this.state.employeePublicKey}
                                onChange={(event, newValue) => this.setState({employeePublicKey: newValue})}
                                style={{width: "32.000rem"}}/>
-                    <DatePicker hintText="ESOP issue date" mode="landscape"
+
+                    {this.state.employeePublicKey != '' &&
+                    <a target="_blank" href={`https://etherscan.io/address/${this.state.employeePublicKey}`}>
+                        <FontIcon className="material-icons">link</FontIcon>
+                    </a>
+                    }
+
+
+                    <DatePicker hintText="issue date" mode="landscape"
                                 value={this.state.issueDate}
                                 onChange={(event, newValue) => this.setState({issueDate: newValue})}/>
                     <TextField floatingLabelText="time to sign [days]" className="employee_parameter"
                                value={this.state.timeToSign}
                                onChange={(event, newValue) => this.setState({timeToSign: newValue})}/>
-                    <Checkbox label="Use extra options" checked={this.state.extraOptions}
+                    <Checkbox label="issue extra options" checked={this.state.extraOptions}
                               onCheck={this.handleExtraOptionsCheckbox}/>
-                    {this.state.extraOptions &&
-                    <div>
-                        <TextField floatingLabelText="extra options" className="employee_parameter"
-                                   value={this.state.extraOptionsNumber}
-                                   onChange={(event, newValue) => this.setState({extraOptionsNumber: newValue})}/>
-                    </div>
-                    }
+                    <TextField floatingLabelText="extra options number" className="employee_parameter"
+                               disabled={!this.state.extraOptions}
+                               value={this.state.extraOptionsNumber}
+                               onChange={(event, newValue) => this.setState({extraOptionsNumber: newValue})}/>
+                    <br />
                     <RaisedButton label="Add employee" onClick={this.handleAddUserButton}/>
                 </div>
             </div>
