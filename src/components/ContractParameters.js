@@ -28,8 +28,6 @@ export default ({contractParameters, isCEO, onClickTap}) => {
                                value={contractParameters.totalPoolOptions} disabled={true}/>
                     <TextField floatingLabelText="strike price" className="contract_parameter"
                                value={contractParameters.strikePrice} disabled={true}/>
-                    <TextField floatingLabelText="wait for sign period" className="contract_parameter"
-                               value={humanReadableDuration(contractParameters.minimumManualSignPeriod)} disabled={true}/>
                     {isCEO &&
                         <RaisedButton label="Show Paper Contract" className="contract_parameter"
                                       onTouchTap={onClickTap}/>
