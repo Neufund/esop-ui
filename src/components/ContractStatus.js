@@ -10,7 +10,7 @@ export default ({contractState}) => {
     return (
         <div className="row">
             <div className="col-xs-12">
-                <h2 className="contracts_stats">Contract state:</h2>
+                <h2 className="contracts_stats">Contract status:</h2>
                 <Table selectable={false}>
                     <TableBody displayRowCheckbox={false}>
                         <TableRow >
