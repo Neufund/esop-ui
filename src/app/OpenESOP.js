@@ -37,46 +37,96 @@ export default class Init extends React.Component {
         let validationOutcome = value === '' ? "please fill this field" : "";
 
         if (validationOutcome == "") {
-            let int = parseInt(value);
-            if (int < 0)
-                validationOutcome = 'number must be higher than zero';
+            let num = parseInt(value);
+            if (isNaN(num))
+                validationOutcome = 'value us not a number';
+            else if (num <= 0)
+                validationOutcome = 'value must be bigger than zero';
         }
         this.setState({totalPoolOptionsValidation: validationOutcome});
         return validationOutcome;
     };
 
     validateCliffPeriod = (value) => {
-        let validationOutcome = value === "" ? "please fill this field" : "";
+        let validationOutcome = value === '' ? "please fill this field" : "";
+
+        if (validationOutcome == "") {
+            let num = parseInt(value);
+            if (isNaN(num))
+                validationOutcome = 'value us not a number';
+            else if (num <= 0)
+                validationOutcome = 'time period must be bigger than zero';
+        }
         this.setState({cliffPeriodValidation: validationOutcome});
         return validationOutcome;
     };
 
     validateVestingPeriod = (value) => {
-        let validationOutcome = value === "" ? "please fill this field" : "";
+        let validationOutcome = value === '' ? "please fill this field" : "";
+
+        if (validationOutcome == "") {
+            let num = parseInt(value);
+            if (isNaN(num))
+                validationOutcome = 'value us not a number';
+            else if (num <= 0)
+                validationOutcome = 'time period must be bigger than zero';
+        }
         this.setState({vestingPeriodValidation: validationOutcome});
         return validationOutcome;
     };
 
     validateResidualAmount = (value) => {
-        let validationOutcome = value === "" ? "please fill this field" : "";
+        let validationOutcome = value === '' ? "please fill this field" : "";
+
+        if (validationOutcome == "") {
+            let num = parseInt(value);
+            if (isNaN(num))
+                validationOutcome = 'value us not a number';
+            else if (num <= 0)
+                validationOutcome = 'value must be bigger than zero';
+        }
         this.setState({residualAmountValidation: validationOutcome});
         return validationOutcome;
     };
 
     validateBonusOptions = (value) => {
-        let validationOutcome = value === "" ? "please fill this field" : "";
+        let validationOutcome = value === '' ? "please fill this field" : "";
+
+        if (validationOutcome == "") {
+            let num = parseInt(value);
+            if (isNaN(num))
+                validationOutcome = 'value us not a number';
+            else if (num <= 0)
+                validationOutcome = 'value must be bigger than zero';
+        }
         this.setState({bonusOptionsValidation: validationOutcome});
         return validationOutcome;
     };
 
     validateNewEmployeePool = (value) => {
-        let validationOutcome = value === "" ? "please fill this field" : "";
+        let validationOutcome = value === '' ? "please fill this field" : "";
+
+        if (validationOutcome == "") {
+            let num = parseInt(value);
+            if (isNaN(num))
+                validationOutcome = 'value us not a number';
+            else if (num <= 0)
+                validationOutcome = 'value must be bigger than zero';
+        }
         this.setState({newEmployeePoolValidation: validationOutcome});
         return validationOutcome;
     };
 
     validateOptionsPerShare = (value) => {
-        let validationOutcome = value === "" ? "please fill this field" : "";
+        let validationOutcome = value === '' ? "please fill this field" : "";
+
+        if (validationOutcome == "") {
+            let num = parseInt(value);
+            if (isNaN(num))
+                validationOutcome = 'value us not a number';
+            else if (num <= 0)
+                validationOutcome = 'value must be bigger than zero';
+        }
         this.setState({optionsPerShareValidation: validationOutcome});
         return validationOutcome;
     };
