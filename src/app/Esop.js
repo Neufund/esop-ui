@@ -9,6 +9,7 @@ import EmployeeListDetails from '../components/EmployeeListDetails'
 import EmployeeDetails from '../components/EmployeeDetails'
 import ContractAddresses from '../components/ContractAddresses'
 import ContractStatus from '../components/ContractStatus'
+import ConversionStatus from '../components/ConversionStatus'
 import ContractParameters from '../components/ContractParameters'
 import ConvertOptions from '../components/ConvertOptions'
 
@@ -88,6 +89,10 @@ export default class Esop extends React.Component {
                         }
 
                         <ContractStatus contractState={ESOPState}/>
+
+                        {ESOPState.conversionOfferedAt != 0 &&
+                        <ConversionStatus contractState={ESOPState}/>
+                        }
                         <ContractAddresses RoTAddress={ESOPState.RoTAddress} ESOPAddress={ESOPState.ESOPAddress}/>
                         <ContractParameters contractParameters={ESOPState} isCEO={userState.userType == "ceo"} onClickTap={this.handlePaperContractOpen}/>
 
