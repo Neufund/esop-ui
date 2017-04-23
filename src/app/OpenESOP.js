@@ -165,13 +165,9 @@ export default class Init extends React.Component {
     handleOpenEsopButton = () => {
 
         this.setState({allowValidation: true});
-        let formIsValid = this.validateFields();
-
-        if (!formIsValid) {
+        if (!this.validateFields()) {
             return;
         }
-        console.log('open esop');
-        return;
 
         let year = 365 * 24 * 60 * 60;
 
@@ -189,7 +185,7 @@ export default class Init extends React.Component {
             confirmTransactionDialog: true
         });
 
-        this.services.ESOPService.openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash, cliffPeriod, vestingPeriod,
+        this.services.ESOPService.initEsop(totalPoolOptions, ESOPLegalWrapperIPFSHash, cliffPeriod, vestingPeriod,
             residualAmount, bonusOptions, newEmployeePool, optionsPerShare).then(
             success => {
                 this.services.ESOPService.getESOPDataFromContract();
@@ -306,8 +302,7 @@ export default class Init extends React.Component {
                     </div>
                 </div>
 
-                {//userState.userType != "ceo" ?
-                    userState.userType == "cos" ?
+                {userState.userType != "ceo" ?
                         <div className="row">
                             <div className="col-xs-12 col-md-10 col-md-offset-1">
                                 <h3>Please use company account to open ESOP</h3>

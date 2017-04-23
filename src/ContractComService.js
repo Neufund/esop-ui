@@ -193,6 +193,13 @@ export default class ContractComService {
         });
     }
 
+    initEsop(totalPoolOptions, ESOPLegalWrapperIPFSHash,cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare ) {
+        return Promise.all([
+            this.openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash),
+            this.setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare)
+        ]);
+    }
+
     /**
      *
      * @param {int} totalPoolOptions
@@ -217,6 +224,33 @@ export default class ContractComService {
                             reject(success);
                         }
                     });
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
+    }
+
+    setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare) {
+        let userState = this.store.getState().user;
+
+        this.OptionsCalculatorAbstr.defaults({
+            from: userState.userPK
+        });
+
+        return this.OptionsCalculatorAbstr.deployed()
+            .then(contract => contract.setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare))
+            .then(
+                success => {
+                    return Promise.resolve(success);
+                    /* TODO: add return value to logs of OptionsCalculator.setParameters
+                    return new Promise((resolve, reject) => {
+                        if (success.logs[0].event == "xxx") {
+                            resolve(success);
+                        } else {
+                            reject(success);
+                        }
+                    });*/
                 },
                 error => {
                     return Promise.reject(error);
