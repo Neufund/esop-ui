@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton'
 import {humanReadableDuration} from '../utils'
 
-export default ({contractParameters, onClickTap}) => {
+export default ({contractParameters, isCEO, onClickTap}) => {
     return (
         <div>
             <div className="row">
@@ -30,7 +30,10 @@ export default ({contractParameters, onClickTap}) => {
                                value={contractParameters.strikePrice} disabled={true}/>
                     <TextField floatingLabelText="wait for sign period" className="contract_parameter"
                                value={humanReadableDuration(contractParameters.minimumManualSignPeriod)} disabled={true}/>
-                    <RaisedButton label="Show Paper Contract" className="contract_parameter" onTouchTap={onClickTap}/>
+                    {isCEO &&
+                        <RaisedButton label="Show Paper Contract" className="contract_parameter"
+                                      onTouchTap={onClickTap}/>
+                    }
                 </div>
             </div>
         </div>

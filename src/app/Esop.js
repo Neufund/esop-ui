@@ -89,7 +89,7 @@ export default class Esop extends React.Component {
 
                         <ContractAddresses RoTAddress={ESOPState.RoTAddress} ESOPAddress={ESOPState.ESOPAddress}/>
                         <ContractState contractState={ESOPState}/>
-                        <ContractParameters contractParameters={ESOPState} onClickTap={this.handlePaperContractOpen}/>
+                        <ContractParameters contractParameters={ESOPState} isCEO={userState.userType == "ceo"} onClickTap={this.handlePaperContractOpen}/>
 
                         <div className="row">
                             <div className="col-xs-12">
