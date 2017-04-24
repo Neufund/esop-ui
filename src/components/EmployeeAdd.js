@@ -117,7 +117,7 @@ export default class EmployeeAdd extends React.Component {
                 this.services.ESOPService.getESOPDataFromContract();
                 this.setState({
                     employeePublicKey: '',
-                    issueDate: undefined,
+                    issueDate: new Date(),
                     extraOptions: false,
                     timeToSign: "15",
                     extraOptionsNumber: ''
