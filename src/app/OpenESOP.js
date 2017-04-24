@@ -297,9 +297,16 @@ export default class Init extends React.Component {
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
                         <h2>ESOP contract addresses</h2>
                         <TextField floatingLabelText="Root of Trust" value={ESOPState.RoTAddress}
-                                   style={{width: "32.000rem"}} disabled={true}/> <br />
+                                   style={{width: "32.000rem"}} disabled={true}/>
+                        <a target="_blank" href={`https://etherscan.io/address/${ESOPState.RoTAddress}`}>
+                            <FontIcon className="material-icons">link</FontIcon>
+                        </a>
+                        <br />
                         <TextField floatingLabelText="ESOP smart contract" value={ESOPState.ESOPAddress}
-                                   style={{width: "32.000rem"}} disabled={true}/> <br />
+                                   style={{width: "32.000rem"}} disabled={true}/>
+                        <a target="_blank" href={`https://etherscan.io/address/${ESOPState.ESOPAddress}`}>
+                            <FontIcon className="material-icons">link</FontIcon>
+                        </a>
                     </div>
                 </div>
 
