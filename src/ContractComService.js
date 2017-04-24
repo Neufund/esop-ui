@@ -153,8 +153,8 @@ export default class ContractComService {
                 timeToSign: employee.data[1].toNumber(), // wait for employee signature until that time
                 terminatedAt: employee.data[2].toNumber(), // date when employee was terminated, 0 for not terminated
                 fadeoutStarts: employee.data[3].toNumber(),
-                poolOptions: employee.data[4].toString(), // poolOptions employee gets (exit bonus not included)
-                extraOptions: employee.data[5].toString(),
+                poolOptions: employee.data[4].toNumber(), // poolOptions employee gets (exit bonus not included)
+                extraOptions: employee.data[5].toNumber(),
                 suspendedAt: employee.data[6].toNumber(), // time at which employee got suspended, 0 - not suspended
                 state: employee.data[7].toNumber(), // (0)NotSet, (1)WaitingForSignature, (2)Employed, (3)Terminated, (4)OptionsExercised
             }
