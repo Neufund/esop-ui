@@ -1,5 +1,6 @@
 import React from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import FontIcon from 'material-ui/FontIcon';
 import moment from 'moment'
 import ContractUtils from '../ContractUtils'
 
@@ -48,24 +49,19 @@ export default class Init extends React.Component {
                         <TableRow>
                             <TableHeaderColumn>Public key</TableHeaderColumn>
                             <TableHeaderColumn>Issue date</TableHeaderColumn>
-                            <TableHeaderColumn>Terminated at</TableHeaderColumn>
-                            <TableHeaderColumn>Fadeout starts</TableHeaderColumn>
-                            <TableHeaderColumn>Pool options</TableHeaderColumn>
-                            <TableHeaderColumn>Suspended at</TableHeaderColumn>
+                            <TableHeaderColumn>Issued options</TableHeaderColumn>
                             <TableHeaderColumn>State</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     //TODO: there is problem with colors - same for selected row and stripped row fix it before turning on
                     <TableBody displayRowCheckbox={false} stripedRows={false} deselectOnClickaway={false}>
-                        {employeeList.map((row, index) => (
+                        {employeeList.map((employee, index) => (
                             <TableRow key={index}>
-                                <TableRowColumn>{row.address}</TableRowColumn>
-                                <TableRowColumn>{moment.unix(row.issueDate).format(dateFormat)}</TableRowColumn>
-                                <TableRowColumn>{row.terminatedAt != 0 ? moment.unix(row.terminatedAt).format(dateFormat) : "-"}</TableRowColumn>
-                                <TableRowColumn>{row.fadeoutStarts != 0 ? moment.unix(row.fadeoutStarts).format(dateFormat) : "-"}</TableRowColumn>
-                                <TableRowColumn>{row.poolOptions}</TableRowColumn>
-                                <TableRowColumn>{row.suspendedAt != 0 ? moment.unix(row.suspendedAt).format(dateFormat) : "-"}</TableRowColumn>
-                                <TableRowColumn>{ContractUtils.getEmployeeStateName(row.state)}</TableRowColumn>
+                                <TableRowColumn><a className="inline_link" target="_blank" href={`https://etherscan.io/address/${employee.address}`}>
+                                    <FontIcon className="material-icons material_icon_table">link</FontIcon></a>{employee.address}</TableRowColumn>
+                                <TableRowColumn>{moment.unix(employee.issueDate).format(dateFormat)}</TableRowColumn>
+                                <TableRowColumn>{employee.poolOptions + employee.extraOptions}</TableRowColumn>
+                                <TableRowColumn>{ContractUtils.getEmployeeStateName(employee.state)}</TableRowColumn>
                             </TableRow>
                         ))}
                     </TableBody>
