@@ -1,4 +1,5 @@
 .employee_details {
+  margin-bottom: 2rem;
 
   .employee_parameter {
     margin-right: 1rem;
@@ -7,5 +8,13 @@
   .contract_chart {
     width: 500px;
     height: auto;
+  }
+
+  .date_picker {
+    margin: 2rem 0;
+  }
+
+  .suspendButton {
+    margin-top: 2rem;
   }
 }

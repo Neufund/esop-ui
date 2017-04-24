@@ -13,7 +13,7 @@ export default class EmployeeListDetails extends React.Component {
         this.services = props.services;
 
         this.state = {
-            terminateDate: new Date
+            terminateDate: new Date()
         };
     }
 
@@ -95,6 +95,12 @@ export default class EmployeeListDetails extends React.Component {
                         confirmTransactionDialog: false
                     });
                     this.setState({terminateDate: undefined});
+
+                    this.store.dispatch({
+                        type: "SET_SELECTED_USER",
+                        selectedUser: undefined
+                    });
+
                 },
                 error => {
                     this.store.dispatch({
@@ -113,6 +119,7 @@ export default class EmployeeListDetails extends React.Component {
     };
 
     render() {
+        let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
         let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
@@ -122,39 +129,75 @@ export default class EmployeeListDetails extends React.Component {
         let showTerminateButtons = employee.state < 3; // not Terminated  and not OptionsExercised
 
         let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
+        let todayUnixTime = new Date() / 1000;
 
+        let showTimeToSign = false;
+        let timeToSignValue;
+
+
+        if(employee.state < 2) { // 0: Not set; 1: Waiting for signature
+            showTimeToSign = true;
+
+            if (employee.timeToSign > todayUnixTime) {
+                timeToSignValue = moment.unix(employee.timeToSign).format(dateFormat);
+            } else {
+                timeToSignValue = "expired"
+            }
+        }
         return (
             <div className="employee_details">
                 <h3>Employee details:</h3>
+
+                <p>
+                    Employee address: {employee.address}
+                </p>
+                <div>
+                    <RaisedButton label="Show agreement"/>
+                </div>
+
                 <TextField floatingLabelText="Issue date" className="employee_parameter"
                            value={moment.unix(employee.issueDate).format(dateFormat)} disabled={true}/>
-                <TextField floatingLabelText="Time to sign" className="employee_parameter"
-                           value={employee.timeToSign != 0 ? moment.unix(employee.timeToSign).format(dateFormat) : "-"} disabled={true}/>
-                <TextField floatingLabelText="Terminated at" className="employee_parameter"
-                           value={employee.terminatedAt != 0 ? moment.unix(employee.terminatedAt).format(dateFormat) : "-"} disabled={true}/>
-                <TextField floatingLabelText="Fadeout starts" className="employee_parameter"
-                           value={employee.fadeoutStarts != 0 ? moment.unix(employee.fadeoutStarts).format(dateFormat) : "-"} disabled={true}/>
+
+                {showTimeToSign &&
+                <TextField floatingLabelText="Time to sign" className="employee_parameter" value={timeToSignValue}
+                           disabled={true}/>
+                }
+
+                {employee.terminatedAt != 0 &&
+                    <TextField floatingLabelText="Terminated at" className="employee_parameter"
+                               value={moment.unix(employee.terminatedAt).format(dateFormat)} disabled={true}/>
+                }
+
                 <TextField floatingLabelText="Pool options" className="employee_parameter"
                            value={employee.poolOptions} disabled={true}/>
+
                 <TextField floatingLabelText="Extra options" className="employee_parameter"
                            value={employee.extraOptions} disabled={true}/>
+
+                {employee.suspendedAt != 0 &&
                 <TextField floatingLabelText="Suspened at" className="employee_parameter"
-                           value={employee.suspendedAt != 0 ? moment.unix(employee.suspendedAt).format(dateFormat) : "-"} disabled={true}/>
+                           value={moment.unix(employee.suspendedAt).format(dateFormat)} disabled={true}/>
+                }
+
                 <TextField floatingLabelText="State" className="employee_parameter"
                            value={ContractUtils.getEmployeeStateName(employee.state)} disabled={true}/>
                 <br />
-                {showSuspendButton &&
-                <RaisedButton label={toggleSuspendButtonLabel} onTouchTap={this.handleToggleSuspendButton}/>
-                }
-                {showTerminateButtons &&
-                <div>
-                    <DatePicker hintText="Terminate date" mode="landscape"
-                                onChange={(event, newValue) => this.setState({terminateDate: newValue})}/>
-                    <RaisedButton label="Terminate"
-                                  onTouchTap={this.handleTerminateUserButton("BadLeaver")}/>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <RaisedButton label="Good will terminate"
-                                  onTouchTap={this.handleTerminateUserButton("Regular")}/>
-                </div>
+                {userState.userType == "ceo" &&
+                    <div>
+                        {showSuspendButton &&
+                        <RaisedButton className="suspendButton" label={toggleSuspendButtonLabel} onTouchTap={this.handleToggleSuspendButton}/>
+                        }
+                        {showTerminateButtons &&
+                        <div>
+                            <DatePicker hintText="Terminate date" mode="landscape" className="date_picker"
+                                        value={this.state.terminateDate}
+                                        onChange={(event, newValue) => this.setState({terminateDate: newValue})}/>
+                            <RaisedButton label="Bad Leaver" onTouchTap={this.handleTerminateUserButton("BadLeaver")}/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <RaisedButton label="Terminate" onTouchTap={this.handleTerminateUserButton("Regular")}/>
+                        </div>
+                        }
+                    </div>
                 }
             </div>
         )
