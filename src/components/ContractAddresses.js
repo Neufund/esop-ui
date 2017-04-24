@@ -14,15 +14,17 @@ export default ({RoTAddress, ESOPAddress}) => {
                             <TableRow >
                                 <TableRowColumn>Root of trust</TableRowColumn>
                                 <TableRowColumn>
-                                    <FontIcon className="material-icons copy_icon">content_copy</FontIcon>
                                     {RoTAddress}
+                                    <a className="inline_link" target="_blank" href={`https://etherscan.io/address/${RoTAddress}`}>
+                                        <FontIcon className="material-icons material_icon_table">link</FontIcon></a>
                                 </TableRowColumn>
                             </TableRow>
                             <TableRow>
                                 <TableRowColumn>ESOP contract</TableRowColumn>
                                 <TableRowColumn>
-                                    <FontIcon className="material-icons copy_icon">content_copy</FontIcon>
                                     {ESOPAddress}
+                                    <a className="inline_link" target="_blank" href={`https://etherscan.io/address/${RoTAddress}`}>
+                                        <FontIcon className="material-icons material_icon_table">link</FontIcon></a>
                                 </TableRowColumn>
                             </TableRow>
                         </TableBody>
