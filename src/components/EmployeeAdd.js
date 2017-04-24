@@ -13,13 +13,78 @@ export default class EmployeeAdd extends React.Component {
         this.services = props.services;
         this.store = props.store;
 
+        this.miniSignPeriod = Math.floor(this.store.getState().ESOP.minimumManualSignPeriod / this.day) + 1;
+
         this.state = {
-            employeePublicKey: '',
+            allowValidation: false,
+            employeePublicKey: "",
+            employeePublicKeyValidation: "",
+            issueDate: new Date(),
             extraOptions: false,
-            timeToSign: "15",
-            extraOptionsNumber: ''
+            timeToSign: this.miniSignPeriod.toString(),
+            timeToSignValidation: "",
+            extraOptionsNumber: "",
+            extraOptionsNumberValidation: ""
         }
     }
+
+    day = 24 * 60 * 60;
+
+    validatePublicKey = (value) => {
+        let validationOutcome = value === '' ? "please fill this field" : "";
+        this.setState({employeePublicKeyValidation: validationOutcome});
+        return validationOutcome;
+    };
+
+    validateTimeToSign = (value) => {
+        let validationOutcome = value === '' ? "please fill this field" : "";
+
+        if (validationOutcome == "") {
+            let num = parseInt(value);
+            if (isNaN(num))
+                validationOutcome = 'value us not a number';
+            else if (num < this.miniSignPeriod)
+                validationOutcome = `value must be bigger than ${this.miniSignPeriod - 1}`;
+        }
+        this.setState({timeToSignValidation: validationOutcome});
+        return validationOutcome;
+    };
+
+    validateExtraOptions = (value) => {
+
+        if (!this.state.extraOptions) // we do not validate if extra options checkbox is not checked
+            return "";
+
+        let validationOutcome = value === '' ? "please fill this field" : "";
+
+        if (validationOutcome == "") {
+            let num = parseInt(value);
+            if (isNaN(num))
+                validationOutcome = 'value us not a number';
+            else if (num <= 0)
+                validationOutcome = 'value must be bigger than zero';
+        }
+        this.setState({extraOptionsNumberValidation: validationOutcome});
+        return validationOutcome;
+    };
+
+    handleTextFieldChange = (fieldName, validateFunction) =>
+        (event, newValue) => {
+            let obj = {};
+            obj[fieldName] = newValue;
+            this.setState(obj);
+            if (this.state.allowValidation) {
+                validateFunction(newValue);
+            }
+        };
+
+    validateFields = () => {
+        let validateEmployeePublicKey = this.validatePublicKey(this.state.employeePublicKey) == "";
+        let validateTimeToSign = this.validateTimeToSign(this.state.timeToSign) == "";
+        let validateExtraOptionsNumber = this.validateExtraOptions(this.state.extraOptionsNumber) == "";
+
+        return validateEmployeePublicKey && validateTimeToSign && validateExtraOptionsNumber
+    };
 
     handleExtraOptionsCheckbox = (event, isInputChecked) => {
         this.setState({extraOptions: isInputChecked});
@@ -27,11 +92,14 @@ export default class EmployeeAdd extends React.Component {
 
     handleAddUserButton = () => {
 
-        const day = 24 * 60 * 60;
+        this.setState({allowValidation: true});
+        if (!this.validateFields()) {
+            return;
+        }
 
         let employeePublicKey = this.state.employeePublicKey;
         let issueDate = Math.floor(this.state.issueDate / 1000);
-        let timeToSign = Math.floor(new Date() / 1000) + day * parseInt(this.state.timeToSign);
+        let timeToSign = Math.floor(new Date() / 1000) + this.day * parseInt(this.state.timeToSign);
         let grantExtraOptions = this.state.extraOptions;
         let extraOptionsNumber = parseInt(this.state.extraOptionsNumber);
 
@@ -76,18 +144,48 @@ export default class EmployeeAdd extends React.Component {
     };
 
     render() {
+
+        let textFieldsProps = {};
+        textFieldsProps.employeePublicKey = {
+            floatingLabelText: "public key",
+            className: "employee_parameter",
+            value: this.state.employeePublicKey,
+            onChange: this.handleTextFieldChange("employeePublicKey", this.validatePublicKey),
+            style:{width: "32.000rem"}
+        };
+
+        textFieldsProps.timeToSign = {
+            floatingLabelText: "time to sign [days]",
+            className: "employee_parameter",
+            value: this.state.timeToSign,
+            onChange: this.handleTextFieldChange("timeToSign", this.validateTimeToSign)
+        };
+
+        textFieldsProps.extraOptionsNumber = {
+            floatingLabelText: "extra options number",
+            className: "employee_parameter",
+            value: this.state.extraOptionsNumber,
+            onChange: this.handleTextFieldChange("extraOptionsNumber", this.validateExtraOptions),
+            disabled: !this.state.extraOptions
+        };
+
+        if (this.state.allowValidation) {
+            textFieldsProps.employeePublicKey.errorText = this.state.employeePublicKeyValidation;
+            textFieldsProps.timeToSign.errorText = this.state.timeToSignValidation;
+            textFieldsProps.extraOptionsNumber.errorText = this.state.extraOptionsNumberValidation;
+        }
+
         return (
             <div className="row">
                 <div className="col-xs-12 employee_add">
                     <h3>Add employee:</h3>
+
                     <TextField floatingLabelText="pool options for new employee" className="employee_parameter"
                                value={this.store.getState().ESOP.newEmployeePoolOption}
                                disabled={true}/>
                     <br />
-                    <TextField floatingLabelText="public key" className="employee_parameter"
-                               value={this.state.employeePublicKey}
-                               onChange={(event, newValue) => this.setState({employeePublicKey: newValue})}
-                               style={{width: "32.000rem"}}/>
+
+                    <TextField {...textFieldsProps.employeePublicKey}/>
 
                     {this.state.employeePublicKey != '' &&
                     <a target="_blank" href={`https://etherscan.io/address/${this.state.employeePublicKey}`}>
@@ -95,19 +193,16 @@ export default class EmployeeAdd extends React.Component {
                     </a>
                     }
 
-
                     <DatePicker hintText="issue date" mode="landscape"
                                 value={this.state.issueDate}
                                 onChange={(event, newValue) => this.setState({issueDate: newValue})}/>
-                    <TextField floatingLabelText="time to sign [days]" className="employee_parameter"
-                               value={this.state.timeToSign}
-                               onChange={(event, newValue) => this.setState({timeToSign: newValue})}/>
+
+                    <TextField {...textFieldsProps.timeToSign}/>
+
                     <Checkbox label="issue extra options" checked={this.state.extraOptions}
                               onCheck={this.handleExtraOptionsCheckbox}/>
-                    <TextField floatingLabelText="extra options number" className="employee_parameter"
-                               disabled={!this.state.extraOptions}
-                               value={this.state.extraOptionsNumber}
-                               onChange={(event, newValue) => this.setState({extraOptionsNumber: newValue})}/>
+
+                    <TextField {...textFieldsProps.extraOptionsNumber}/>
                     <br />
                     <RaisedButton label="Add employee" onClick={this.handleAddUserButton}/>
                 </div>
