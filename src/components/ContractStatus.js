@@ -1,7 +1,6 @@
 import React from 'react';
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import ContractUtils from '../ContractUtils'
-import {humanReadableDuration} from '../utils'
 
 export default ({contractState}) => {
     return (
