@@ -112,7 +112,7 @@ export default class Esop extends React.Component {
                             </div>
                         </div>
 
-                        {(userState.userType == "ceo" && UIState.selectedUser != undefined) &&
+                        {(UIState.selectedUser != undefined) &&
                         <div className="row">
                             <div className="col-xs-12 ">
                                 <EmployeeListDetails store={this.store} services={this.services}/>

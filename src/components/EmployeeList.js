@@ -17,7 +17,7 @@ export default class Init extends React.Component {
         this.unsubscribe();
     }
 
-    handleRowSelection = (index) => {
+    handleRowSelection = index => {
         let selectedEmployee;
 
         if (index[0] != undefined) {
@@ -38,13 +38,12 @@ export default class Init extends React.Component {
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
         let employeeList = ESOPState.employees;
-        let allowUserSelection = userState.userType == 'ceo';
         let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
 
         return (
             <div>
                 <h3>Employee list:</h3>
-                <Table selectable={allowUserSelection} onRowSelection={this.handleRowSelection}>
+                <Table onRowSelection={this.handleRowSelection}>
                     <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                         <TableRow>
                             <TableHeaderColumn>Public key</TableHeaderColumn>
