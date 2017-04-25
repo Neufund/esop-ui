@@ -19,12 +19,12 @@ export default ({contractParameters, isCEO, onClickTap}) => {
                                value={humanReadableDuration(contractParameters.cliffPeriod)} disabled={true}/>
                     <TextField floatingLabelText="vesting period" className="contract_parameter"
                                value={humanReadableDuration(contractParameters.vestingPeriod)} disabled={true}/>
-                    <TextField floatingLabelText="max fadeout promille" className="contract_parameter"
-                               value={contractParameters.maxFadeoutPromille} disabled={true}/>
-                    <TextField floatingLabelText="bonus options promille" className="contract_parameter"
-                               value={contractParameters.bonusOptionsPromille} disabled={true}/>
-                    <TextField floatingLabelText="new employee pool promille" className="contract_parameter"
-                               value={contractParameters.newEmployeePoolPromille} disabled={true}/>
+                    <TextField floatingLabelText="max fadeout" className="contract_parameter"
+                               value={`${contractParameters.maxFadeoutPromille / 100}%`} disabled={true}/>
+                    <TextField floatingLabelText="bonus options" className="contract_parameter"
+                               value={`${contractParameters.bonusOptionsPromille / 100}%`} disabled={true}/>
+                    <TextField floatingLabelText="new employee pool" className="contract_parameter"
+                               value={`${contractParameters.newEmployeePoolPromille / 100}%`} disabled={true}/>
                     <TextField floatingLabelText="total pool options" className="contract_parameter"
                                value={numberFormatter.format(contractParameters.totalPoolOptions)} disabled={true}/>
                     <TextField floatingLabelText="strike price" className="contract_parameter"
