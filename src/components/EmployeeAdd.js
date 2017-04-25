@@ -147,12 +147,13 @@ export default class EmployeeAdd extends React.Component {
         let numberFormatter = new Intl.NumberFormat();
 
         let textFieldsProps = {};
+
         textFieldsProps.employeePublicKey = {
             floatingLabelText: "public key",
             className: "employee_parameter",
             value: this.state.employeePublicKey,
             onChange: this.handleTextFieldChange("employeePublicKey", this.validatePublicKey),
-            style:{width: "32.000rem"}
+            style: {width: "32.000rem"}
         };
 
         textFieldsProps.timeToSign = {
@@ -170,6 +171,13 @@ export default class EmployeeAdd extends React.Component {
             disabled: !this.state.extraOptions
         };
 
+        textFieldsProps.poolOptionsNumber = {
+            floatingLabelText: "pool options for new employee",
+            className: "employee_parameter",
+            disabled: true,
+            value: numberFormatter.format(this.store.getState().ESOP.newEmployeePoolOption)
+        };
+
         if (this.state.allowValidation) {
             textFieldsProps.employeePublicKey.errorText = this.state.employeePublicKeyValidation;
             textFieldsProps.timeToSign.errorText = this.state.timeToSignValidation;
@@ -180,11 +188,6 @@ export default class EmployeeAdd extends React.Component {
             <div className="row">
                 <div className="col-xs-12 employee_add">
                     <h3>Add employee:</h3>
-
-                    <TextField floatingLabelText="pool options for new employee" className="employee_parameter"
-                               value={numberFormatter(this.store.getState().ESOP.newEmployeePoolOption)}
-                               disabled={true}/>
-                    <br />
 
                     <TextField {...textFieldsProps.employeePublicKey}/>
 
@@ -200,10 +203,15 @@ export default class EmployeeAdd extends React.Component {
 
                     <TextField {...textFieldsProps.timeToSign}/>
 
-                    <Checkbox label="issue extra options" checked={this.state.extraOptions}
+                    <Checkbox label="issue extra options instead of pool options" checked={this.state.extraOptions}
                               onCheck={this.handleExtraOptionsCheckbox}/>
 
-                    <TextField {...textFieldsProps.extraOptionsNumber}/>
+                    {this.state.extraOptions ?
+                        <TextField {...textFieldsProps.extraOptionsNumber}/>
+                        :
+                        <TextField {...textFieldsProps.poolOptionsNumber}/>
+                    }
+
                     <br />
                     <RaisedButton label="Add employee" onClick={this.handleAddUserButton}/>
                 </div>
