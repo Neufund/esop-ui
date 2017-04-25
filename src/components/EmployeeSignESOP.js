@@ -54,16 +54,16 @@ export default ({employee, ESOPState, signHandler}) => {
             value: humanReadableDuration(ESOPState.cliffPeriod)
         },
         {
-            title: "Bonus Options",
-            value: ESOPState.bonusOptionsPromille
+            title: "Bonus Options [%]",
+            value: ESOPState.bonusOptionsPromille / 100
         },
         {
             title: "Fade Out Period",
-            value: <b>soon</b>
+            value: "Employment period"
         },
         {
-            title: "Residual amount",
-            value: <b>soon</b>
+            title: "Residual amount [%]",
+            value: ESOPState.residualAmountPromille / 100
         },
         {
             title: "Time to accept Option-Offer",
