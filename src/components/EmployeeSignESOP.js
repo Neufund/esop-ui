@@ -4,7 +4,7 @@ import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton'
 import './EmployeeSignESOP.scss'
 import ContractUtils from '../ContractUtils'
-import {humanReadableDuration} from '../utils'
+import {epochAsYears} from '../utils'
 import moment from 'moment'
 
 export default ({employee, ESOPState, signHandler}) => {
@@ -47,11 +47,11 @@ export default ({employee, ESOPState, signHandler}) => {
         },
         {
             title: "Vesting Period",
-            value: humanReadableDuration(ESOPState.vestingPeriod)
+            value: epochAsYears(ESOPState.vestingPeriod)
         },
         {
             title: "Cliff period",
-            value: humanReadableDuration(ESOPState.cliffPeriod)
+            value: epochAsYears(ESOPState.cliffPeriod)
         },
         {
             title: "Bonus Options",
