@@ -6,23 +6,23 @@ export default ({contractState}) => {
     let numberFormatter = new Intl.NumberFormat();
     let table = [
         {
-            desc: "ESOP state",
+            title: "ESOP state",
             value: ContractUtils.getESOPStateName(contractState.esopState)
         },
         {
-            desc: "Employees in ESOP",
+            title: "Employees in ESOP",
             value: contractState.employees.length
         },
         {
-            desc: "Total pool options",
+            title: "Total pool options",
             value: numberFormatter.format(contractState.totalPoolOptions)
         },
         {
-            desc: "Remaning pool options",
+            title: "Remaning pool options",
             value: numberFormatter.format(contractState.remainingPoolOptions)
         },
         {
-            desc: "Extra options issued",
+            title: "Extra options issued",
             value: numberFormatter.format(contractState.totalExtraOptions)
         }
     ];
@@ -35,7 +35,7 @@ export default ({contractState}) => {
                     <TableBody displayRowCheckbox={false}>
                         {table.map((row, index) =>
                             <TableRow key={index}>
-                                <TableRowColumn>{row.desc}</TableRowColumn>
+                                <TableRowColumn>{row.title}</TableRowColumn>
                                 <TableRowColumn>{row.value}</TableRowColumn>
                             </TableRow>
                         )}

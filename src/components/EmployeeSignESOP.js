@@ -11,62 +11,81 @@ export default ({employee, ESOPState, signHandler}) => {
     let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
     let numberFormatter = new Intl.NumberFormat();
 
+    /* If you want to use HTML elements you need to wrap them in div. Reason is you are writing code in JSX which is
+        later transpiled into JS.
+        ex. desc: <div>I want to use &lt;br /&gt; <br /> element</div>
+     */
+
     let table = [
         {
-            desc: "Public Key (Ethereum Address of Employee)",
+            title: "Public Key (Ethereum Address of Employee)",
+            desc: <div>I want to use &lt;br /&gt; <br /> element</div>,
             value: <div>{employee.address} <a key={1} className="inline_link" target="_blank"
                                               href={`https://etherscan.io/address/${employee.address}`}>
                 <FontIcon className="material-icons material_icon_table">link</FontIcon></a></div>
         },
         {
-            desc: "Issued Options",
+            title: "Issued Options",
             value: numberFormatter.format(employee.poolOptions + employee.extraOptions)
         },
         {
-            desc: "Pool Options",
+            title: "Pool Options",
             value: numberFormatter.format(employee.poolOptions)
         },
         {
-            desc: "Extra Options",
+            title: "Extra Options",
+            desc: "Long description - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
             value: numberFormatter.format(employee.extraOptions)
         },
         {
-            desc: "Strike price",
+            title: "Strike price",
             value: `EUR ${ESOPState.strikePrice} per share`
         },
         {
-            desc: "Issue Date",
+            title: "Issue Date",
             value: moment.unix(employee.issueDate).format(dateFormat)
         },
         {
-            desc: "Vesting Period",
+            title: "Vesting Period",
             value: humanReadableDuration(ESOPState.vestingPeriod)
         },
         {
-            desc: "Cliff period",
+            title: "Cliff period",
             value: humanReadableDuration(ESOPState.cliffPeriod)
         },
         {
-            desc: "Bonus Options",
+            title: "Bonus Options",
             value: ESOPState.bonusOptionsPromille
         },
         {
-            desc: "Fade Out Period",
+            title: "Fade Out Period",
             value: <b>soon</b>
         },
         {
-            desc: "Residual amount",
+            title: "Residual amount",
             value: <b>soon</b>
         },
         {
-            desc: "Time to accept Option-Offer",
+            title: "Time to accept Option-Offer",
             value: moment.unix(employee.timeToSign).format(dateFormat)
         },
         {
-            desc: "EMPLOYEE STATUS",
+            title: "EMPLOYEE STATUS",
             value: ContractUtils.getEmployeeStateName(employee.state)
         }
     ];
+
+    let cellClickHandler = (rowNumber, columnId) => {
+        let element = document.getElementById(`desc${rowNumber}`);
+        if (element != null) {
+            if (element.style.display == "" || element.style.display == "none") {
+                element.style.display = "block";
+            }
+            else {
+                element.style.display = "";
+            }
+        }
+    };
 
     return (
         <div className="employee_sign_esop">
@@ -77,11 +96,22 @@ export default ({employee, ESOPState, signHandler}) => {
                            href={`https://etherscan.io/address/${ESOPState.companyAddress}`}>
                             <FontIcon className="material-icons">link</FontIcon></a></h3>
                     <h4>ESOP Subscription Form</h4>
-                    <Table selectable={false}>
+                    <Table selectable={false} onCellClick={cellClickHandler}>
                         <TableBody displayRowCheckbox={false}>
                             {table.map((row, index) =>
                                 <TableRow key={index}>
-                                    <TableRowColumn>{row.desc}</TableRowColumn>
+                                    <TableRowColumn>
+                                        {row.desc == undefined ?
+                                            row.title
+                                            :
+                                            <div>
+                                                <div className="title">
+                                                    {row.title}<FontIcon className="material-icons">info_outline</FontIcon>
+                                                </div>
+                                                <div className="description" id={`desc${index}`}>{row.desc}</div>
+                                            </div>
+                                        }
+                                    </TableRowColumn>
                                     <TableRowColumn>{row.value}</TableRowColumn>
                                 </TableRow>
                             )}
