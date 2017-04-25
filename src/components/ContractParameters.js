@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import {humanReadableDuration} from '../utils'
 
 export default ({contractParameters, isCEO, onClickTap}) => {
+    let numberFormatter = new Intl.NumberFormat();
     return (
         <div>
             <div className="row">
@@ -25,7 +26,7 @@ export default ({contractParameters, isCEO, onClickTap}) => {
                     <TextField floatingLabelText="new employee pool promille" className="contract_parameter"
                                value={contractParameters.newEmployeePoolPromille} disabled={true}/>
                     <TextField floatingLabelText="total pool options" className="contract_parameter"
-                               value={contractParameters.totalPoolOptions} disabled={true}/>
+                               value={numberFormatter.format(contractParameters.totalPoolOptions)} disabled={true}/>
                     <TextField floatingLabelText="strike price" className="contract_parameter"
                                value={contractParameters.strikePrice} disabled={true}/>
                     {isCEO &&

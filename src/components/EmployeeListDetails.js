@@ -119,6 +119,7 @@ export default class EmployeeListDetails extends React.Component {
     };
 
     render() {
+        let numberFormatter = new Intl.NumberFormat();
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
@@ -147,13 +148,8 @@ export default class EmployeeListDetails extends React.Component {
         return (
             <div className="employee_details">
                 <h3>Employee details:</h3>
-
-                <p>
-                    Employee address: {employee.address}
-                </p>
-                <div>
-                    <RaisedButton label="Show agreement"/>
-                </div>
+                <p>Employee address: {employee.address}</p>
+                <div><RaisedButton label="Show agreement"/></div>
 
                 <TextField floatingLabelText="Issue date" className="employee_parameter"
                            value={moment.unix(employee.issueDate).format(dateFormat)} disabled={true}/>
@@ -169,10 +165,10 @@ export default class EmployeeListDetails extends React.Component {
                 }
 
                 <TextField floatingLabelText="Pool options" className="employee_parameter"
-                           value={employee.poolOptions} disabled={true}/>
+                           value={numberFormatter.format(employee.poolOptions)} disabled={true}/>
 
                 <TextField floatingLabelText="Extra options" className="employee_parameter"
-                           value={employee.extraOptions} disabled={true}/>
+                           value={numberFormatter.format(employee.extraOptions)} disabled={true}/>
 
                 {employee.suspendedAt != 0 &&
                 <TextField floatingLabelText="Suspened at" className="employee_parameter"

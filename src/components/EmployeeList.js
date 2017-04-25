@@ -40,6 +40,7 @@ export default class Init extends React.Component {
         let ESOPState = this.store.getState().ESOP;
         let employeeList = ESOPState.employees;
         let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
+        let numberFormatter = new Intl.NumberFormat();
 
         return (
             <div>
@@ -60,7 +61,7 @@ export default class Init extends React.Component {
                                 <TableRowColumn><a className="inline_link" target="_blank" href={`https://etherscan.io/address/${employee.address}`}>
                                     <FontIcon className="material-icons material_icon_table">link</FontIcon></a>{employee.address}</TableRowColumn>
                                 <TableRowColumn>{moment.unix(employee.issueDate).format(dateFormat)}</TableRowColumn>
-                                <TableRowColumn>{employee.poolOptions + employee.extraOptions}</TableRowColumn>
+                                <TableRowColumn>{numberFormatter.format(employee.poolOptions + employee.extraOptions)}</TableRowColumn>
                                 <TableRowColumn>{ContractUtils.getEmployeeStateName(employee.state)}</TableRowColumn>
                             </TableRow>
                         ))}

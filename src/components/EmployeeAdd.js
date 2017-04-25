@@ -144,6 +144,7 @@ export default class EmployeeAdd extends React.Component {
     };
 
     render() {
+        let numberFormatter = new Intl.NumberFormat();
 
         let textFieldsProps = {};
         textFieldsProps.employeePublicKey = {
@@ -181,7 +182,7 @@ export default class EmployeeAdd extends React.Component {
                     <h3>Add employee:</h3>
 
                     <TextField floatingLabelText="pool options for new employee" className="employee_parameter"
-                               value={this.store.getState().ESOP.newEmployeePoolOption}
+                               value={numberFormatter(this.store.getState().ESOP.newEmployeePoolOption)}
                                disabled={true}/>
                     <br />
 
