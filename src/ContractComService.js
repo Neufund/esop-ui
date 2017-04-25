@@ -100,10 +100,11 @@ export default class ContractComService {
             contract.cliffPeriod(), // cliff duration in seconds
             contract.vestingPeriod(), // vesting duration in seconds
             contract.maxFadeoutPromille(), // maximum promille that can fade out
+            contract.residualAmountPromille(), // minimal options after fadeout
             contract.bonusOptionsPromille(), // exit bonus promille
             contract.newEmployeePoolPromille(), // per mille of unassigned poolOptions that new employee gets
             contract.optionsPerShare(), // per mille of unassigned poolOptions that new employee gets
-            contract.strikePrice(), // options strike price
+            contract.strikePrice() // options strike price
         ];
         return Promise.all(dataPromises);
     });
@@ -113,10 +114,11 @@ export default class ContractComService {
             cliffPeriod: data[0].toNumber(),
             vestingPeriod: data[1].toNumber(),
             maxFadeoutPromille: data[2].toNumber(),
-            bonusOptionsPromille: data[3].toNumber(),
-            newEmployeePoolPromille: data[4].toNumber(),
-            optionsPerShare: data[5].toNumber(),
-            strikePrice: data[6].toNumber(),
+            residualAmountPromille: data[3].toNumber(),
+            bonusOptionsPromille: data[4].toNumber(),
+            newEmployeePoolPromille: data[5].toNumber(),
+            optionsPerShare: data[6].toNumber(),
+            strikePrice: data[7].toNumber()
         };
     };
 

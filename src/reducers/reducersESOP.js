@@ -16,6 +16,7 @@ export default (state = {waitingForData: true}, action) => {
                 cliffPeriod: action.cliffPeriod,
                 vestingPeriod: action.vestingPeriod,
                 maxFadeoutPromille: action.maxFadeoutPromille,
+                residualAmountPromille: action.residualAmountPromille,
                 bonusOptionsPromille: action.bonusOptionsPromille,
                 newEmployeePoolPromille: action.newEmployeePoolPromille,
                 totalPoolOptions: action.totalPoolOptions,
