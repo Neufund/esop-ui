@@ -32,7 +32,8 @@ export default (state = {waitingForData: true}, action) => {
                 optionsConverter: action.optionsConverter,
                 employees: action.employees,
                 newEmployeePoolOption: action.newEmployeePoolOption,
-                currentBlockTimestamp: action.currentBlockTimestamp
+                currentBlockTimestamp: action.currentBlockTimestamp,
+                currentBlockHash: action.currentBlockHash
             };
             break;
 

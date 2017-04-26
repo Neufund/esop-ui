@@ -168,12 +168,33 @@ export default class ContractComService {
     getNewEmployeePoolOptions = remainingPoolOptions => this.OptionsCalculatorContract
         .then(contract => contract.calcNewEmployeePoolOptions(remainingPoolOptions));
 
+    getCurrentBlockNumber = () => new Promise((resolve, reject) => {
+        web3.eth.getBlockNumber((error, result) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(result);
+        })
+    });
+
+    getBlockHash = () => new Promise((resolve, reject) => {
+        this.getCurrentBlockNumber().then(blockNumber => {
+            web3.eth.getBlock(blockNumber, false, (error, result) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(result.hash);
+            })
+        })
+    });
+
     async obtainESOPData() {
         let companyAddress = this.getCompanyAddress(this.RoTContract);
         let ESOPData = await this.getESOPData().then(result => this.parseESOPData(result));
         let OptionsData = this.getOptionsData().then(result => this.perseOptionsData(result));
         let employees = this.getEmployeesList(this.EmployeesListContract).then(result => this.parseEmployeesList(result));
         ESOPData.newEmployeePoolOption = (await this.getNewEmployeePoolOptions(ESOPData.remainingPoolOptions)).toNumber();
+        ESOPData.currentBlockHash = await this.getBlockHash();
 
         return {
             companyAddress: await companyAddress,
