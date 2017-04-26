@@ -130,21 +130,20 @@ export default class EmployeeListDetails extends React.Component {
         let showTerminateButtons = employee.state < 3; // not Terminated  and not OptionsExercised
 
         let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
-        let todayUnixTime = new Date() / 1000;
 
         let showTimeToSign = false;
         let timeToSignValue;
 
-
         if(employee.state < 2) { // 0: Not set; 1: Waiting for signature
             showTimeToSign = true;
 
-            if (employee.timeToSign > todayUnixTime) {
+            if (employee.timeToSign > ESOPState.currentBlockTimestamp) {
                 timeToSignValue = moment.unix(employee.timeToSign).format(dateFormat);
             } else {
                 timeToSignValue = "expired"
             }
         }
+        
         return (
             <div className="employee_details">
                 <h3>Employee details:</h3>
