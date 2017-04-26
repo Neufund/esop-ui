@@ -7,7 +7,7 @@ import ContractUtils from '../ContractUtils'
 import {humanReadableDuration} from '../utils'
 import moment from 'moment'
 
-export default ({employee, ESOPState, signHandler}) => {
+export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
     let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
     let numberFormatter = new Intl.NumberFormat();
 
@@ -122,7 +122,7 @@ export default ({employee, ESOPState, signHandler}) => {
             <div className="row">
                 <div className="col-xs-12 buttons">
                     <RaisedButton label="Sign ESOP" onTouchTap={signHandler}/>
-                    <RaisedButton label="Show paper copy"/>
+                    <RaisedButton label="Show paper copy" onTouchTap={showPapelCopeyHandler}/>
                 </div>
             </div>
         </div>

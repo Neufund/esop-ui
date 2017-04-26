@@ -5,6 +5,11 @@ import {web3} from '../web3'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
+import FlatButton from 'material-ui/FlatButton'
+
+import {validateDoc}from '../utils'
+import IPFSDialog from '../components/IPFSDialog';
+
 
 export default class Init extends React.Component {
 
@@ -30,7 +35,9 @@ export default class Init extends React.Component {
             optionsPerShare: '',
             optionsPerShareValidation: '',
             ESOPLegalWrapperIPFSHash: '',
-            ESOPLegalWrapperIPFSHashValidation: ''
+            ESOPLegalWrapperIPFSHashValidation: '',
+            LegalDocument :'',
+            showDocumentDialog:false
         };
     }
 
@@ -163,6 +170,38 @@ export default class Init extends React.Component {
             && validatESOPLegalWrapperIPFSHash;
     };
 
+    handleValidateDoc = () =>{
+        const ESOPLegalWrapperIPFSHash = this.state.ESOPLegalWrapperIPFSHash; //QmXq9u2GPyCv8q9XCMPYtSMBe1WVAjoZidnhjX6P1SbiRt
+
+        validateDoc(ESOPLegalWrapperIPFSHash , (data)=>{
+            this.setState({
+                LegalDocument:data,
+                showDocumentDialog:true
+            });
+        });
+    }
+
+    handleDialogRequestClose=()=>{
+        this.setState({
+            showDocumentDialog: false,
+        });
+    }
+
+    handlePrint = () =>{
+        let mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+        mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(document.getElementById("ifmcontentstoprint").innerHTML);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.print();
+        mywindow.close();
+    }
+
     handleOpenEsopButton = () => {
 
         this.setState({allowValidation: true});
@@ -212,6 +251,25 @@ export default class Init extends React.Component {
     };
 
     render() {
+        const standardActions = (
+            <div>
+                <FlatButton
+                    label="Ok"
+                    primary={true}
+                    onTouchTap={this.handleDialogRequestClose}
+                />
+                <FlatButton
+                    label="PDF"
+                    primary={true}
+                />
+                <FlatButton
+                    label="Print"
+                    primary={true}
+                    onTouchTap={this.handlePrint}
+                />
+            </div>
+        );
+
         let ESOPState = this.store.getState().ESOP;
         let UIstate = this.store.getState().UI;
         let userState = this.store.getState().user;
@@ -286,7 +344,15 @@ export default class Init extends React.Component {
         }
 
         return (
+
             <div className="new_esop">
+                <IPFSDialog
+                    showDocumentDialog={this.state.showDocumentDialog}
+                    handleDialogRequestClose ={this.handleDialogRequestClose}
+                    handlePrint ={this.handlePrint}
+                    LegalDocument={this.state.LegalDocument}
+                />
+
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
                         <h1>New ESOP</h1>
@@ -370,7 +436,8 @@ export default class Init extends React.Component {
                                     <FontIcon className="material-icons">info</FontIcon>
                                 </a>
 
-                                <RaisedButton label="Validate doc" className="validate_button"/>
+                                <RaisedButton label="Validate doc" className="validate_button"
+                                              onTouchTap={this.handleValidateDoc} />
                             </div>
                         </div>
                         <div className="row">

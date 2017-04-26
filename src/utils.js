@@ -1,4 +1,5 @@
 import moment from 'moment'
+import axios from 'axios'
 
 const failableCallback = (resolve, reject) => {
     return (error, data) => {
@@ -65,8 +66,32 @@ function humanReadableDuration(timeDuration) {
     let duration = moment.duration(timeDuration * 1000);
     return duration.asDays() + ' days';
 }
+/**
+ * Todo: Handle the error in IPFSHASH
+ */
+const validateDoc  = function (ESOPLegalWrapperIPFSHash , callback) {
+
+    if (ESOPLegalWrapperIPFSHash)
+        axios.get(`https://ipfs.io/ipfs/${ESOPLegalWrapperIPFSHash}`)
+            .then((response) =>{
+
+                let data = response.data;
+
+                data = data.replace(new RegExp("“" , 'g') , '"');
+                data = data.replace(new RegExp("’" , 'g') , `'`);
+                data = data.replace(new RegExp("‘" , 'g') , `'`);
+                data = data.replace(new RegExp("”" , 'g') , '"');
+
+                callback(data)
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+};
 
 export {
     humanReadableDuration,
+    validateDoc,
     toPromise
 }

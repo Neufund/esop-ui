@@ -124,6 +124,8 @@ export default class EmployeeListDetails extends React.Component {
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
         let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
+        console.log(employee)
+        console.log(ESOPState)
         let toggleSuspendButtonLabel = employee.suspendedAt == 0 ? "Suspend" : "Unsuspend";
 
         let showSuspendButton = employee.state == 1 || employee.state == 2; // WaitingForSignature or Employed
