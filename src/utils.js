@@ -63,9 +63,9 @@ const makeCancelable = (promise) => {
  * @returns {String}
  */
 function epochAsYears(timeDuration) {
-    let duration = moment.duration(timeDuration * 1000);
-    let ret = duration.asYears();
-    return (Math.round(ret * 1000) / 1000) + (ret == 1 ? ' year' : ' years');
+    let year = 365 * 24 * 60 * 60;
+    let ret = Math.round((timeDuration / year) * 1000) / 1000;
+    return ret + (ret == 1 ? ' year' : ' years');
 }
 /**
  * Todo: Handle the error in IPFSHASH
