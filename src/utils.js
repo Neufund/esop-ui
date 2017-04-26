@@ -58,13 +58,14 @@ const makeCancelable = (promise) => {
 };
 
 /**
- * Reuturn duration in human readable format
+ * Reuturn duration of Epoch time in years rounded into 4 digit places
  * @param {int} timeDuration - Unix time
  * @returns {String}
  */
-function humanReadableDuration(timeDuration) {
+function epochAsYears(timeDuration) {
     let duration = moment.duration(timeDuration * 1000);
-    return duration.asDays() + ' days';
+    let ret = duration.asYears();
+    return (Math.round(ret * 1000) / 1000) + (ret == 1 ? ' year' : ' years');
 }
 /**
  * Todo: Handle the error in IPFSHASH
@@ -91,7 +92,7 @@ const validateDoc  = function (ESOPLegalWrapperIPFSHash , callback) {
 };
 
 export {
-    humanReadableDuration,
     validateDoc,
+    epochAsYears,
     toPromise
 }

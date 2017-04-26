@@ -2,7 +2,7 @@ import React from 'react';
 import './ContractParameters.scss';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton'
-import {humanReadableDuration} from '../utils'
+import {epochAsYears} from '../utils'
 
 export default ({contractParameters, isCEO, onClickTap}) => {
     let numberFormatter = new Intl.NumberFormat();
@@ -16,9 +16,9 @@ export default ({contractParameters, isCEO, onClickTap}) => {
             <div className="row">
                 <div className="col-xs-12 contract_parameters">
                     <TextField floatingLabelText="cliff period" className="contract_parameter"
-                               value={humanReadableDuration(contractParameters.cliffPeriod)} disabled={true}/>
+                               value={epochAsYears(contractParameters.cliffPeriod)} disabled={true}/>
                     <TextField floatingLabelText="vesting period" className="contract_parameter"
-                               value={humanReadableDuration(contractParameters.vestingPeriod)} disabled={true}/>
+                               value={epochAsYears(contractParameters.vestingPeriod)} disabled={true}/>
                     <TextField floatingLabelText="max fadeout" className="contract_parameter"
                                value={`${contractParameters.maxFadeoutPromille / 100}%`} disabled={true}/>
                     <TextField floatingLabelText="bonus options" className="contract_parameter"
