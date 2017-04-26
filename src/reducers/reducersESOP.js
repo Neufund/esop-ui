@@ -31,7 +31,8 @@ export default (state = {waitingForData: true}, action) => {
                 exerciseOptionsDeadline: action.exerciseOptionsDeadline,
                 optionsConverter: action.optionsConverter,
                 employees: action.employees,
-                newEmployeePoolOption: action.newEmployeePoolOption
+                newEmployeePoolOption: action.newEmployeePoolOption,
+                currentBlockTimestamp: action.currentBlockTimestamp
             };
             break;
 

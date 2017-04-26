@@ -78,6 +78,7 @@ export default class ContractComService {
             contract.totalExtraOptions(), // how many extra options inserted
             contract.conversionOfferedAt(), // when conversion event happened
             contract.exerciseOptionsDeadline(), // employee conversion deadline
+            contract.currentTime() // point of time from which we have contract state
         ];
         return Promise.all(dataPromises);
     });
@@ -92,6 +93,7 @@ export default class ContractComService {
             totalExtraOptions: data[5].toNumber(),
             conversionOfferedAt: data[6].toNumber(),
             exerciseOptionsDeadline: data[7].toNumber(),
+            currentBlockTimestamp: data[8].toNumber()
         };
     };
 
