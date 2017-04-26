@@ -56,11 +56,10 @@ export default class Init extends React.Component {
     };
 
     validateCliffPeriod = (value) => {
-        value = value.replace(',', '.');
         let validationOutcome = value === '' ? "please fill this field" : "";
 
         if (validationOutcome == "") {
-            let num = Number.parseFloat(value);
+            let num = Number.parseInt(value);
             if (isNaN(num))
                 validationOutcome = 'value us not a number';
             else if (num <= 0)
@@ -71,11 +70,10 @@ export default class Init extends React.Component {
     };
 
     validateVestingPeriod = (value) => {
-        value = value.replace(',', '.');
         let validationOutcome = value === '' ? "please fill this field" : "";
 
         if (validationOutcome == "") {
-            let num = Number.parseFloat(value);
+            let num = Number.parseInt(value);
             if (isNaN(num))
                 validationOutcome = 'value us not a number';
             else if (num <= 0)
@@ -214,8 +212,8 @@ export default class Init extends React.Component {
 
         let totalPoolOptions = parseInt(this.state.totalPoolOptions);
         let ESOPLegalWrapperIPFSHash = web3.toBigNumber('0x' + new Buffer(this.state.ESOPLegalWrapperIPFSHash, 'ascii').toString('hex'));
-        let cliffPeriod = Math.floor(Number.parseFloat(this.state.cliffPeriod.replace(',', '.')) * year);
-        let vestingPeriod = Math.floor(Number.parseFloat(this.state.vestingPeriod.replace(',', '.')) * year);
+        let cliffPeriod = Number.parseInt(this.state.cliffPeriod) * year;
+        let vestingPeriod = Number.parseInt(this.state.vestingPeriod) * year;
         let residualAmount = parseInt(this.state.residualAmount) * 100;
         let bonusOptions = parseInt(this.state.bonusOptions) * 100;
         let newEmployeePool = parseInt(this.state.newEmployeePool) * 100;
