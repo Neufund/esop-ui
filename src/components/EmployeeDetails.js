@@ -81,7 +81,7 @@ export default class EmployeeDetails extends React.Component {
             'cliff-period' : this.timestampToDate(ESOPState.cliffPeriod),
             'bonus-options' : ESOPState.bonusOptionsPromille,
             'time-to-sign' : this.timestampToDate(employee.timeToSign),
-            'curr-block-hash' : '',
+            'curr-block-hash' : ESOPState.currentBlockHash
         };
 
         //ESOPState.ESOPLegalWrapperIPFSHash
