@@ -171,7 +171,7 @@ export default class ContractComService {
         let ESOPData = await this.getESOPData().then(result => this.parseESOPData(result));
         let OptionsData = this.getOptionsData().then(result => this.perseOptionsData(result));
         let employees = this.getEmployeesList(this.EmployeesListContract).then(result => this.parseEmployeesList(result));
-        ESOPData.newEmployeePoolOption = await this.getNewEmployeePoolOptions(ESOPData.remainingPoolOptions);
+        ESOPData.newEmployeePoolOption = (await this.getNewEmployeePoolOptions(ESOPData.remainingPoolOptions)).toNumber();
 
         return {
             companyAddress: await companyAddress,
