@@ -8,13 +8,15 @@ export default ({userPK, userType}) => {
                 <div className="header">
                     ESOP Dapp
                 </div>
-                {userPK != undefined ?
-                    <p>Hello user: {userPK}</p>
+                {userPK !== undefined ?
+                    <p>Hello unknown address: <b>{userPK}</b></p>
                     :
                     <p>Please enable your metamask or plug nano ledger so we can identify you!</p>
                 }
-                {userType != "anonymous" &&
-                <p>Your position: {userType}</p>
+                {userType === "anonymous" ?
+                    <p>If you are Neufund employee, please pass address above to us to be included in ESOP.</p>
+                        :
+                    <p>Your position: {userType}</p>
                 }
             </div>
         </div>
