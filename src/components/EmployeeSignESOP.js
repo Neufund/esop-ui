@@ -121,6 +121,7 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
             </div>
             <div className="row">
                 <div className="col-xs-12 buttons">
+                    I hereby subscribe for the Issued Options for shares in -company- under the terms and conditions as set out in the ESOP Smart Contract at address -sc-address- and made available to me in [title of legal wrapper].
                     <RaisedButton label="Sign ESOP" onTouchTap={signHandler}/>
                     <RaisedButton label="Show paper copy" onTouchTap={showPapelCopeyHandler}/>
                 </div>
