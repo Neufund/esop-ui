@@ -354,7 +354,7 @@ export default class Init extends React.Component {
 
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
-                        <h1>New ESOP</h1>
+                        <h1>ESOP not initialized</h1>
                     </div>
                 </div>
 
@@ -378,14 +378,14 @@ export default class Init extends React.Component {
                 {userState.userType != "ceo" ?
                     <div className="row">
                         <div className="col-xs-12 col-md-10 col-md-offset-1">
-                            <h3>Please use company account to open ESOP</h3>
+                            <h3>Please connect company's Nano Ledger to initialize ESOP.</h3>
                         </div>
                     </div>
                     :
                     <div>
                         <div className="row">
                             <div className="col-xs-12 col-md-10 col-md-offset-1">
-                                <h2>Please fill esop params and open esop</h2>
+                                <h2>Please fill ESOP parameters before employees can be added</h2>
 
                                 <div className="paramter_wrapper">
                                     <TextField {...textFieldsProps.totalPoolOptionsProps}/>
@@ -441,7 +441,7 @@ export default class Init extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-xs-12 col-md-10 col-md-offset-1">
-                                <RaisedButton label="Open ESOP" onClick={this.handleOpenEsopButton}
+                                <RaisedButton label="Initialize ESOP" onClick={this.handleOpenEsopButton}
                                               className="start_button"/>
                             </div>
                         </div>
