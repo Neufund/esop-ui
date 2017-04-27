@@ -349,7 +349,8 @@ export default class Init extends React.Component {
                     showDocumentDialog={this.state.showDocumentDialog}
                     handleDialogRequestClose ={this.handleDialogRequestClose}
                     handlePrint ={this.handlePrint}
-                    LegalDocument={this.state.LegalDocument}
+                    title="Employee Share Option Pool Conditions"
+                    documentHtml={this.state.LegalDocument}
                 />
 
                 <div className="row">

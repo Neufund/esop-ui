@@ -1,11 +1,10 @@
 import React from 'react';
-import './Header.scss';
-import RaisedButton from 'material-ui/RaisedButton';
-import FontIcon from 'material-ui/FontIcon';
+import './IPFSDialog.scss';
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
-export default ({showDocumentDialog,handleDialogRequestClose ,handlePrint ,LegalDocument }) => {
+export default ({showDocumentDialog ,handleDialogRequestClose ,handlePrint ,title , documentHtml}) => {
+
 
     const standardActions = (
         <div>
@@ -26,16 +25,17 @@ export default ({showDocumentDialog,handleDialogRequestClose ,handlePrint ,Legal
         </div>
     );
 
+
+
     return (
         <Dialog
             open={showDocumentDialog}
-            title="Legal Document"
+            title={title}
             actions={standardActions}
             onRequestClose={handleDialogRequestClose}
             autoScrollBodyContent={true}
         >
-            <div id="ifmcontentstoprint" dangerouslySetInnerHTML={{__html:LegalDocument}}></div>
-
+            <div id="ifmcontentstoprint" dangerouslySetInnerHTML={{ __html : documentHtml}}></div>
         </Dialog>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import EmployeeSignESOP from './EmployeeSignESOP'
 import EmployeeESOPDetails from './EmployeeESOPDetails'
-
+import {web3} from '../web3'
 import {validateDoc}from '../utils'
 import IPFSDialog from '../components/IPFSDialog';
 export default class EmployeeDetails extends React.Component {
@@ -13,7 +13,8 @@ export default class EmployeeDetails extends React.Component {
         this.services = props.services;
         this.state = {
             showDocumentDialog:false,
-            LegalDocument :''
+            LegalDocument :'',
+            IPFSHash : ''
         }
     }
 
@@ -61,10 +62,8 @@ export default class EmployeeDetails extends React.Component {
     showPapelCopeyHandler = () =>{
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
-        let UIState = this.store.getState().UI;
 
         let employee = ESOPState.employees.find(e => e.address == userState.userPK);
-
         const dic ={
             'company-address' : ESOPState.companyAddress,
             'esop-sc-address' : ESOPState.ESOPAddress,
@@ -84,14 +83,14 @@ export default class EmployeeDetails extends React.Component {
             'curr-block-hash' : ESOPState.currentBlockHash
         };
 
-        //ESOPState.ESOPLegalWrapperIPFSHash
-        // TODO: Replace the static IPFS Hash to the decoded value from ESOPState variable
-        validateDoc("QmXq9u2GPyCv8q9XCMPYtSMBe1WVAjoZidnhjX6P1SbiRt" , (data) =>{
-
+        const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(web3.toAscii(ESOPState.ESOPLegalWrapperIPFSHash).replace(new RegExp('"',"g"),""))));
+        this.setState({
+            'ipfsHash' : ipfsHash
+        });
+        validateDoc(ipfsHash , (data) =>{
             Object.keys(dic).map((key, index)=>{
                 data = data.replace(new RegExp(`{${key}}` , 'g') , dic[key])
             });
-
 
             this.setState({
                 showDocumentDialog: true,
@@ -120,22 +119,23 @@ export default class EmployeeDetails extends React.Component {
 
         mywindow.print();
         mywindow.close();
-    }
+    };
 
     render() {
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
-        let UIState = this.store.getState().UI;
 
         let employee = ESOPState.employees.find(e => e.address == userState.userPK);
 
         return (
             <div>
+
                 <IPFSDialog
                     showDocumentDialog={this.state.showDocumentDialog}
-                    handleDialogRequestClose ={this.handleDialogRequestClose}
+                    handleDialogRequestClose={this.handleDialogRequestClose}
                     handlePrint ={this.handlePrint}
-                    LegalDocument={this.state.LegalDocument}
+                    title="Employee Share Option Pool Conditions"
+                    documentHtml={this.state.LegalDocument}
                 />
 
                 <div className="row">
