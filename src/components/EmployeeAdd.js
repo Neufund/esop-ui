@@ -42,7 +42,7 @@ export default class EmployeeAdd extends React.Component {
         if (validationOutcome == "") {
             let num = parseInt(value);
             if (isNaN(num))
-                validationOutcome = 'value us not a number';
+                validationOutcome = 'value is not a number';
             else if (num < this.miniSignPeriod)
                 validationOutcome = `value must be bigger than ${this.miniSignPeriod - 1}`;
         }
@@ -60,7 +60,7 @@ export default class EmployeeAdd extends React.Component {
         if (validationOutcome == "") {
             let num = parseInt(value);
             if (isNaN(num))
-                validationOutcome = 'value us not a number';
+                validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
         }
@@ -149,7 +149,7 @@ export default class EmployeeAdd extends React.Component {
         let textFieldsProps = {};
 
         textFieldsProps.employeePublicKey = {
-            floatingLabelText: "public key",
+            floatingLabelText: "employees' public address",
             className: "employee_parameter",
             value: this.state.employeePublicKey,
             onChange: this.handleTextFieldChange("employeePublicKey", this.validatePublicKey),
@@ -172,7 +172,7 @@ export default class EmployeeAdd extends React.Component {
         };
 
         textFieldsProps.poolOptionsNumber = {
-            floatingLabelText: "pool options for new employee",
+            floatingLabelText: "estimated pool options",
             className: "employee_parameter",
             disabled: true,
             value: numberFormatter.format(this.store.getState().ESOP.newEmployeePoolOption)
