@@ -102,7 +102,7 @@ export default class Esop extends React.Component {
                             </div>
                         </div>
 
-                        {userState.userType == "ceo" &&
+                        {userState.userType === "ceo" &&
                         <EmployeeAdd services={this.services} store={this.store}/>
                         }
 
@@ -112,7 +112,7 @@ export default class Esop extends React.Component {
                             </div>
                         </div>
 
-                        {(UIState.selectedUser != undefined) &&
+                        {(UIState.selectedUser !== undefined) &&
                         <div className="row">
                             <div className="col-xs-12 ">
                                 <EmployeeListDetails store={this.store} services={this.services}/>
@@ -120,7 +120,7 @@ export default class Esop extends React.Component {
                         </div>
                         }
 
-                        {(userState.userType == "ceo" && ESOPState.esopState == 1 && false) &&
+                        {(userState.userType === "ceo" && ESOPState.esopState ===1 && false) &&
                             <ConvertOptions store={this.store} services={this.services}/>
                         }
 
@@ -129,36 +129,40 @@ export default class Esop extends React.Component {
                             open={this.state.esop_desc_open}
                             onRequestClose={this.handleEsopDescClose}
                         >
-                            <h2>Short introduction</h2>
-                            <p>So generally it should be something short with link to our github page where user will
-                                find long
-                                detailed description</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Audax negotium, dicerem
-                                impudens, nisi
-                                hoc institutum postea translatum ad philosophos nostros esset. Igitur ne dolorem
-                                quidem.</p>
-                            <p>Mihi enim satis est, ipsis non satis. Duo Reges: constructio interrete. Deinde disputat,
-                                quod
-                                cuiusque generis animantium statui deceat extremum. Indicant pueri, in quibus ut in
-                                speculis
-                                natura cernitur. Qui non moveatur et offensione turpitudinis et comprobatione
-                                honestatis? Ait
-                                enim se, si uratur, Quam hoc suave! dicturum. Urgent tamen et nihil remittunt. An hoc
-                                usque
-                                quaque, aliter in vita? Ille vero, si insipiens-quo certe, quoniam tyrannus -, numquam
-                                beatus;
-                                Quis non odit sordidos, vanos, leves, futtiles?</p>
-                            <p>Progredientibus autem aetatibus sensim tardeve potius quasi nosmet ipsos cognoscimus.
-                                Quam illa
-                                ardentis amores excitaret sui! Cur tandem? Hoc est non modo cor non habere, sed ne
-                                palatum
-                                quidem. At iste non dolendi status non vocatur voluptas. Ratio quidem vestra sic cogit.
-                                Videsne
-                                quam sit magna dissensio? Qui igitur convenit ab alia voluptate dicere naturam
-                                proficisci, in
-                                alia summum bonum ponere? Quamquam id quidem licebit iis existimare, qui legerint.</p>
+                            <h2>What is ESOP and why we do it?</h2>
+                            <p>ESOP stands for Employees Stock Options Plan. Many companies decide to include employees
+                                in company's success by offering them shares. Shares are typically available in form of
+                                options (mostly due to tax reasons) and are converted directly into cash when company
+                                has an IPO or gets acquired. There is a lot of interesting reasoning behind various ESOP
+                                structures and opinions when it works and when not. Here is a nice introduction: <a
+                                    href="https://www.accion.org/sites/default/files/Accion%20Venture%20Lab%20-%20ESOP%20Best%20Practices.pdf">https://www.accion.org/sites/default/files/Accion%20Venture%20Lab%20-%20ESOP%20Best%20Practices.pdf</a>
+                            </p>
+                            <p>Neufund eats its own food and offers employees ESOP via a smart contract where options
+                                are represented as Ethereum tokens. Employees are still provided with ESOP terms in
+                                readable English (we call it <em>legal wrapper</em>) which is generated from before
+                                mentioned smart contract. Such construct replaces paper agreement employee signs and
+                                adds many interesting things on top.</p>
+                            <ol>
+                                <li>Process of assigning options, vesting and converting are immutable and transparent
+                                    (including rules on changing rules). Trustless trust is to large degree provided.
+                                </li>
+                                <li>It is enforceable in off-chain court like standard paper agreement, <em>however</em>
+                                    as smart contracts are self-enforcing a need for legal action should be negligible.
+                                </li>
+                                <li>Typical criticism of ESOP is that you need to wait till the exit or IPO to get your
+                                    shares and money. This is too long for being a real incentive. <strong>This is not
+                                        the case with tokenized options.</strong> Use of Ethereum token extends
+                                    opportunities to profit from options. For example <strong>you can convert them into
+                                        ERC20 compliant tokens when company is doing its ICO</strong> or <strong>make
+                                        options directly trade-able</strong> (via migration mechanism described later).
+                                </li>
+                                <li>Smart contracts are self-enforcing and do all calculations and bookkeeping. They are
+                                    very cheap once written and tested. ESOP d-app UI (<a
+                                        href="https://github.com/Neufund/ESOP-ui">https://github.com/Neufund/ESOP-ui</a>)
+                                    is easy to deploy with minimal maintenance costs.
+                                </li>
+                            </ol>
 
-                            <p><a target="_blank" href="https://github.com/Neufund/ESOP">This is link click me</a></p>
                         </Dialog>
 
                         <Dialog
