@@ -69,7 +69,7 @@ export default class EmployeeDetails extends React.Component {
             'company-address' : ESOPState.companyAddress,
             'esop-sc-address' : ESOPState.ESOPAddress,
             'options-per-share' : '',
-            'strike-price' : ESOPState.strikePrice,
+            'strike-price' : ESOPState.STRIKE_PRICE,
             'pool-options' : employee.poolOptions,
             'new-employee-pool-share' : '',
             'employee-address' : employee.address,

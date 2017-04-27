@@ -87,7 +87,7 @@ export default class ContractComService {
         return {
             totalPoolOptions: data[0].toNumber(),
             ESOPLegalWrapperIPFSHash: data[1].toString(),
-            minimumManualSignPeriod: data[2].toNumber(),
+            MINIMUM_MANUAL_SIGN_PERIOD: data[2].toNumber(),
             remainingPoolOptions: data[3].toNumber(),
             esopState: data[4].toNumber(),
             totalExtraOptions: data[5].toNumber(),
@@ -120,7 +120,7 @@ export default class ContractComService {
             bonusOptionsPromille: data[4].toNumber(),
             newEmployeePoolPromille: data[5].toNumber(),
             optionsPerShare: data[6].toNumber(),
-            strikePrice: data[7].toNumber()
+            STRIKE_PRICE: data[7].toNumber()
         };
     };
 
