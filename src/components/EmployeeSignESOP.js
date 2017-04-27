@@ -39,7 +39,7 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
         },
         {
             title: "Strike price",
-            value: `EUR ${ESOPState.strikePrice} per share`
+            value: `EUR ${ESOPState.STRIKE_PRICE} per share`
         },
         {
             title: "Issue Date",

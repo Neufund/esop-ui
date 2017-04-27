@@ -13,7 +13,7 @@ export default class EmployeeAdd extends React.Component {
         this.services = props.services;
         this.store = props.store;
 
-        this.miniSignPeriod = Math.floor(this.store.getState().ESOP.minimumManualSignPeriod / this.day) + 1;
+        this.miniSignPeriod = Math.floor(this.store.getState().ESOP.MINIMUM_MANUAL_SIGN_PERIOD / this.day) + 1;
 
         this.state = {
             allowValidation: false,
