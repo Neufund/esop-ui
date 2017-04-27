@@ -70,7 +70,7 @@ export default class ContractComService {
             //CONFIG
             contract.totalPoolOptions(), // total poolOptions in The Pool
             contract.ESOPLegalWrapperIPFSHash(), // ipfs hash of document establishing this ESOP
-            contract.minimumManualSignPeriod(), // default period for employee signature
+            contract.MINIMUM_MANUAL_SIGN_PERIOD(), // default period for employee signature
 
             //STATE
             contract.remainingPoolOptions(), // poolOptions that remain to be assigned
@@ -106,7 +106,7 @@ export default class ContractComService {
             contract.bonusOptionsPromille(), // exit bonus promille
             contract.newEmployeePoolPromille(), // per mille of unassigned poolOptions that new employee gets
             contract.optionsPerShare(), // per mille of unassigned poolOptions that new employee gets
-            contract.strikePrice() // options strike price
+            contract.STRIKE_PRICE() // options strike price
         ];
         return Promise.all(dataPromises);
     });
