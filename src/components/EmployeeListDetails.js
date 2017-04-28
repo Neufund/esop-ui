@@ -37,10 +37,10 @@ export default class EmployeeListDetails extends React.Component {
     }
 
     showPapelCopeyHandler = () =>{
-        let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
+        let UIState = this.store.getState().UI;
 
-        let employee = ESOPState.employees.find(e => e.address == userState.userPK);
+        let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
 
         const dic ={
             'company-address' : ESOPState.companyAddress,
