@@ -91,11 +91,13 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
         <div className="employee_sign_esop">
             <div className="row">
                 <div className="col-xs-12">
-                    <h3>Fifth force GmBH identifed by address {ESOPState.companyAddress}
-                        <a className="inline_link" target="_blank"
-                           href={`https://etherscan.io/address/${ESOPState.companyAddress}`}>
-                            <FontIcon className="material-icons">link</FontIcon></a></h3>
-                    <h4>ESOP Subscription Form</h4>
+                    <div className="esop_title">
+                        <h3>Fifth force GmBH identifed by address {ESOPState.companyAddress}
+                            <a className="inline_link" target="_blank"
+                               href={`https://etherscan.io/address/${ESOPState.companyAddress}`}>
+                                <FontIcon className="material-icons">link</FontIcon></a></h3>
+                        <h4>ESOP Subscription Form</h4>
+                    </div>
                     <Table selectable={false} onCellClick={cellClickHandler}>
                         <TableBody displayRowCheckbox={false}>
                             {table.map((row, index) =>
@@ -120,8 +122,12 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
                 </div>
             </div>
             <div className="row">
+                <p className="col-xs-12">
+                    I hereby subscribe for the Issued Options for shares in {ESOPState.companyAddress} under the terms and conditions as set out in the ESOP Smart Contract at address {ESOPState.ESOPAddress} and made available to me in [title of legal wrapper].
+                </p>
+            </div>
+            <div className="row">
                 <div className="col-xs-12 buttons">
-                    I hereby subscribe for the Issued Options for shares in -company- under the terms and conditions as set out in the ESOP Smart Contract at address -sc-address- and made available to me in [title of legal wrapper].
                     <RaisedButton label="Sign ESOP" onTouchTap={signHandler}/>
                     <RaisedButton label="Show paper copy" onTouchTap={showPapelCopeyHandler}/>
                 </div>
