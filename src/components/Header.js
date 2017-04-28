@@ -9,7 +9,7 @@ export default ({userPK, userType}) => {
                     ESOP Dapp
                 </div>
                 {userPK !== undefined ?
-                    <p>Hello unknown address: <b>{userPK}</b></p>
+                    <p>Hello, you provided us with address: <b>{userPK}</b></p>
                     :
                     <p>Please enable your metamask or plug nano ledger so we can identify you!</p>
                 }
