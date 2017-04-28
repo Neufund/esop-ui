@@ -41,6 +41,7 @@ export default class EmployeeListDetails extends React.Component {
         let ESOPState = this.store.getState().ESOP;
 
         let employee = ESOPState.employees.find(e => e.address == userState.userPK);
+
         const dic ={
             'company-address' : ESOPState.companyAddress,
             'esop-sc-address' : ESOPState.ESOPAddress,
@@ -60,7 +61,7 @@ export default class EmployeeListDetails extends React.Component {
             'curr-block-hash' : ESOPState.currentBlockHash
         };
 
-        const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(web3.toAscii(ESOPState.ESOPLegalWrapperIPFSHash).replace(new RegExp('"',"g"),""))));
+        const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(ESOPState.ESOPLegalWrapperIPFSHash.replace(new RegExp('"',"g"),""))));
         this.setState({
             'ipfsHash' : ipfsHash
         });

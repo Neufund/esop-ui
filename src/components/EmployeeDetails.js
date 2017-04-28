@@ -83,7 +83,7 @@ export default class EmployeeDetails extends React.Component {
             'curr-block-hash' : ESOPState.currentBlockHash
         };
 
-        const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(web3.toAscii(ESOPState.ESOPLegalWrapperIPFSHash).replace(new RegExp('"',"g"),""))));
+        const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(ESOPState.ESOPLegalWrapperIPFSHash.replace(new RegExp('"',"g"),""))));
         this.setState({
             'ipfsHash' : ipfsHash
         });
