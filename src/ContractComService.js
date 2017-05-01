@@ -254,9 +254,7 @@ export default class ContractComService {
                         }
                     });
                 },
-                error => {
-                    return Promise.reject(error);
-                }
+                error => Promise.reject(error)
             );
     }
 
@@ -281,9 +279,7 @@ export default class ContractComService {
                      }
                      });*/
                 },
-                error => {
-                    return Promise.reject(error);
-                }
+                error => Promise.reject(error)
             );
     }
 
@@ -328,9 +324,7 @@ export default class ContractComService {
                         }
                     });
                 },
-                error => {
-                    return Promise.reject(error);
-                }
+                error => Promise.reject(error)
             );
     }
 
@@ -351,9 +345,7 @@ export default class ContractComService {
                     }
                 });
             },
-            error => {
-                return Promise.reject(error);
-            }
+            error => Promise.reject(error)
         );
     }
 
@@ -383,9 +375,8 @@ export default class ContractComService {
                         }
                     });
                 },
-                error => {
-                    return Promise.reject(error);
-                }
+                error => Promise.reject(error)
+
             );
     }
 
@@ -414,9 +405,7 @@ export default class ContractComService {
                         }
                     });
                 },
-                error => {
-                    return Promise.reject(error);
-                }
+                error => Promise.reject(error)
             );
     }
 
@@ -439,9 +428,7 @@ export default class ContractComService {
                         }
                     });
                 },
-                error => {
-                    return Promise.reject(error);
-                }
+                error => Promise.reject(error)
             );
     }
 

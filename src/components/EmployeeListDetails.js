@@ -16,9 +16,9 @@ export default class EmployeeListDetails extends React.Component {
 
         this.state = {
             terminateDate: new Date(),
-            showDocumentDialog:false,
-            LegalDocument :'',
-            IPFSHash : ''
+            showDocumentDialog: false,
+            LegalDocument: '',
+            IPFSHash: ''
         };
 
     }
@@ -32,61 +32,61 @@ export default class EmployeeListDetails extends React.Component {
     }
 
 
-    timestampToDate(timestamp){
-        return new Date(timestamp*1000).toDateString();
+    timestampToDate(timestamp) {
+        return new Date(timestamp * 1000).toDateString();
     }
 
-    showPapelCopeyHandler = () =>{
+    showPapelCopeyHandler = () => {
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
 
         let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
 
-        const dic ={
-            'company-address' : ESOPState.companyAddress,
-            'esop-sc-address' : ESOPState.ESOPAddress,
-            'options-per-share' : ESOPState.optionsPerShare,
-            'strike-price' : ESOPState.STRIKE_PRICE,
-            'pool-options' : ESOPState.totalPoolOptions,
-            'new-employee-pool-share' : ESOPState.newEmployeePoolPromille,
-            'employee-address' : employee.address,
-            'issued-options' : employee.extraOptions + employee.poolOptions,
-            'employee-pool-options' : employee.poolOptions,
-            'employee-extra-options' : employee.extraOptions,
-            'issue-date' : this.timestampToDate(employee.issueDate),
-            'vesting-period' : ESOPState.vestingPeriod,
-            'cliff-period' : ESOPState.cliffPeriod,
-            'bonus-options' : ESOPState.bonusOptionsPromille,
-            'time-to-sign' : this.timestampToDate(employee.timeToSign),
-            'curr-block-hash' : ESOPState.currentBlockHash
+        const dic = {
+            'company-address': ESOPState.companyAddress,
+            'esop-sc-address': ESOPState.ESOPAddress,
+            'options-per-share': ESOPState.optionsPerShare,
+            'strike-price': ESOPState.STRIKE_PRICE,
+            'pool-options': ESOPState.totalPoolOptions,
+            'new-employee-pool-share': ESOPState.newEmployeePoolPromille,
+            'employee-address': employee.address,
+            'issued-options': employee.extraOptions + employee.poolOptions,
+            'employee-pool-options': employee.poolOptions,
+            'employee-extra-options': employee.extraOptions,
+            'issue-date': this.timestampToDate(employee.issueDate),
+            'vesting-period': ESOPState.vestingPeriod,
+            'cliff-period': ESOPState.cliffPeriod,
+            'bonus-options': ESOPState.bonusOptionsPromille,
+            'time-to-sign': this.timestampToDate(employee.timeToSign),
+            'curr-block-hash': ESOPState.currentBlockHash
         };
 
-        const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(ESOPState.ESOPLegalWrapperIPFSHash.replace(new RegExp('"',"g"),""))));
+        const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(ESOPState.ESOPLegalWrapperIPFSHash.replace(new RegExp('"', "g"), ""))));
         this.setState({
-            'ipfsHash' : ipfsHash
+            'ipfsHash': ipfsHash
         });
-        validateDoc(ipfsHash , (data) =>{
-            Object.keys(dic).map((key, index)=>{
-                data = data.replace(new RegExp(`{${key}}` , 'g') , dic[key])
+        validateDoc(ipfsHash, (data) => {
+            Object.keys(dic).map((key, index) => {
+                data = data.replace(new RegExp(`{${key}}`, 'g'), dic[key])
             });
 
             this.setState({
                 showDocumentDialog: true,
-                LegalDocument:data
+                LegalDocument: data
             });
         });
 
     };
-    handleDialogRequestClose=()=>{
+    handleDialogRequestClose = () => {
         this.setState({
             showDocumentDialog: false,
         });
     };
 
-    handlePrint = () =>{
+    handlePrint = () => {
         let mywindow = window.open('', 'PRINT', 'height=400,width=600');
 
-        mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+        mywindow.document.write('<html><head><title>' + document.title + '</title>');
         mywindow.document.write('</head><body >');
         mywindow.document.write(document.getElementById("ifmcontentstoprint").innerHTML);
         mywindow.document.write('</body></html>');
@@ -208,7 +208,7 @@ export default class EmployeeListDetails extends React.Component {
         let showTimeToSign = false;
         let timeToSignValue;
 
-        if(employee.state < 2) { // 0: Not set; 1: Waiting for signature
+        if (employee.state < 2) { // 0: Not set; 1: Waiting for signature
             showTimeToSign = true;
 
             if (employee.timeToSign > ESOPState.currentBlockTimestamp) {
@@ -217,14 +217,14 @@ export default class EmployeeListDetails extends React.Component {
                 timeToSignValue = "expired"
             }
         }
-        
+
         return (
 
             <div className="employee_details">
                 <IPFSDialog
                     showDocumentDialog={this.state.showDocumentDialog}
                     handleDialogRequestClose={this.handleDialogRequestClose}
-                    handlePrint ={this.handlePrint}
+                    handlePrint={this.handlePrint}
                     title="Employee Share Option Pool Conditions"
                     documentHtml={this.state.LegalDocument}
                 />
@@ -232,7 +232,7 @@ export default class EmployeeListDetails extends React.Component {
                 <h3>Employee details:</h3>
                 <p>Employee address: {employee.address}</p>
                 <div>
-                    <RaisedButton label="Show agreement" onTouchTap={this.showPapelCopeyHandler} />
+                    <RaisedButton label="Show agreement" onTouchTap={this.showPapelCopeyHandler}/>
                 </div>
 
                 <TextField floatingLabelText="Issue date" className="employee_parameter"
@@ -244,8 +244,8 @@ export default class EmployeeListDetails extends React.Component {
                 }
 
                 {employee.terminatedAt != 0 &&
-                    <TextField floatingLabelText="Terminated at" className="employee_parameter"
-                               value={moment.unix(employee.terminatedAt).format(dateFormat)} disabled={true}/>
+                <TextField floatingLabelText="Terminated at" className="employee_parameter"
+                           value={moment.unix(employee.terminatedAt).format(dateFormat)} disabled={true}/>
                 }
 
                 <TextField floatingLabelText="Pool options" className="employee_parameter"
@@ -263,21 +263,22 @@ export default class EmployeeListDetails extends React.Component {
                            value={ContractUtils.getEmployeeStateName(employee.state)} disabled={true}/>
                 <br />
                 {userState.userType == "ceo" &&
+                <div>
+                    {showSuspendButton &&
+                    <RaisedButton className="suspendButton" label={toggleSuspendButtonLabel}
+                                  onTouchTap={this.handleToggleSuspendButton}/>
+                    }
+                    {showTerminateButtons &&
                     <div>
-                        {showSuspendButton &&
-                        <RaisedButton className="suspendButton" label={toggleSuspendButtonLabel} onTouchTap={this.handleToggleSuspendButton}/>
-                        }
-                        {showTerminateButtons &&
-                        <div>
-                            <DatePicker hintText="Terminate date" mode="landscape" className="date_picker"
-                                        value={this.state.terminateDate}
-                                        onChange={(event, newValue) => this.setState({terminateDate: newValue})}/>
-                            <RaisedButton label="Bad Leaver" onTouchTap={this.handleTerminateUserButton("BadLeaver")}/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <RaisedButton label="Terminate" onTouchTap={this.handleTerminateUserButton("Regular")}/>
-                        </div>
-                        }
+                        <DatePicker hintText="Terminate date" mode="landscape" className="date_picker"
+                                    value={this.state.terminateDate}
+                                    onChange={(event, newValue) => this.setState({terminateDate: newValue})}/>
+                        <RaisedButton label="Bad Leaver" onTouchTap={this.handleTerminateUserButton("BadLeaver")}/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <RaisedButton label="Terminate" onTouchTap={this.handleTerminateUserButton("Regular")}/>
                     </div>
+                    }
+                </div>
                 }
             </div>
         )
