@@ -6,6 +6,7 @@ import DatePicker from 'material-ui/DatePicker';
 import ContractUtils from '../ContractUtils'
 import moment from 'moment'
 import {validateDoc}from '../utils'
+import Config from '../config'
 import IPFSDialog from '../components/IPFSDialog';
 
 export default class EmployeeListDetails extends React.Component {
@@ -203,8 +204,6 @@ export default class EmployeeListDetails extends React.Component {
         let showSuspendButton = employee.state == 1 || employee.state == 2; // WaitingForSignature or Employed
         let showTerminateButtons = employee.state < 3; // not Terminated  and not OptionsExercised
 
-        let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
-
         let showTimeToSign = false;
         let timeToSignValue;
 
@@ -212,7 +211,7 @@ export default class EmployeeListDetails extends React.Component {
             showTimeToSign = true;
 
             if (employee.timeToSign > ESOPState.currentBlockTimestamp) {
-                timeToSignValue = moment.unix(employee.timeToSign).format(dateFormat);
+                timeToSignValue = moment.unix(employee.timeToSign).format(Config.dateFormat);
             } else {
                 timeToSignValue = "expired"
             }
@@ -236,7 +235,7 @@ export default class EmployeeListDetails extends React.Component {
                 </div>
 
                 <TextField floatingLabelText="Issue date" className="employee_parameter"
-                           value={moment.unix(employee.issueDate).format(dateFormat)} disabled={true}/>
+                           value={moment.unix(employee.issueDate).format(Config.dateFormat)} disabled={true}/>
 
                 {showTimeToSign &&
                 <TextField floatingLabelText="Time to sign" className="employee_parameter" value={timeToSignValue}
@@ -245,7 +244,7 @@ export default class EmployeeListDetails extends React.Component {
 
                 {employee.terminatedAt != 0 &&
                 <TextField floatingLabelText="Terminated at" className="employee_parameter"
-                           value={moment.unix(employee.terminatedAt).format(dateFormat)} disabled={true}/>
+                           value={moment.unix(employee.terminatedAt).format(Config.dateFormat)} disabled={true}/>
                 }
 
                 <TextField floatingLabelText="Pool options" className="employee_parameter"
@@ -256,7 +255,7 @@ export default class EmployeeListDetails extends React.Component {
 
                 {employee.suspendedAt != 0 &&
                 <TextField floatingLabelText="Suspened at" className="employee_parameter"
-                           value={moment.unix(employee.suspendedAt).format(dateFormat)} disabled={true}/>
+                           value={moment.unix(employee.suspendedAt).format(Config.dateFormat)} disabled={true}/>
                 }
 
                 <TextField floatingLabelText="State" className="employee_parameter"
