@@ -125,11 +125,11 @@ export default class ContractComService {
         };
     };
 
-    getEmployeesList = async EmployeesListContract => {
+    getEmployeesList = async() => {
 
-        let employeeNumber = await EmployeesListContract.then(contract => contract.size());
+        let employeeNumber = await this.EmployeesListContract.then(contract => contract.size());
 
-        let employeeAddresses = await EmployeesListContract.then(contract => {
+        let employeeAddresses = await this.EmployeesListContract.then(contract => {
             let dataPromises = [];
             for (let i = 0; i < employeeNumber; i++) {
                 dataPromises.push(contract.addresses(i));
@@ -137,7 +137,7 @@ export default class ContractComService {
             return Promise.all(dataPromises);
         });
 
-        return EmployeesListContract.then(contract => {
+        return this.EmployeesListContract.then(contract => {
             let dataPromises = [];
             for (let i = 0; i < employeeNumber; i++) {
                 let employeeAddress = employeeAddresses[i];
@@ -147,6 +147,20 @@ export default class ContractComService {
                 })));
             }
             return Promise.all(dataPromises);
+        });
+    };
+
+    getEmployeesVestedOptions = async employees => {
+        let now = new Date() / 1000;
+        let dataPromises = employees.map(employee => this.ESOPContract
+            .then(contract => contract.calcEffectiveOptionsForEmployee(employee.address, now))
+            .then(res => res.toNumber())
+        );
+        return Promise.all(dataPromises).then(result => {
+            return result.map((vestedOptions, index) => ({
+                ... employees[index],
+                vestedOptions: vestedOptions
+            }));
         });
     };
 
@@ -193,7 +207,10 @@ export default class ContractComService {
         let companyAddress = this.getCompanyAddress(this.RoTContract);
         let ESOPData = await this.getESOPData().then(result => this.parseESOPData(result));
         let OptionsData = this.getOptionsData().then(result => this.perseOptionsData(result));
-        let employees = this.getEmployeesList(this.EmployeesListContract).then(result => this.parseEmployeesList(result));
+        let employees = this.getEmployeesList()
+            .then(result => this.parseEmployeesList(result))
+            .then(result => this.getEmployeesVestedOptions(result));
+
         ESOPData.newEmployeePoolOption = (await this.getNewEmployeePoolOptions(ESOPData.remainingPoolOptions)).toNumber();
         ESOPData.currentBlockHash = await this.getBlockHash();
 
@@ -319,7 +336,8 @@ export default class ContractComService {
                         issueDate,
                         timeToSign,
                         extraOptions)
-                }})
+                }
+            })
             .then(
                 success => new Promise((resolve, reject) => {
                     if (success.logs[0].event == "ESOPOffered") {
