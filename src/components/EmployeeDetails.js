@@ -3,8 +3,12 @@ import React from 'react';
 import EmployeeSignESOP from './EmployeeSignESOP'
 import EmployeeESOPDetails from './EmployeeESOPDetails'
 import {web3} from '../web3'
-import {validateDoc}from '../utils'
+import {validateDoc, epochAsYears}from '../utils'
 import IPFSDialog from '../components/IPFSDialog';
+import Config from '../config'
+
+import moment from 'moment'
+
 export default class EmployeeDetails extends React.Component {
 
     constructor(props) {
@@ -60,31 +64,28 @@ export default class EmployeeDetails extends React.Component {
         );
     };
 
-    timestampToDate(timestamp){
-        return new Date(timestamp*1000).toDateString();
-    }
-
-    showPapelCopeyHandler = () =>{
+    showPaperCopyHandler = () =>{
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
-
         let employee = ESOPState.employees.find(e => e.address == userState.userPK);
+        let numberFormatter = new Intl.NumberFormat();
+
         const dic ={
             'company-address' : ESOPState.companyAddress,
             'esop-sc-address' : ESOPState.ESOPAddress,
-            'options-per-share' : ESOPState.optionsPerShare,
+            'options-per-share' : numberFormatter.format(ESOPState.optionsPerShare),
             'strike-price' : ESOPState.STRIKE_PRICE,
-            'pool-options' : ESOPState.totalPoolOptions,
-            'new-employee-pool-share' : ESOPState.newEmployeePoolPromille,
+            'pool-options' : numberFormatter.format(ESOPState.totalPoolOptions),
+            'new-employee-pool-share' : (ESOPState.newEmployeePoolPromille / 100) + '%',
             'employee-address' : employee.address,
-            'issued-options' : employee.extraOptions + employee.poolOptions,
-            'employee-pool-options' : employee.poolOptions,
-            'employee-extra-options' : employee.extraOptions,
-            'issue-date' : this.timestampToDate(employee.issueDate),
-            'vesting-period' : ESOPState.vestingPeriod,
-            'cliff-period' : ESOPState.cliffPeriod,
-            'bonus-options' : ESOPState.bonusOptionsPromille,
-            'time-to-sign' : this.timestampToDate(employee.timeToSign),
+            'issued-options' : numberFormatter.format(employee.extraOptions + employee.poolOptions),
+            'employee-pool-options' : numberFormatter.format(employee.poolOptions),
+            'employee-extra-options' : numberFormatter.format(employee.extraOptions),
+            'issue-date' : moment.unix(employee.issueDate).format(Config.dateFormat),
+            'vesting-period' : epochAsYears(ESOPState.vestingPeriod),
+            'cliff-period' : epochAsYears(ESOPState.cliffPeriod),
+            'bonus-options' : (ESOPState.bonusOptionsPromille / 100) + '%',
+            'time-to-sign' : moment.unix(employee.timeToSign).format(Config.dateFormat),
             'curr-block-hash' : ESOPState.currentBlockHash
         };
 
@@ -150,7 +151,7 @@ export default class EmployeeDetails extends React.Component {
                     </div>
                 </div>
                 {employee.state == 1 &&
-                <EmployeeSignESOP employee={employee} ESOPState={ESOPState} signHandler={this.signEmployeeHandler}  showPapelCopeyHandler={this.showPapelCopeyHandler}/>
+                <EmployeeSignESOP employee={employee} ESOPState={ESOPState} signHandler={this.signEmployeeHandler}  showPapelCopeyHandler={this.showPaperCopyHandler}/>
                 }
                 {employee.state > 1 &&
                 <EmployeeESOPDetails employee={employee} ESOPState={ESOPState}/>
