@@ -16,9 +16,9 @@ export default class EmployeeDetails extends React.Component {
         this.store = props.store;
         this.services = props.services;
         this.state = {
-            showDocumentDialog:false,
-            LegalDocument :'',
-            IPFSHash : ''
+            showDocumentDialog: false,
+            LegalDocument: '',
+            IPFSHash: ''
         }
     }
 
@@ -64,58 +64,58 @@ export default class EmployeeDetails extends React.Component {
         );
     };
 
-    showPaperCopyHandler = () =>{
+    showPaperCopyHandler = () => {
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
         let employee = ESOPState.employees.find(e => e.address == userState.userPK);
         let numberFormatter = new Intl.NumberFormat();
 
-        const dic ={
-            'company-address' : ESOPState.companyAddress,
-            'esop-sc-address' : ESOPState.ESOPAddress,
-            'options-per-share' : numberFormatter.format(ESOPState.optionsPerShare),
-            'strike-price' : ESOPState.STRIKE_PRICE,
-            'pool-options' : numberFormatter.format(ESOPState.totalPoolOptions),
-            'new-employee-pool-share' : (ESOPState.newEmployeePoolPromille / 100) + '%',
-            'employee-address' : employee.address,
-            'issued-options' : numberFormatter.format(employee.extraOptions + employee.poolOptions),
-            'employee-pool-options' : numberFormatter.format(employee.poolOptions),
-            'employee-extra-options' : numberFormatter.format(employee.extraOptions),
-            'issue-date' : moment.unix(employee.issueDate).format(Config.dateFormat),
-            'vesting-period' : epochAsYears(ESOPState.vestingPeriod),
-            'cliff-period' : epochAsYears(ESOPState.cliffPeriod),
-            'bonus-options' : (ESOPState.bonusOptionsPromille / 100) + '%',
-            'time-to-sign' : moment.unix(employee.timeToSign).format(Config.dateFormat),
-            'curr-block-hash' : ESOPState.currentBlockHash
+        const dic = {
+            'company-address': ESOPState.companyAddress,
+            'esop-sc-address': ESOPState.ESOPAddress,
+            'options-per-share': numberFormatter.format(ESOPState.optionsPerShare),
+            'strike-price': ESOPState.STRIKE_PRICE,
+            'pool-options': numberFormatter.format(ESOPState.totalPoolOptions),
+            'new-employee-pool-share': (ESOPState.newEmployeePoolPromille / 100) + '%',
+            'employee-address': employee.address,
+            'issued-options': numberFormatter.format(employee.extraOptions + employee.poolOptions),
+            'employee-pool-options': numberFormatter.format(employee.poolOptions),
+            'employee-extra-options': numberFormatter.format(employee.extraOptions),
+            'issue-date': moment.unix(employee.issueDate).format(Config.dateFormat),
+            'vesting-period': epochAsYears(ESOPState.vestingPeriod),
+            'cliff-period': epochAsYears(ESOPState.cliffPeriod),
+            'bonus-options': (ESOPState.bonusOptionsPromille / 100) + '%',
+            'time-to-sign': moment.unix(employee.timeToSign).format(Config.dateFormat),
+            'curr-block-hash': ESOPState.currentBlockHash
         };
 
-        const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(ESOPState.ESOPLegalWrapperIPFSHash.replace(new RegExp('"',"g"),""))));
+        const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(ESOPState.ESOPLegalWrapperIPFSHash.replace(new RegExp('"', "g"), ""))));
         this.setState({
-            'ipfsHash' : ipfsHash
+            'ipfsHash': ipfsHash
         });
-        validateDoc(ipfsHash , (data) =>{
-            Object.keys(dic).map((key, index)=>{
-                data = data.replace(new RegExp(`{${key}}` , 'g') , dic[key])
+        validateDoc(ipfsHash, (data) => {
+            Object.keys(dic).map((key, index) => {
+                data = data.replace(new RegExp(`{${key}}`, 'g'), dic[key])
             });
 
             this.setState({
                 showDocumentDialog: true,
-                LegalDocument:data
+                LegalDocument: data
             });
         });
 
     };
 
-    handleDialogRequestClose=()=>{
+    handleDialogRequestClose = () => {
         this.setState({
             showDocumentDialog: false,
         });
     };
 
-    handlePrint = () =>{
+    handlePrint = () => {
         let mywindow = window.open('', 'PRINT', 'height=400,width=600');
 
-        mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+        mywindow.document.write('<html><head><title>' + document.title + '</title>');
         mywindow.document.write('</head><body >');
         mywindow.document.write(document.getElementById("ifmcontentstoprint").innerHTML);
         mywindow.document.write('</body></html>');
@@ -139,7 +139,7 @@ export default class EmployeeDetails extends React.Component {
                 <IPFSDialog
                     showDocumentDialog={this.state.showDocumentDialog}
                     handleDialogRequestClose={this.handleDialogRequestClose}
-                    handlePrint ={this.handlePrint}
+                    handlePrint={this.handlePrint}
                     title="Employee Share Option Pool Conditions"
                     documentHtml={this.state.LegalDocument}
                 />
@@ -151,7 +151,8 @@ export default class EmployeeDetails extends React.Component {
                     </div>
                 </div>
                 {employee.state == 1 &&
-                <EmployeeSignESOP employee={employee} ESOPState={ESOPState} signHandler={this.signEmployeeHandler}  showPapelCopeyHandler={this.showPaperCopyHandler}/>
+                <EmployeeSignESOP employee={employee} ESOPState={ESOPState} signHandler={this.signEmployeeHandler}
+                                  showPapelCopeyHandler={this.showPaperCopyHandler}/>
                 }
                 {employee.state > 1 &&
                 <EmployeeESOPDetails employee={employee} ESOPState={ESOPState}/>

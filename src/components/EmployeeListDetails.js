@@ -39,22 +39,22 @@ export default class EmployeeListDetails extends React.Component {
         let numberFormatter = new Intl.NumberFormat();
 
         const dic = {
-            'company-address' : ESOPState.companyAddress,
-            'esop-sc-address' : ESOPState.ESOPAddress,
-            'options-per-share' : numberFormatter.format(ESOPState.optionsPerShare),
-            'strike-price' : ESOPState.STRIKE_PRICE,
-            'pool-options' : numberFormatter.format(ESOPState.totalPoolOptions),
-            'new-employee-pool-share' : (ESOPState.newEmployeePoolPromille / 100) + '%',
-            'employee-address' : employee.address,
-            'issued-options' : numberFormatter.format(employee.extraOptions + employee.poolOptions),
-            'employee-pool-options' : numberFormatter.format(employee.poolOptions),
-            'employee-extra-options' : numberFormatter.format(employee.extraOptions),
-            'issue-date' : moment.unix(employee.issueDate).format(Config.dateFormat),
-            'vesting-period' : epochAsYears(ESOPState.vestingPeriod),
-            'cliff-period' : epochAsYears(ESOPState.cliffPeriod),
-            'bonus-options' : (ESOPState.bonusOptionsPromille / 100) + '%',
-            'time-to-sign' : moment.unix(employee.timeToSign).format(Config.dateFormat),
-            'curr-block-hash' : ESOPState.currentBlockHash
+            'company-address': ESOPState.companyAddress,
+            'esop-sc-address': ESOPState.ESOPAddress,
+            'options-per-share': numberFormatter.format(ESOPState.optionsPerShare),
+            'strike-price': ESOPState.STRIKE_PRICE,
+            'pool-options': numberFormatter.format(ESOPState.totalPoolOptions),
+            'new-employee-pool-share': (ESOPState.newEmployeePoolPromille / 100) + '%',
+            'employee-address': employee.address,
+            'issued-options': numberFormatter.format(employee.extraOptions + employee.poolOptions),
+            'employee-pool-options': numberFormatter.format(employee.poolOptions),
+            'employee-extra-options': numberFormatter.format(employee.extraOptions),
+            'issue-date': moment.unix(employee.issueDate).format(Config.dateFormat),
+            'vesting-period': epochAsYears(ESOPState.vestingPeriod),
+            'cliff-period': epochAsYears(ESOPState.cliffPeriod),
+            'bonus-options': (ESOPState.bonusOptionsPromille / 100) + '%',
+            'time-to-sign': moment.unix(employee.timeToSign).format(Config.dateFormat),
+            'curr-block-hash': ESOPState.currentBlockHash
         };
 
         const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(ESOPState.ESOPLegalWrapperIPFSHash.replace(new RegExp('"', "g"), ""))));
