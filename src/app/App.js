@@ -1,9 +1,11 @@
 import React from 'react';
+import './App.scss';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import muiTheme from '../muiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import Header from '../components/Header'
 import Esop from './Esop'
@@ -65,10 +67,15 @@ export default class App extends React.Component {
                     </Dialog>
 
                     <Dialog
-                        title="Please confirm transaction using your signer"
+                        title="Please confirm transaction using your signer!"
                         modal={true}
                         open={UIstate.confirmTransactionDialog}>
-                        Confirm transaction and wait for network to mine it it might take a while.
+                        <div>
+                            Confirm operation and wait for Ethereum network to mine it. It might take a minute or two.
+                        </div>
+                        <div className="dialog_transaction_progress">
+                            <CircularProgress />
+                        </div>
                     </Dialog>
 
                     <Dialog
