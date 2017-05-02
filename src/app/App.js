@@ -88,7 +88,7 @@ export default class App extends React.Component {
                         modal={true}
                         open={UIstate.errorDialog}
                         actions={closeActions}>
-                        <h2>Happened something we didn't expect - contact someone from tech team.</h2>
+                        <h4>Below you will find more information about what caused problem. If information is not clear contact tech team.</h4>
                         <pre>
                             {UIstate.errorDialogMsg}
                         </pre>
