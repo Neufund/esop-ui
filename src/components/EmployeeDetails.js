@@ -86,7 +86,8 @@ export default class EmployeeDetails extends React.Component {
             'cliff-period': epochAsYears(ESOPState.cliffPeriod),
             'bonus-options': (ESOPState.bonusOptionsPromille / 100) + '%',
             'time-to-sign': moment.unix(employee.timeToSign).format(Config.dateFormat),
-            'curr-block-hash': ESOPState.currentBlockHash
+            'curr-block-hash': ESOPState.currentBlockHash,
+            'residual-amount': (ESOPState.residualAmountPromille / 100) + '%'
         };
 
         const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(ESOPState.ESOPLegalWrapperIPFSHash.replace(new RegExp('"', "g"), ""))));
