@@ -14,8 +14,8 @@ export default ({userPK, userType}) => {
                     <p>Please enable your metamask or plug nano ledger so we can identify you!</p>
                 }
                 {userType === "anonymous" ?
-                    <p>If you are Neufund employee, please pass address above to us to be included in ESOP.</p>
-                        :
+                    userPK !== undefined && <p>If you are Neufund employee, please pass address above to us to be included in ESOP.</p>
+                    :
                     <p>Your position: {userType}</p>
                 }
             </div>
