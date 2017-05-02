@@ -33,6 +33,11 @@ export default class App extends React.Component {
             type: "SHOW_ERROR_DIALOG",
             errorDialog: false
         });
+
+        this.store.dispatch({
+            type: "SET_ERROR_DIALOG_MSG",
+            errorDialogMsg: ''
+        });
     };
 
     render() {
@@ -83,7 +88,10 @@ export default class App extends React.Component {
                         modal={true}
                         open={UIstate.errorDialog}
                         actions={closeActions}>
-                        You can see error in console but you should contact someone from tech team.
+                        <h2>Happened something we didn't expect - contact someone from tech team.</h2>
+                        <pre>
+                            {UIstate.errorDialogMsg}
+                        </pre>
                     </Dialog>
                 </div>
             </MuiThemeProvider>

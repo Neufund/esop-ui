@@ -1,5 +1,6 @@
 export default (state = {
     errorDialog: false,
+    errorDialogMsg: '',
     nanoConfirmAccountDialog: false,
     confirmTransactionDialog: false,
     selectedUser: undefined,
@@ -9,6 +10,12 @@ export default (state = {
             return {
                 ...state,
                 errorDialog: action.errorDialog
+            };
+            break;
+        case "SET_ERROR_DIALOG_MSG":
+            return {
+                ...state,
+                errorDialogMsg: action.errorDialogMsg
             };
             break;
         case "SHOW_NANO_CONFIRM_ACCOUNT_DIALOG":
