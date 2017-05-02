@@ -5,10 +5,12 @@ import RaisedButton from 'material-ui/RaisedButton'
 import './EmployeeSignESOP.scss'
 import ContractUtils from '../ContractUtils'
 import {epochAsYears} from '../utils'
+import Config from '../config'
+
 import moment from 'moment'
 
 export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
-    let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
+
     let numberFormatter = new Intl.NumberFormat();
 
     /* If you want to use HTML elements you need to wrap them in div. Reason is you are writing code in JSX which is
@@ -43,7 +45,7 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
         },
         {
             title: "Issue Date",
-            value: moment.unix(employee.issueDate).format(dateFormat)
+            value: moment.unix(employee.issueDate).format(Config.dateFormat)
         },
         {
             title: "Vesting Period",
@@ -67,7 +69,7 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
         },
         {
             title: "Time to accept Option-Offer",
-            value: moment.unix(employee.timeToSign).format(dateFormat)
+            value: moment.unix(employee.timeToSign).format(Config.dateFormat)
         },
         {
             title: "EMPLOYEE STATUS",
