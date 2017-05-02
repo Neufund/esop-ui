@@ -270,7 +270,7 @@ export default class ContractComService {
                         reject(success);
                     }
                 }),
-                error => Promise.reject(error))
+                error => ContractComService.processCommonErrors(error))
             .then(
                 success => this.transactionConfirmation(success.tx)
                 ,
@@ -298,7 +298,7 @@ export default class ContractComService {
                  }
                  });*/
                 ,
-                error => Promise.reject(error))
+                error => ContractComService.processCommonErrors(error))
             .then(
                 success => this.transactionConfirmation(success.tx)
                 ,
@@ -346,7 +346,7 @@ export default class ContractComService {
                         reject(success);
                     }
                 }),
-                error => Promise.reject(error))
+                error => ContractComService.processCommonErrors(error))
             .then(
                 success => this.transactionConfirmation(success.tx)
                 ,
@@ -371,7 +371,7 @@ export default class ContractComService {
                         reject(success);
                     }
                 }),
-                error => Promise.reject(error))
+                error => ContractComService.processCommonErrors(error))
             .then(
                 success => this.transactionConfirmation(success.tx)
                 ,
@@ -404,7 +404,7 @@ export default class ContractComService {
                     }
                 })
                 ,
-                error => Promise.reject(error))
+                error => ContractComService.processCommonErrors(error))
             .then(
                 success => this.transactionConfirmation(success.tx)
                 ,
@@ -435,7 +435,7 @@ export default class ContractComService {
                         reject(success);
                     }
                 }),
-                error => Promise.reject(error))
+                error => ContractComService.processCommonErrors(error))
             .then(
                 success => this.transactionConfirmation(success.tx)
                 ,
@@ -460,8 +460,8 @@ export default class ContractComService {
                         reject(success);
                     }
                 }),
-                error => Promise.reject(error)
-            );
+                error => ContractComService.processCommonErrors(error)
+            )
     }
 
     /**
@@ -470,7 +470,7 @@ export default class ContractComService {
      * @returns {Promise}
      */
     transactionConfirmation(transactionHash) {
-        console.log("waiting for tranasction: " + transactionHash);
+        console.log("waiting for transaction: " + transactionHash);
         return new Promise((resolve, reject) => {
             let blockNo = 0;
             let filter = web3.eth.filter("latest", (error, result) => {
@@ -508,5 +508,32 @@ export default class ContractComService {
             });
         })
 
+    }
+
+    /**
+     * Primitive error handler. Now it handle out of gas for nano ledger and transaction rejection in metamask and ledger
+     * @param error
+     * @returns {Promise.<*>}
+     */
+    static processCommonErrors(error) {
+
+        // no enough gas when using nano ledger (
+        if (error.code != undefined
+            && error.message != undefined
+            && error.code == -32010
+            && error.message.startsWith('Insufficient funds. The account you tried to send transaction')) {
+            return Promise.reject('Your account has not enough ETH.');
+        }
+
+        // transaction rejected when using nano ledger
+        if (error === 'Invalid status 6985')
+            return Promise.reject('You rejected transaction on your nano.');
+
+        // transaction rejected when using metamask
+        if (error.message != undefined
+            && error.message.startsWith('Error: MetaMask Tx Signature: User denied'))
+            return Promise.reject('You rejected transaction using metamask.');
+
+        return Promise.reject(error)
     }
 }
