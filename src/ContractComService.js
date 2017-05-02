@@ -253,6 +253,10 @@ export default class ContractComService {
                         reject(success);
                     }
                 }),
+                error => Promise.reject(error))
+            .then(
+                success => this.transactionConfirmation(success.tx)
+                ,
                 error => Promise.reject(error)
             );
     }
@@ -276,6 +280,10 @@ export default class ContractComService {
                  reject(success);
                  }
                  });*/
+                ,
+                error => Promise.reject(error))
+            .then(
+                success => this.transactionConfirmation(success.tx)
                 ,
                 error => Promise.reject(error)
             );
@@ -311,8 +319,8 @@ export default class ContractComService {
                         issueDate,
                         timeToSign,
                         extraOptions)
-                }
-            }).then(
+                }})
+            .then(
                 success => new Promise((resolve, reject) => {
                     if (success.logs[0].event == "ESOPOffered") {
                         resolve(success);
@@ -320,6 +328,10 @@ export default class ContractComService {
                         reject(success);
                     }
                 }),
+                error => Promise.reject(error))
+            .then(
+                success => this.transactionConfirmation(success.tx)
+                ,
                 error => Promise.reject(error)
             );
     }
@@ -331,16 +343,22 @@ export default class ContractComService {
             from: userState.userPK
         });
 
-        return this.ESOPContractAbstr.deployed().then(contract => contract.employeeSignsToESOP()).then(
-            success => new Promise((resolve, reject) => {
-                if (success.logs[0].event == "EmployeeSignedToESOP") {
-                    resolve(success);
-                } else {
-                    reject(success);
-                }
-            }),
-            error => Promise.reject(error)
-        );
+        return this.ESOPContractAbstr.deployed()
+            .then(contract => contract.employeeSignsToESOP())
+            .then(
+                success => new Promise((resolve, reject) => {
+                    if (success.logs[0].event == "EmployeeSignedToESOP") {
+                        resolve(success);
+                    } else {
+                        reject(success);
+                    }
+                }),
+                error => Promise.reject(error))
+            .then(
+                success => this.transactionConfirmation(success.tx)
+                ,
+                error => Promise.reject(error)
+            );
     }
 
     /**
@@ -368,42 +386,10 @@ export default class ContractComService {
                     }
                 })
                 ,
-                error => Promise.reject(error)
-            ).then(
-                success => {
-                    let transactionHash = success.tx;
-                    let blockNo = 0;
-
-                    let filter = web3.eth.filter("latest", (error, result) => {
-                        if (!error) {
-                            console.log(result);
-                            web3.eth.getTransaction(transactionHash, (error, result) => {
-                                if (!error) {
-                                    console.log('result of getTransaction');
-                                    console.log(result);
-                                    if (result.blockNumber != null) {
-                                        console.log("block no: ", blockNo);
-                                        if (blockNo++ >= Config.numberOfConfirmations - 1) {
-                                            console.log('we have enough confirmations we can move on');
-                                            filter.stopWatching((error, result) => {
-                                                if (error)
-                                                    console.log(error);
-                                            })
-                                        }
-                                    }
-                                } else {
-                                    console.log('error of getTransaction');
-                                    console.log(error);
-                                }
-                            });
-                        } else {
-                            console.log('error of filter');
-                            console.log(error);
-                        }
-                    });
-                    console.log(success);
-                    return success;
-                },
+                error => Promise.reject(error))
+            .then(
+                success => this.transactionConfirmation(success.tx)
+                ,
                 error => Promise.reject(error)
             );
     }
@@ -431,6 +417,10 @@ export default class ContractComService {
                         reject(success);
                     }
                 }),
+                error => Promise.reject(error))
+            .then(
+                success => this.transactionConfirmation(success.tx)
+                ,
                 error => Promise.reject(error)
             );
     }
@@ -456,5 +446,49 @@ export default class ContractComService {
             );
     }
 
+    /**
+     * Resurns promise that is resolved when transaction with provided hash has at least Config.numberOfConfirmations.
+     * @param transactionHash
+     * @returns {Promise}
+     */
+    transactionConfirmation(transactionHash) {
+        console.log("waiting for tranasction: " + transactionHash);
+        return new Promise((resolve, reject) => {
+            let blockNo = 0;
+            let filter = web3.eth.filter("latest", (error, result) => {
+                if (!error) {
+                    //console.log(result);
+                    web3.eth.getTransaction(transactionHash, (error, result) => {
+                        if (!error) {
+                            //console.log('result of getTransaction');
+                            //console.log(result);
+                            if (result.blockNumber != null) {
+                                //console.log("block no: ", blockNo);
+                                if (blockNo++ >= Config.numberOfConfirmations - 1) {
+                                    //console.log('we have enough confirmations we can move on');
+                                    filter.stopWatching((error, result) => {
+                                        if (error) {
+                                            console.log('error in filter.stopWatching');
+                                            console.log(error);
+                                            reject(error);
+                                        }
+                                    });
+                                    resolve();
+                                }
+                            }
+                        } else {
+                            console.log('error in web3.eth.getTransaction');
+                            console.log(error);
+                            reject(error);
+                        }
+                    });
+                } else {
+                    console.log('error in web3.eth.filter');
+                    console.log(error);
+                    reject(error);
+                }
+            });
+        })
 
+    }
 }
