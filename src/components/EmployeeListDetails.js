@@ -128,6 +128,11 @@ export default class EmployeeListDetails extends React.Component {
                 });
 
                 this.store.dispatch({
+                    type: "SET_ERROR_DIALOG_MSG",
+                    errorDialogMsg: error.toString()
+                });
+
+                this.store.dispatch({
                     type: "SHOW_ERROR_DIALOG",
                     errorDialog: true
                 });
@@ -181,6 +186,11 @@ export default class EmployeeListDetails extends React.Component {
                     this.store.dispatch({
                         type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
                         confirmTransactionDialog: false
+                    });
+
+                    this.store.dispatch({
+                        type: "SET_ERROR_DIALOG_MSG",
+                        errorDialogMsg: error.toString()
                     });
 
                     this.store.dispatch({
