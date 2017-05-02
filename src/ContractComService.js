@@ -1,4 +1,5 @@
 import {web3} from './web3';
+import Config from './config'
 import contractBuilder from "truffle-contract"
 
 //TODO: actually we need just ABI contracts here - find way to provide those during build process
@@ -376,7 +377,42 @@ export default class ContractComService {
                     });
                 },
                 error => Promise.reject(error)
+            ).then(
+                success => {
+                    let transactionHash = success.tx;
+                    let blockNo = 0;
 
+                    let filter = web3.eth.filter("latest", (error, result) => {
+                        if (!error) {
+                            console.log(result);
+                            web3.eth.getTransaction(transactionHash, (error, result) => {
+                                if (!error) {
+                                    console.log('result of getTransaction');
+                                    console.log(result);
+                                    if (result.blockNumber != null) {
+                                        console.log("block no: ", blockNo);
+                                        if (blockNo++ >= Config.numberOfConfirmations - 1) {
+                                            console.log('we have enough confirmations we can move on');
+                                            filter.stopWatching((error, result) => {
+                                                if (error)
+                                                    console.log(error);
+                                            })
+                                        }
+                                    }
+                                } else {
+                                    console.log('error of getTransaction');
+                                    console.log(error);
+                                }
+                            });
+                        } else {
+                            console.log('error of filter');
+                            console.log(error);
+                        }
+                    });
+                    console.log(success);
+                    return success;
+                },
+                error => Promise.reject(error)
             );
     }
 
