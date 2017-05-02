@@ -246,15 +246,13 @@ export default class ContractComService {
         return this.ESOPContractAbstr.deployed()
             .then(contract => contract.openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash))
             .then(
-                success => {
-                    return new Promise((resolve, reject) => {
-                        if (success.logs[0].event == "ESOPOpened") {
-                            resolve(success);
-                        } else {
-                            reject(success);
-                        }
-                    });
-                },
+                success => new Promise((resolve, reject) => {
+                    if (success.logs[0].event == "ESOPOpened") {
+                        resolve(success);
+                    } else {
+                        reject(success);
+                    }
+                }),
                 error => Promise.reject(error)
             );
     }
@@ -269,17 +267,16 @@ export default class ContractComService {
         return this.OptionsCalculatorAbstr.deployed()
             .then(contract => contract.setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare))
             .then(
-                success => {
-                    return Promise.resolve(success);
-                    /* TODO: add return value to logs of OptionsCalculator.setParameters
-                     return new Promise((resolve, reject) => {
-                     if (success.logs[0].event == "xxx") {
-                     resolve(success);
-                     } else {
-                     reject(success);
-                     }
-                     });*/
-                },
+                success => Promise.resolve(success)
+                /* TODO: add return value to logs of OptionsCalculator.setParameters
+                 return new Promise((resolve, reject) => {
+                 if (success.logs[0].event == "xxx") {
+                 resolve(success);
+                 } else {
+                 reject(success);
+                 }
+                 });*/
+                ,
                 error => Promise.reject(error)
             );
     }
@@ -316,15 +313,13 @@ export default class ContractComService {
                         extraOptions)
                 }
             }).then(
-                success => {
-                    return new Promise((resolve, reject) => {
-                        if (success.logs[0].event == "ESOPOffered") {
-                            resolve(success);
-                        } else {
-                            reject(success);
-                        }
-                    });
-                },
+                success => new Promise((resolve, reject) => {
+                    if (success.logs[0].event == "ESOPOffered") {
+                        resolve(success);
+                    } else {
+                        reject(success);
+                    }
+                }),
                 error => Promise.reject(error)
             );
     }
@@ -337,15 +332,13 @@ export default class ContractComService {
         });
 
         return this.ESOPContractAbstr.deployed().then(contract => contract.employeeSignsToESOP()).then(
-            success => {
-                return new Promise((resolve, reject) => {
-                    if (success.logs[0].event == "EmployeeSignedToESOP") {
-                        resolve(success);
-                    } else {
-                        reject(success);
-                    }
-                });
-            },
+            success => new Promise((resolve, reject) => {
+                if (success.logs[0].event == "EmployeeSignedToESOP") {
+                    resolve(success);
+                } else {
+                    reject(success);
+                }
+            }),
             error => Promise.reject(error)
         );
     }
@@ -366,16 +359,15 @@ export default class ContractComService {
         return this.ESOPContractAbstr.deployed()
             .then(contract => contract.toggleEmployeeSuspension(employeePublicKey, toggledAt))
             .then(
-                success => {
-                    return new Promise((resolve, reject) => {
-                        if (success.logs[0].event == "SuspendEmployee"
-                            || success.logs[0].event == "ContinueSuspendedEmployee") {
-                            resolve(success);
-                        } else {
-                            reject(success);
-                        }
-                    });
-                },
+                success => new Promise((resolve, reject) => {
+                    if (success.logs[0].event == "SuspendEmployee"
+                        || success.logs[0].event == "ContinueSuspendedEmployee") {
+                        resolve(success);
+                    } else {
+                        reject(success);
+                    }
+                })
+                ,
                 error => Promise.reject(error)
             ).then(
                 success => {
@@ -432,15 +424,13 @@ export default class ContractComService {
         return this.ESOPContractAbstr.deployed()
             .then(contract => contract.terminateEmployee(employeePublicKey, terminatedAt, terminationType))
             .then(
-                success => {
-                    return new Promise((resolve, reject) => {
-                        if (success.logs[0].event == "TerminateEmployee") {
-                            resolve(success);
-                        } else {
-                            reject(success);
-                        }
-                    });
-                },
+                success => new Promise((resolve, reject) => {
+                    if (success.logs[0].event == "TerminateEmployee") {
+                        resolve(success);
+                    } else {
+                        reject(success);
+                    }
+                }),
                 error => Promise.reject(error)
             );
     }
@@ -455,15 +445,13 @@ export default class ContractComService {
         return this.ESOPContractAbstr.deployed()
             .then(contract => contract.offerOptionsConversion(optionsConverterAddress))
             .then(
-                success => {
-                    return new Promise((resolve, reject) => {
-                        if (success.logs[0].event == "OptionsConversionOffered") {
-                            resolve(success);
-                        } else {
-                            reject(success);
-                        }
-                    });
-                },
+                success => new Promise((resolve, reject) => {
+                    if (success.logs[0].event == "OptionsConversionOffered") {
+                        resolve(success);
+                    } else {
+                        reject(success);
+                    }
+                }),
                 error => Promise.reject(error)
             );
     }
