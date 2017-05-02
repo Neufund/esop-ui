@@ -253,6 +253,9 @@ export default class EmployeeListDetails extends React.Component {
                 <TextField floatingLabelText="Extra options" className="employee_parameter"
                            value={numberFormatter.format(employee.extraOptions)} disabled={true}/>
 
+                <TextField floatingLabelText="Vested options" className="employee_parameter"
+                           value={numberFormatter.format(employee.vestedOptions)} disabled={true}/>
+
                 {employee.suspendedAt != 0 &&
                 <TextField floatingLabelText="Suspened at" className="employee_parameter"
                            value={moment.unix(employee.suspendedAt).format(Config.dateFormat)} disabled={true}/>

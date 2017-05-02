@@ -51,6 +51,7 @@ export default class Init extends React.Component {
                             <TableHeaderColumn>Public key</TableHeaderColumn>
                             <TableHeaderColumn>Issue date</TableHeaderColumn>
                             <TableHeaderColumn>Issued options</TableHeaderColumn>
+                            <TableHeaderColumn>Vested options</TableHeaderColumn>
                             <TableHeaderColumn>State</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
@@ -62,6 +63,7 @@ export default class Init extends React.Component {
                                     <FontIcon className="material-icons material_icon_table">link</FontIcon></a>{employee.address}</TableRowColumn>
                                 <TableRowColumn>{moment.unix(employee.issueDate).format(dateFormat)}</TableRowColumn>
                                 <TableRowColumn>{numberFormatter.format(employee.poolOptions + employee.extraOptions)}</TableRowColumn>
+                                <TableRowColumn>{numberFormatter.format(employee.vestedOptions)}</TableRowColumn>
                                 <TableRowColumn>{ContractUtils.getEmployeeStateName(employee.state)}</TableRowColumn>
                             </TableRow>
                         ))}
