@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import {epochAsYears} from '../utils'
 
-export default ({contractParameters, isCEO, onClickTap}) => {
+export default ({contractParameters}) => {
     let numberFormatter = new Intl.NumberFormat();
 
     let tooltipStyles = {

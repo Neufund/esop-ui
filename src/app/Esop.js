@@ -1,8 +1,6 @@
 import React from 'react';
 import './Esop.scss';
 
-import paperContract from '../images/contract.png';
-
 import EmployeeList from '../components/EmployeeList'
 import EmployeeAdd from '../components/EmployeeAdd'
 import EmployeeListDetails from '../components/EmployeeListDetails'
@@ -26,8 +24,7 @@ export default class Esop extends React.Component {
         this.services = props.services;
 
         this.state = {
-            esop_desc_open: false,
-            paper_contract_open: false
+            esop_desc_open: false
         };
     }
 
@@ -45,14 +42,6 @@ export default class Esop extends React.Component {
 
     handleEsopDescClose = () => {
         this.setState({esop_desc_open: false});
-    };
-
-    handlePaperContractOpen = () => {
-        this.setState({paper_contract_open: true});
-    };
-
-    handlePaperContractClose = () => {
-        this.setState({paper_contract_open: false});
     };
 
     render() {
@@ -94,7 +83,7 @@ export default class Esop extends React.Component {
                         <ConversionStatus contractState={ESOPState}/>
                         }
                         <ContractAddresses RoTAddress={ESOPState.RoTAddress} ESOPAddress={ESOPState.ESOPAddress}/>
-                        <ContractParameters contractParameters={ESOPState} isCEO={userState.userType == "ceo"} onClickTap={this.handlePaperContractOpen}/>
+                        <ContractParameters contractParameters={ESOPState}/>
 
                         <div className="row">
                             <div className="col-xs-12">
@@ -163,18 +152,6 @@ export default class Esop extends React.Component {
                                 </li>
                             </ol>
 
-                        </Dialog>
-
-                        <Dialog
-                            modal={false}
-                            open={this.state.paper_contract_open}
-                            onRequestClose={this.handlePaperContractClose}
-                            actions={actions}
-                        >
-                            <h2>Paper contract</h2>
-                            <div>
-                                <img className="paper_contract_img" src={paperContract}/>
-                            </div>
                         </Dialog>
                     </div>
                 </div>
