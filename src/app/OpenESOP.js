@@ -50,7 +50,7 @@ export default class Init extends React.Component {
         if (validationOutcome == "") {
             let num = parseInt(value);
             if (isNaN(num))
-                validationOutcome = 'value us not a number';
+                validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
         }
@@ -64,7 +64,7 @@ export default class Init extends React.Component {
         if (validationOutcome == "") {
             let num = Number.parseInt(value);
             if (isNaN(num))
-                validationOutcome = 'value us not a number';
+                validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'time period must be bigger than zero';
         }
@@ -78,7 +78,7 @@ export default class Init extends React.Component {
         if (validationOutcome == "") {
             let num = Number.parseInt(value);
             if (isNaN(num))
-                validationOutcome = 'value us not a number';
+                validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'time period must be bigger than zero';
         }
@@ -92,7 +92,7 @@ export default class Init extends React.Component {
         if (validationOutcome == "") {
             let num = parseInt(value);
             if (isNaN(num))
-                validationOutcome = 'value us not a number';
+                validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
         }
@@ -106,7 +106,7 @@ export default class Init extends React.Component {
         if (validationOutcome == "") {
             let num = parseInt(value);
             if (isNaN(num))
-                validationOutcome = 'value us not a number';
+                validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
         }
@@ -120,7 +120,7 @@ export default class Init extends React.Component {
         if (validationOutcome == "") {
             let num = parseInt(value);
             if (isNaN(num))
-                validationOutcome = 'value us not a number';
+                validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
         }
@@ -134,7 +134,7 @@ export default class Init extends React.Component {
         if (validationOutcome == "") {
             let num = parseInt(value);
             if (isNaN(num))
-                validationOutcome = 'value us not a number';
+                validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
         }
