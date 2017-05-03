@@ -153,7 +153,7 @@ export default class EmployeeDetails extends React.Component {
                 </div>
                 {employee.state == 1 &&
                 <EmployeeSignESOP employee={employee} ESOPState={ESOPState} signHandler={this.signEmployeeHandler}
-                                  showPapelCopeyHandler={this.showPaperCopyHandler}/>
+                                  showPaperCopyHandler={this.showPaperCopyHandler}/>
                 }
                 {employee.state > 1 &&
                 <EmployeeESOPDetails employee={employee} ESOPState={ESOPState}/>
