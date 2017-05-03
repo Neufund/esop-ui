@@ -76,7 +76,7 @@ export default class Esop extends React.Component {
 
                         <div className="row">
                             <div className="col-xs-12 col-md-3">
-                                <h1>Neufund ESOP details</h1>
+                                <h1>Neufund’s ESOP overview</h1>
                             </div>
                             <div className="col-xs-12 col-md-7 read_more">
                                 <RaisedButton className="read_more_button" label="Read more what ESOP is"
