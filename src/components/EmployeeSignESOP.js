@@ -6,6 +6,7 @@ import './EmployeeSignESOP.scss'
 import ContractUtils from '../ContractUtils'
 import {epochAsYears} from '../utils'
 import Config from '../config'
+import Texting from '../texting'
 
 import moment from 'moment'
 
@@ -23,7 +24,7 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
             title: "Public Key (Ethereum Address of Employee)",
             desc: <div>I want to use &lt;br /&gt; <br /> element</div>,
             value: <div>{employee.address} <a key={1} className="inline_link" target="_blank"
-                                              href={`https://etherscan.io/address/${employee.address}`}>
+                                              href={ContractUtils.formatEtherscanUrl(employee.address, ESOPState.networkId)}>
                 <FontIcon className="material-icons material_icon_table">link</FontIcon></a></div>
         },
         {
@@ -36,12 +37,16 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
         },
         {
             title: "Extra Options",
-            desc: "Long description - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+            desc: Texting.definitions.extraOptions,
             value: numberFormatter.format(employee.extraOptions)
         },
         {
             title: "Strike price",
             value: `EUR ${ESOPState.STRIKE_PRICE} per share`
+        },
+        {
+            title: "Options per Share",
+            value: `${ESOPState.optionsPerShare}`
         },
         {
             title: "Issue Date",
@@ -52,7 +57,7 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
             value: epochAsYears(ESOPState.vestingPeriod)
         },
         {
-            title: "Cliff period",
+            title: "Cliff Period",
             value: epochAsYears(ESOPState.cliffPeriod)
         },
         {
@@ -96,7 +101,7 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
                     <div className="esop_title">
                         <h3>Fifth force GmBH identifed by address {ESOPState.companyAddress}
                             <a className="inline_link" target="_blank"
-                               href={`https://etherscan.io/address/${ESOPState.companyAddress}`}>
+                               href={ContractUtils.formatEtherscanUrl(ESOPState.companyAddress, ESOPState.networkId)}>
                                 <FontIcon className="material-icons">link</FontIcon></a></h3>
                         <h4>ESOP Subscription Form</h4>
                     </div>
@@ -125,7 +130,9 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
             </div>
             <div className="row">
                 <p className="col-xs-12">
-                    I hereby subscribe for the Issued Options for shares in {ESOPState.companyAddress} under the terms and conditions as set out in the ESOP Smart Contract at address {ESOPState.ESOPAddress} and made available to me in [title of legal wrapper].
+                    I hereby subscribe for the Issued Options for shares in {Config.ipfs_tags.company} under the terms
+                    and conditions as set out in the ESOP Smart Contract at address {ESOPState.RoTAddress} and made
+                    available to me in {Texting.termsDocumentTitle}
                 </p>
             </div>
             <div className="row">

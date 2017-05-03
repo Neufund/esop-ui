@@ -59,7 +59,7 @@ export default class Init extends React.Component {
                     <TableBody displayRowCheckbox={false} stripedRows={false} deselectOnClickaway={false}>
                         {employeeList.map((employee, index) => (
                             <TableRow key={index}>
-                                <TableRowColumn><a className="inline_link" target="_blank" href={`https://etherscan.io/address/${employee.address}`}>
+                                <TableRowColumn><a className="inline_link" target="_blank" href={ContractUtils.formatEtherscanUrl(employee.address, ESOPState.networkId)}>
                                     <FontIcon className="material-icons material_icon_table">link</FontIcon></a>{employee.address}</TableRowColumn>
                                 <TableRowColumn>{moment.unix(employee.issueDate).format(dateFormat)}</TableRowColumn>
                                 <TableRowColumn>{numberFormatter.format(employee.poolOptions + employee.extraOptions)}</TableRowColumn>

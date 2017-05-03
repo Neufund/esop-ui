@@ -5,6 +5,7 @@ import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import FontIcon from 'material-ui/FontIcon';
+import ContractUtils from '../ContractUtils'
 
 export default class EmployeeAdd extends React.Component {
 
@@ -152,6 +153,8 @@ export default class EmployeeAdd extends React.Component {
 
         let textFieldsProps = {};
 
+        let ESOPState = this.store.getState().ESOP;
+
         textFieldsProps.employeePublicKey = {
             floatingLabelText: "employees' public address",
             className: "employee_parameter",
@@ -196,7 +199,7 @@ export default class EmployeeAdd extends React.Component {
                     <TextField {...textFieldsProps.employeePublicKey}/>
 
                     {this.state.employeePublicKey != '' &&
-                    <a target="_blank" href={`https://etherscan.io/address/${this.state.employeePublicKey}`}>
+                    <a target="_blank" href={ContractUtils.formatEtherscanUrl(this.state.employeePublicKey, ESOPState.networkId)}>
                         <FontIcon className="material-icons">link</FontIcon>
                     </a>
                     }
