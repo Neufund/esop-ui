@@ -25,6 +25,11 @@ export default class Init extends React.Component {
             let ESOPState = this.store.getState().ESOP;
             let employeeList = ESOPState.employees;
             selectedEmployee = employeeList[index[0]].address;
+
+            //TODO: scroll to bottom of form -  timeout due to react render - should be done better
+            window.setTimeout(() => {
+                window.scrollTo(0, document.getElementById("user_list_bottom").offsetTop);
+            }, 100);
         } else {
             selectedEmployee = undefined
         }
@@ -69,6 +74,7 @@ export default class Init extends React.Component {
                         ))}
                     </TableBody>
                 </Table>
+                <div id="user_list_bottom"></div>
             </div>
         )
     }
