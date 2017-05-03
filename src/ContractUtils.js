@@ -3,13 +3,10 @@ export default class ContractUtils {
         switch (ESOPState) {
             case 0:
                 return "New";
-                break;
             case 1:
                 return "Open";
-                break;
             case 2:
                 return "Conversion";
-                break;
             default:
                 throw "Unknown ESOP state";
         }
@@ -19,21 +16,46 @@ export default class ContractUtils {
         switch (EmployeeState) {
             case 0:
                 return "Not set";
-                break;
             case 1:
                 return "Waiting for signature";
-                break;
             case 2:
                 return "Employed";
-                break;
             case 3:
                 return "Terminated";
-                break;
             case 4:
                 return "Options Exercised";
-                break;
             default:
                 throw "Unknown employee state";
         }
+    }
+
+    static getNetworkName(id) {
+        switch (id) {
+            case 1:
+                return "Main network";
+            case 3:
+                return "Ropsten testnet";
+            case 42:
+                return "Kovan testnet";
+            default:
+                return "Dev chain";
+        }
+    }
+
+    static networkIdToEtherscan(id) {
+        switch (id) {
+            case 1:
+                return "";
+            case 3:
+                return "ropsten.";
+            case 42:
+                return "kovan.";
+            default:
+                return "";
+        }
+    }
+
+    static formatEtherscanUrl(address, networkId) {
+        return `https://${this.networkIdToEtherscan(networkId)}etherscan.io/address/${address}`;
     }
 }
