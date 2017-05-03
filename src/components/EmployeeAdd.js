@@ -211,11 +211,13 @@ export default class EmployeeAdd extends React.Component {
                     <div id="add_employee_form">
                         <h3>Offer options to employee:</h3>
 
-                    {this.state.employeePublicKey != '' &&
-                    <a target="_blank" href={ContractUtils.formatEtherscanUrl(this.state.employeePublicKey, ESOPState.networkId)}>
-                        <FontIcon className="material-icons">link</FontIcon>
-                    </a>
-                    }
+                        <TextField {...textFieldsProps.employeePublicKey}/>
+
+                        {this.state.employeePublicKey != '' &&
+                        <a target="_blank" href={ContractUtils.formatEtherscanUrl(this.state.employeePublicKey, ESOPState.networkId)}>
+                            <FontIcon className="material-icons">link</FontIcon>
+                        </a>
+                        }
 
                         {this.state.employeePublicKey != '' &&
                         <a target="_blank" href={`https://etherscan.io/address/${this.state.employeePublicKey}`}>
