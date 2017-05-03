@@ -65,13 +65,13 @@ export default class App extends React.Component {
                     {componentToRender}
 
                     <Dialog
-                        title="Please confirm account on your nano"
+                        title="Please confirm access to your account on your Nano Ledger"
                         modal={true}
                         open={UIstate.nanoConfirmAccountDialog}>
                     </Dialog>
 
                     <Dialog
-                        title="Please confirm transaction using your signer!"
+                        title="Please confirm transaction using your wallet!"
                         modal={true}
                         open={UIstate.confirmTransactionDialog}>
                         <div>
@@ -83,11 +83,11 @@ export default class App extends React.Component {
                     </Dialog>
 
                     <Dialog
-                        title="Ups we have a problem"
+                        title="Ups, we have a problem"
                         modal={true}
                         open={UIstate.errorDialog}
                         actions={closeActions}>
-                        <h4>Below you will find more information about what caused problem. If information is not clear contact tech team.</h4>
+                        <p>Below you will find more information about what caused problem. If information is not clear contact tech team.</p>
                         <pre>
                             {UIstate.errorDialogMsg}
                         </pre>

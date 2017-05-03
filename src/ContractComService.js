@@ -527,7 +527,7 @@ export default class ContractComService {
 
         // transaction rejected when using nano ledger
         if (error === 'Invalid status 6985')
-            return Promise.reject('You rejected transaction on your nano.');
+            return Promise.reject('You rejected transaction on your Nano Ledger.');
 
         // transaction rejected when using metamask
         if (error.message != undefined
