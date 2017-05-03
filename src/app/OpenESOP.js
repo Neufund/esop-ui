@@ -128,7 +128,7 @@ export default class Init extends React.Component {
         return validationOutcome;
     };
 
-    validateOptionsPerShare = (value, totalPoolOptionsValue) => {
+    validateOptionsPerShare = (value) => {
         let validationOutcome = value === '' ? "please fill this field" : "";
 
         if (validationOutcome == "") {
@@ -137,7 +137,7 @@ export default class Init extends React.Component {
                 validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
-            else if (totalPoolOptionsValue % value > 0)
+            else if (this.state.totalPoolOptions % value > 0)
                 validationOutcome = 'should be a divisor of total pool options';
         }
         this.setState({optionsPerShareValidation: validationOutcome});
@@ -167,7 +167,7 @@ export default class Init extends React.Component {
         let validateResidualAmount = this.validateResidualAmount(this.state.residualAmount) == '';
         let validateBonusOptions = this.validateBonusOptions(this.state.bonusOptions) == '';
         let validateNewEmployeePool = this.validateNewEmployeePool(this.state.newEmployeePool) == '';
-        let validateOptionsPerShare = this.validateOptionsPerShare(this.state.optionsPerShare, this.state.totalPoolOptions) == '';
+        let validateOptionsPerShare = this.validateOptionsPerShare(this.state.optionsPerShare) == '';
         let validatESOPLegalWrapperIPFSHash = this.validatESOPLegalWrapperIPFSHash(this.state.ESOPLegalWrapperIPFSHash) == '';
 
         return validateTotalPoolOptions && validateCliffPeriod && validateVestingPeriod
@@ -184,13 +184,13 @@ export default class Init extends React.Component {
                 showDocumentDialog:true
             });
         });
-    }
+    };
 
     handleDialogRequestClose=()=>{
         this.setState({
             showDocumentDialog: false,
         });
-    }
+    };
 
     handlePrint = () =>{
         let mywindow = window.open('', 'PRINT', 'height=400,width=600');
@@ -205,7 +205,7 @@ export default class Init extends React.Component {
 
         mywindow.print();
         mywindow.close();
-    }
+    };
 
     handleOpenEsopButton = () => {
 
