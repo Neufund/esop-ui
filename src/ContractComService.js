@@ -203,6 +203,15 @@ export default class ContractComService {
         })
     });
 
+    getNetworkId = () => new Promise((resolve, reject) => {
+        web3.version.getNetwork((error, result) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(result);
+        })
+    });
+
     async obtainESOPData() {
         let companyAddress = this.getCompanyAddress(this.RoTContract);
         let ESOPData = await this.getESOPData().then(result => this.parseESOPData(result));
@@ -213,6 +222,7 @@ export default class ContractComService {
 
         ESOPData.newEmployeePoolOption = (await this.getNewEmployeePoolOptions(ESOPData.remainingPoolOptions)).toNumber();
         ESOPData.currentBlockHash = await this.getBlockHash();
+        ESOPData.networkId = Number(await this.getNetworkId());
 
         return {
             companyAddress: await companyAddress,

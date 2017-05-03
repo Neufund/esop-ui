@@ -33,7 +33,8 @@ export default (state = {waitingForData: true}, action) => {
                 employees: action.employees,
                 newEmployeePoolOption: action.newEmployeePoolOption,
                 currentBlockTimestamp: action.currentBlockTimestamp,
-                currentBlockHash: action.currentBlockHash
+                currentBlockHash: action.currentBlockHash,
+                networkId: action.networkId
             };
             break;
 
