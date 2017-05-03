@@ -279,6 +279,11 @@ export default class Init extends React.Component {
             </div>
         );
 
+        let tooltipStyles = {
+            fontSize: "0.8rem",
+            padding: "0.4rem"
+        };
+
         let ESOPState = this.store.getState().ESOP;
         let UIstate = this.store.getState().UI;
         let userState = this.store.getState().user;
@@ -395,42 +400,52 @@ export default class Init extends React.Component {
                         </div>
                     </div>
                     :
-                    <div>
+                    <div className="contract_parameters">
                         <div className="row">
                             <div className="col-xs-12 col-md-10 col-md-offset-1">
                                 <h2>Please fill ESOP parameters before employees can be added</h2>
-
-                                <div className="paramter_wrapper">
-                                    <TextField {...textFieldsProps.totalPoolOptionsProps}/>
-                                    <IconButton tooltip={Texting.definitions.totalPoolOptions} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
-                                    <TextField {...textFieldsProps.cliffPeriodProps}/>
-                                    <IconButton tooltip={Texting.definitions.cliffPeriod} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-5 col-md-offset-1">
+                                <TextField {...textFieldsProps.totalPoolOptionsProps}/>
+                                <IconButton tooltip={Texting.definitions.totalPoolOptions} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                            <div className="col-xs-12 col-md-5">
+                                <TextField {...textFieldsProps.cliffPeriodProps}/>
+                                <IconButton tooltip={Texting.definitions.cliffPeriod} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-5 col-md-offset-1">
                                     <TextField {...textFieldsProps.vestingPeriodProps}/>
-                                    <IconButton tooltip={Texting.definitions.vestingPeriod} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
+                                    <IconButton tooltip={Texting.definitions.vestingPeriod} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                            <div className="col-xs-12 col-md-5">
                                     <TextField {...textFieldsProps.residualAmountProps}/>
-                                    <IconButton tooltip={Texting.definitions.residualAmount} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
+                                    <IconButton tooltip={Texting.definitions.residualAmount} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-5 col-md-offset-1">
                                     <TextField {...textFieldsProps.bonusOptionsProps}/>
-                                    <IconButton tooltip={Texting.definitions.bonusOptions} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
+                                    <IconButton tooltip={Texting.definitions.bonusOptions} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                            <div className="col-xs-12 col-md-5">
                                     <TextField {...textFieldsProps.newEmployeePoolProps}/>
-                                    <IconButton tooltip={Texting.definitions.newEmployeePool} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
-                                    <TextField {...textFieldsProps.optionsPerShareProps}/>
-                                    <IconButton tooltip={Texting.definitions.optionsPerShare} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <br />
+                                    <IconButton tooltip={Texting.definitions.newEmployeePool} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-5 col-md-offset-1">
+                                <TextField {...textFieldsProps.optionsPerShareProps}/>
+                                <IconButton tooltip={Texting.definitions.optionsPerShare} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-10 col-md-offset-1">
                                 <TextField {...textFieldsProps.ESOPLegalWrapperIPFSHashProps}/>
-                                <IconButton tooltip={Texting.definitions.termsDocIPFSHash} iconClassName="material-icons">info</IconButton>
+                                <IconButton tooltip={Texting.definitions.termsDocIPFSHash} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
                                 <RaisedButton label="preview document" className="preview_button"
                                               onTouchTap={this.handleValidateDoc} />
                             </div>
