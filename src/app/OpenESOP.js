@@ -5,10 +5,12 @@ import {web3} from '../web3'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton'
 
 import {validateDoc}from '../utils'
 import IPFSDialog from '../components/IPFSDialog';
+import Texting from '../texting'
 
 
 export default class Init extends React.Component {
@@ -395,116 +397,49 @@ export default class Init extends React.Component {
 
                                 <div className="paramter_wrapper">
                                     <TextField {...textFieldsProps.totalPoolOptionsProps}/>
-                                    <a href="#totalPool">
-                                        <FontIcon className="material-icons">info</FontIcon>
-                                    </a>
+                                    <IconButton tooltip={Texting.definitions.totalPoolOptions} iconClassName="material-icons">info</IconButton>
                                 </div>
                                 <div className="paramter_wrapper">
                                     <TextField {...textFieldsProps.cliffPeriodProps}/>
-                                    <a href="#cliffPeriod">
-                                        <FontIcon className="material-icons">info</FontIcon>
-                                    </a>
+                                    <IconButton tooltip={Texting.definitions.cliffPeriod} iconClassName="material-icons">info</IconButton>
                                 </div>
                                 <div className="paramter_wrapper">
                                     <TextField {...textFieldsProps.vestingPeriodProps}/>
-                                    <a href="#vestingPeriod">
-                                        <FontIcon className="material-icons">info</FontIcon>
-                                    </a>
+                                    <IconButton tooltip={Texting.definitions.vestingPeriod} iconClassName="material-icons">info</IconButton>
                                 </div>
                                 <div className="paramter_wrapper">
                                     <TextField {...textFieldsProps.residualAmountProps}/>
-                                    <a href="#residualAmount">
-                                        <FontIcon className="material-icons">info</FontIcon>
-                                    </a>
+                                    <IconButton tooltip={Texting.definitions.residualAmount} iconClassName="material-icons">info</IconButton>
                                 </div>
                                 <div className="paramter_wrapper">
                                     <TextField {...textFieldsProps.bonusOptionsProps}/>
-                                    <a href="#bonusOptions">
-                                        <FontIcon className="material-icons">info</FontIcon>
-                                    </a>
+                                    <IconButton tooltip={Texting.definitions.bonusOptions} iconClassName="material-icons">info</IconButton>
                                 </div>
                                 <div className="paramter_wrapper">
                                     <TextField {...textFieldsProps.newEmployeePoolProps}/>
-                                    <a href="#newEmployeePool">
-                                        <FontIcon className="material-icons">info</FontIcon>
-                                    </a>
+                                    <IconButton tooltip={Texting.definitions.newEmployeePool} iconClassName="material-icons">info</IconButton>
                                 </div>
                                 <div className="paramter_wrapper">
                                     <TextField {...textFieldsProps.optionsPerShareProps}/>
-                                    <a href="#optionsPerShare">
-                                        <FontIcon className="material-icons">info</FontIcon>
-                                    </a>
+                                    <IconButton tooltip={Texting.definitions.optionsPerShare} iconClassName="material-icons">info</IconButton>
                                 </div>
                                 <br />
                                 <TextField {...textFieldsProps.ESOPLegalWrapperIPFSHashProps}/>
-                                <a href="#ESOPLegalWrapperIPFSHash">
-                                    <FontIcon className="material-icons">info</FontIcon>
-                                </a>
-
+                                <IconButton tooltip={Texting.definitions.termsDocIPFSHash} iconClassName="material-icons">info</IconButton>
                                 <RaisedButton label="Validate doc" className="validate_button"
                                               onTouchTap={this.handleValidateDoc} />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-xs-12 col-md-10 col-md-offset-1">
+                                <br/>
+                                <a href="https://github.com/Neufund/ESOP#esop-algorithm" target="_new">Read more on configuring ESOP Terms & Conditions</a>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-10 col-md-offset-1">
                                 <RaisedButton label="Initialize ESOP" onClick={this.handleOpenEsopButton}
                                               className="start_button"/>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div id="totalPool" className="col-xs-12 col-md-10 col-md-offset-1">
-                                <p>
-                                    total pool -
-                                </p>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div id="cliffPeriod" className="col-xs-12 col-md-10 col-md-offset-1">
-                                <p>
-                                    cliff period -
-                                </p>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div id="vestingPeriod" className="col-xs-12 col-md-10 col-md-offset-1">
-                                <p>
-                                    vesting period -
-                                </p>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div id="residualAmount" className="col-xs-12 col-md-10 col-md-offset-1">
-                                <p>
-                                    residual amount -
-                                </p>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div id="bonusOptions" className="col-xs-12 col-md-10 col-md-offset-1">
-                                <p>
-                                    bonus options -
-                                </p>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div id="newEmployeePool" className="col-xs-12 col-md-10 col-md-offset-1">
-                                <p>
-                                    new employee pool -
-                                </p>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div id="optionsPerShare" className="col-xs-12 col-md-10 col-md-offset-1">
-                                <p>
-                                    options per share
-                                </p>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div id="ESOPLegalWrapperIPFSHash" className="col-xs-12 col-md-10 col-md-offset-1">
-                                <p>
-                                    ESOP Legal Wrapper IPFS Hash -
-                                </p>
                             </div>
                         </div>
                     </div>
