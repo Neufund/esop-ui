@@ -250,13 +250,6 @@ export default class ContractComService {
         });
     }
 
-    initEsop(totalPoolOptions, ESOPLegalWrapperIPFSHash, cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare) {
-        return Promise.all([
-            this.openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash),
-            this.setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare)
-        ]);
-    }
-
     /**
      *
      * @param {int} totalPoolOptions
@@ -286,6 +279,14 @@ export default class ContractComService {
                 ,
                 error => Promise.reject(error)
             );
+    }
+
+    setParametersOptional(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare, hasSetParameters) {
+        if (hasSetParameters) {
+            // return empty promise
+            return new Promise((resolve, reject) => { resolve('params already set') });
+        }
+        return this.setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare)
     }
 
     setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare) {

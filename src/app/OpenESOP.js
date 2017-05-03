@@ -51,8 +51,10 @@ export default class Init extends React.Component {
             let num = parseInt(value);
             if (isNaN(num))
                 validationOutcome = 'value is not a number';
-            else if (num <= 0)
-                validationOutcome = 'value must be bigger than zero';
+            else if (num < 10000)
+                validationOutcome = 'value must be > 10000';
+            // else if (num > 1100000)
+            //    validationOutcome = 'value must be less than 100';
         }
         this.setState({totalPoolOptionsValidation: validationOutcome});
         return validationOutcome;
@@ -95,6 +97,8 @@ export default class Init extends React.Component {
                 validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
+            else if (num > 100)
+                validationOutcome = 'value must be less than 100';
         }
         this.setState({residualAmountValidation: validationOutcome});
         return validationOutcome;
@@ -109,6 +113,8 @@ export default class Init extends React.Component {
                 validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
+            else if (num > 100)
+                validationOutcome = 'value must be less than 100';
         }
         this.setState({bonusOptionsValidation: validationOutcome});
         return validationOutcome;
@@ -123,6 +129,8 @@ export default class Init extends React.Component {
                 validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
+            else if (num > 100)
+                validationOutcome = 'value must be less than 100';
         }
         this.setState({newEmployeePoolValidation: validationOutcome});
         return validationOutcome;
@@ -229,33 +237,41 @@ export default class Init extends React.Component {
             confirmTransactionDialog: true
         });
 
-        this.services.ESOPService.initEsop(totalPoolOptions, ESOPLegalWrapperIPFSHash, cliffPeriod, vestingPeriod,
-            residualAmount, bonusOptions, newEmployeePool, optionsPerShare).then(
-            success => {
-                this.services.ESOPService.getESOPDataFromContract();
-                this.services.ESOPService.obtainContractAddreses();
-                this.store.dispatch({
-                    type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
-                    confirmTransactionDialog: false
-                });
-            },
-            error => {
-                this.store.dispatch({
-                    type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
-                    confirmTransactionDialog: false
-                });
+        let handle_error = function (that, error) {
+            that.store.dispatch({
+                type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                confirmTransactionDialog: false
+            });
 
-                this.store.dispatch({
-                    type: "SET_ERROR_DIALOG_MSG",
-                    errorDialogMsg: error.toString()
-                });
+            that.store.dispatch({
+                type: "SET_ERROR_DIALOG_MSG",
+                errorDialogMsg: error.toString()
+            });
 
-                this.store.dispatch({
-                    type: "SHOW_ERROR_DIALOG",
-                    errorDialog: true
-                });
-                console.log(error);
-            }
+            that.store.dispatch({
+                type: "SHOW_ERROR_DIALOG",
+                errorDialog: true
+            });
+            console.log(error);
+        };
+
+        let ESOPState = this.store.getState().ESOP;
+        let hasSetParameters = ESOPState.optionsPerShare > 0;
+
+        this.services.ESOPService.setParametersOptional(cliffPeriod, vestingPeriod,
+            residualAmount, bonusOptions, newEmployeePool, optionsPerShare, hasSetParameters).then(
+            success => this.services.ESOPService.openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash).then(
+                success => {
+                    this.services.ESOPService.getESOPDataFromContract();
+                    this.services.ESOPService.obtainContractAddreses();
+                    this.store.dispatch({
+                        type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
+                        confirmTransactionDialog: false
+                    });
+                },
+                error => handle_error(this, error)
+            ),
+            error => handle_error(this, error)
         );
     };
 
