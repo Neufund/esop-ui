@@ -1,3 +1,5 @@
+@import "../styles/colors";
+
 .header {
   height: 3.75rem;
   margin-top: -0.5rem;
@@ -9,4 +11,18 @@
   background-size: 13.31rem 2.5rem;
   background-position: left center;
   background-repeat: no-repeat;
+}
+
+.introduction {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: $description-section-background;
+
+  ol {
+    list-style-type: lower-latin;
+  }
+
+  .introduction_column_header {
+    text-align: center;
+  }
 }
