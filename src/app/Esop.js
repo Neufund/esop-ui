@@ -91,10 +91,6 @@ export default class Esop extends React.Component {
                             </div>
                         </div>
 
-                        {userState.userType === "ceo" &&
-                        <EmployeeAdd services={this.services} store={this.store}/>
-                        }
-
                         <div className="row">
                             <div className="col-xs-12">
                                 <EmployeeList store={this.store}/>
@@ -107,6 +103,10 @@ export default class Esop extends React.Component {
                                 <EmployeeListDetails store={this.store} services={this.services}/>
                             </div>
                         </div>
+                        }
+
+                        {userState.userType === "ceo" &&
+                        <EmployeeAdd services={this.services} store={this.store}/>
                         }
 
                         {(userState.userType === "ceo" && ESOPState.esopState ===1 && false) &&
