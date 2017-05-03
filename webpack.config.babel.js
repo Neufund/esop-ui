@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+import Config from './src/config.js'
 
 module.exports = {
     entry: './src/index.js',
@@ -15,6 +16,11 @@ module.exports = {
         ]),
         new webpack.NamedModulesPlugin()
     ],
+    resolve: {
+      alias: {
+          'truffle-artifacts': Config.truffleArtifacts
+      }
+    },
     node: {
         __filename: true
     },

@@ -3,10 +3,10 @@ import Config from './config'
 import contractBuilder from "truffle-contract"
 
 //TODO: actually we need just ABI contracts here - find way to provide those during build process
-import RoTDef from '../../ESOP/deployed_artifacts/ropsten/RoT.json'
-import ESOPDef from '../../ESOP/deployed_artifacts/ropsten/ESOP.json'
-import EmployeesListDef from '../../ESOP/deployed_artifacts/ropsten/EmployeesList.json'
-import OptionsCalculatorDef from '../../ESOP/deployed_artifacts/ropsten/OptionsCalculator.json'
+import RoTDef from 'truffle-artifacts/RoT.json'
+import ESOPDef from 'truffle-artifacts/ESOP.json'
+import EmployeesListDef from 'truffle-artifacts/EmployeesList.json'
+import OptionsCalculatorDef from 'truffle-artifacts/OptionsCalculator.json'
 
 export default class ContractComService {
     constructor(store) {

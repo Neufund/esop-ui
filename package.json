@@ -41,6 +41,8 @@
     "dev": "webpack-dev-server --https --open --colors --progress --history-api-fallback"
   },
   "devDependencies": {
+    "babel-plugin-webpack-alias": "^2.1.2",
+    "babel-register": "^6.24.1",
     "node-sass": "^4.5.0",
     "sass-loader": "^6.0.3"
   }
