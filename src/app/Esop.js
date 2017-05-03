@@ -49,15 +49,6 @@ export default class Esop extends React.Component {
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
 
-        const actions = [
-            <IconButton tooltip="Download">
-                <FontIcon className="material-icons">file_download</FontIcon>
-            </IconButton>,
-            <IconButton tooltip="Print">
-                <FontIcon className="material-icons">print</FontIcon>
-            </IconButton>,
-        ];
-
         return (
             <div className="row">
                 <div className="col-xs-12 col-md-10 col-md-offset-1">
