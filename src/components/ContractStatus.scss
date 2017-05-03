@@ -1,20 +1,6 @@
 @import "../styles/colors";
 
-.employee_sign_esop {
-
-  border: 1px solid black;
-  padding: 1rem;
-
-  .esop_title {
-    text-align: center;
-  }
-
-  .buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
+.contract_status {
   .title {
     .material-icons {
       vertical-align:middle;
