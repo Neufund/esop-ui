@@ -15,18 +15,18 @@ export default ({contractParameters, isCEO, onClickTap}) => {
             </div>
             <div className="row">
                 <div className="col-xs-12 contract_parameters">
-                    <TextField floatingLabelText="cliff period" className="contract_parameter"
-                               value={epochAsYears(contractParameters.cliffPeriod)} disabled={true}/>
+                    <TextField floatingLabelText="total pool options" className="contract_parameter"
+                               value={numberFormatter.format(contractParameters.totalPoolOptions)} disabled={true}/>
+                    <TextField floatingLabelText="new employee pool" className="contract_parameter"
+                               value={`${contractParameters.newEmployeePoolPromille / 100}%`} disabled={true}/>
                     <TextField floatingLabelText="vesting period" className="contract_parameter"
                                value={epochAsYears(contractParameters.vestingPeriod)} disabled={true}/>
+                    <TextField floatingLabelText="cliff period" className="contract_parameter"
+                               value={epochAsYears(contractParameters.cliffPeriod)} disabled={true}/>
                     <TextField floatingLabelText="residual amount" className="contract_parameter"
                                value={`${contractParameters.residualAmountPromille / 100}%`} disabled={true}/>
                     <TextField floatingLabelText="bonus options" className="contract_parameter"
                                value={`${contractParameters.bonusOptionsPromille / 100}%`} disabled={true}/>
-                    <TextField floatingLabelText="new employee pool" className="contract_parameter"
-                               value={`${contractParameters.newEmployeePoolPromille / 100}%`} disabled={true}/>
-                    <TextField floatingLabelText="total pool options" className="contract_parameter"
-                               value={numberFormatter.format(contractParameters.totalPoolOptions)} disabled={true}/>
                     <TextField floatingLabelText="strike price" className="contract_parameter"
                                value={`${contractParameters.STRIKE_PRICE} EUR`} disabled={true}/>
                 </div>
