@@ -28,7 +28,7 @@ export default ({contractParameters, isCEO, onClickTap}) => {
                     <TextField floatingLabelText="total pool options" className="contract_parameter"
                                value={numberFormatter.format(contractParameters.totalPoolOptions)} disabled={true}/>
                     <TextField floatingLabelText="strike price" className="contract_parameter"
-                               value={contractParameters.STRIKE_PRICE} disabled={true}/>
+                               value={`${contractParameters.STRIKE_PRICE} EUR`} disabled={true}/>
                 </div>
             </div>
         </div>
