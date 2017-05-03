@@ -335,7 +335,7 @@ export default class Init extends React.Component {
         };
 
         textFieldsProps.ESOPLegalWrapperIPFSHashProps = {
-            floatingLabelText: "ESOP Legal Wrapper IPFS Hash",
+            floatingLabelText: "ESOP Terms & Conditions Document IPFS Hash",
             style: {width: "32.000rem"},
             value: this.state.ESOPLegalWrapperIPFSHash,
             onChange: this.handleTextFieldChange("ESOPLegalWrapperIPFSHash", this.validatESOPLegalWrapperIPFSHash)
@@ -365,31 +365,33 @@ export default class Init extends React.Component {
 
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
-                        <h1>ESOP not initialized</h1>
+                        <h1>ESOP terms and conditions not set</h1>
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
-                        <h2>ESOP contract addresses</h2>
-                        <TextField floatingLabelText="Root of Trust" value={ESOPState.RoTAddress}
-                                   style={{width: "32.000rem"}} disabled={true}/>
+                        <h2>ESOP contract addresses:</h2>
                         <a target="_blank" href={ContractUtils.formatEtherscanUrl(ESOPState.RoTAddress, ESOPState.networkId)}>
                             <FontIcon className="material-icons">link</FontIcon>
                         </a>
-                        <br />
-                        <TextField floatingLabelText="ESOP smart contract" value={ESOPState.ESOPAddress}
+                        <TextField floatingLabelText="Root of Trust" value={ESOPState.RoTAddress}
                                    style={{width: "32.000rem"}} disabled={true}/>
+
+                        <br />
                         <a target="_blank" href={ContractUtils.formatEtherscanUrl(ESOPState.ESOPAddress, ESOPState.networkId)}>
                             <FontIcon className="material-icons">link</FontIcon>
                         </a>
+                        <TextField floatingLabelText="ESOP smart contract" value={ESOPState.ESOPAddress}
+                                   style={{width: "32.000rem"}} disabled={true}/>
+
                     </div>
                 </div>
 
                 {userState.userType != "ceo" ?
                     <div className="row">
                         <div className="col-xs-12 col-md-10 col-md-offset-1">
-                            <h3>Please connect company's Nano Ledger to initialize ESOP.</h3>
+                            <h3>To set the terms & conditions of ESOP please connect company manages's account {ESOPState.companyAddress} configured during deployment process</h3>
                         </div>
                     </div>
                     :
@@ -429,7 +431,7 @@ export default class Init extends React.Component {
                                 <br />
                                 <TextField {...textFieldsProps.ESOPLegalWrapperIPFSHashProps}/>
                                 <IconButton tooltip={Texting.definitions.termsDocIPFSHash} iconClassName="material-icons">info</IconButton>
-                                <RaisedButton label="Validate doc" className="validate_button"
+                                <RaisedButton label="preview document" className="preview_button"
                                               onTouchTap={this.handleValidateDoc} />
                             </div>
                         </div>
