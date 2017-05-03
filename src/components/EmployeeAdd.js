@@ -16,6 +16,7 @@ export default class EmployeeAdd extends React.Component {
         this.miniSignPeriod = Math.floor(this.store.getState().ESOP.MINIMUM_MANUAL_SIGN_PERIOD / this.day) + 1;
 
         this.state = {
+            showForm: false,
             allowValidation: false,
             employeePublicKey: "",
             employeePublicKeyValidation: "",
@@ -147,6 +148,14 @@ export default class EmployeeAdd extends React.Component {
         );
     };
 
+    handleAddEmployeeButton = () => {
+        this.setState({showForm: true});
+        //TODO: scroll to form -  timeout due to react render - should be done better
+        window.setTimeout(() => {
+            window.scrollTo(0, document.getElementById("add_employee_form").offsetTop);
+        }, 100);
+    };
+
     render() {
         let numberFormatter = new Intl.NumberFormat();
 
@@ -191,33 +200,42 @@ export default class EmployeeAdd extends React.Component {
         return (
             <div className="row">
                 <div className="col-xs-12 employee_add">
-                    <h3>Add employee:</h3>
-
-                    <TextField {...textFieldsProps.employeePublicKey}/>
-
-                    {this.state.employeePublicKey != '' &&
-                    <a target="_blank" href={`https://etherscan.io/address/${this.state.employeePublicKey}`}>
-                        <FontIcon className="material-icons">link</FontIcon>
-                    </a>
+                    {!this.state.showForm &&
+                    <RaisedButton label="Add employee" onClick={this.handleAddEmployeeButton}/>
                     }
 
-                    <DatePicker hintText="issue date" mode="landscape"
-                                value={this.state.issueDate}
-                                onChange={(event, newValue) => this.setState({issueDate: newValue})}/>
+                    {this.state.showForm &&
+                    <div id="add_employee_form">
+                        <h3>Offer options to employee:</h3>
 
-                    <TextField {...textFieldsProps.timeToSign}/>
+                        <TextField {...textFieldsProps.employeePublicKey}/>
 
-                    <Checkbox label="issue extra options instead of pool options" checked={this.state.extraOptions}
-                              onCheck={this.handleExtraOptionsCheckbox}/>
+                        {this.state.employeePublicKey != '' &&
+                        <a target="_blank" href={`https://etherscan.io/address/${this.state.employeePublicKey}`}>
+                            <FontIcon className="material-icons">link</FontIcon>
+                        </a>
+                        }
 
-                    {this.state.extraOptions ?
-                        <TextField {...textFieldsProps.extraOptionsNumber}/>
-                        :
-                        <TextField {...textFieldsProps.poolOptionsNumber}/>
+                        <DatePicker hintText="issue date" mode="landscape"
+                                    value={this.state.issueDate}
+                                    floatingLabelText="issue date"
+                                    onChange={(event, newValue) => this.setState({issueDate: newValue})}/>
+
+                        <TextField {...textFieldsProps.timeToSign}/>
+
+                        <Checkbox label="issue extra options instead of pool options" checked={this.state.extraOptions}
+                                  onCheck={this.handleExtraOptionsCheckbox}/>
+
+                        {this.state.extraOptions ?
+                            <TextField {...textFieldsProps.extraOptionsNumber}/>
+                            :
+                            <TextField {...textFieldsProps.poolOptionsNumber}/>
+                        }
+
+                        <br />
+                        <RaisedButton label="Offer options" onClick={this.handleAddUserButton}/>
+                    </div>
                     }
-
-                    <br />
-                    <RaisedButton label="Add employee" onClick={this.handleAddUserButton}/>
                 </div>
             </div>
         )
