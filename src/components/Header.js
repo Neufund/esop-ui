@@ -1,13 +1,14 @@
 import React from 'react';
 import './Header.scss';
+import ContractUtils from '../ContractUtils'
 
-export default ({userPK, userType}) => {
+export default ({userPK, userType, networkId}) => {
     return (
         <div>
             <div className="row">
                 <div className="col-xs-12 col-md-10 col-md-offset-1">
                     <div className="header">
-                        Employee Stock Option Plan (ESOP) manager
+                        Employee Stock Option Plan (ESOP) manager [on: {ContractUtils.getNetworkName(networkId)}]
                     </div>
                 </div>
             </div>

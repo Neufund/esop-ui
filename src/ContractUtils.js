@@ -38,7 +38,7 @@ export default class ContractUtils {
             case 42:
                 return "Kovan testnet";
             default:
-                return "Dev chain";
+                return "?";
         }
     }
 
