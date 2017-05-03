@@ -19,8 +19,8 @@ export default ({contractParameters, isCEO, onClickTap}) => {
                                value={epochAsYears(contractParameters.cliffPeriod)} disabled={true}/>
                     <TextField floatingLabelText="vesting period" className="contract_parameter"
                                value={epochAsYears(contractParameters.vestingPeriod)} disabled={true}/>
-                    <TextField floatingLabelText="max fadeout" className="contract_parameter"
-                               value={`${contractParameters.maxFadeoutPromille / 100}%`} disabled={true}/>
+                    <TextField floatingLabelText="residual amount" className="contract_parameter"
+                               value={`${contractParameters.residualAmountPromille / 100}%`} disabled={true}/>
                     <TextField floatingLabelText="bonus options" className="contract_parameter"
                                value={`${contractParameters.bonusOptionsPromille / 100}%`} disabled={true}/>
                     <TextField floatingLabelText="new employee pool" className="contract_parameter"
