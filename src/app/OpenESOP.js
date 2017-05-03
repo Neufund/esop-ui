@@ -11,6 +11,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {validateDoc}from '../utils'
 import IPFSDialog from '../components/IPFSDialog';
 import Texting from '../texting'
+import ContractUtils from '../ContractUtils'
 
 
 export default class Init extends React.Component {
@@ -371,13 +372,13 @@ export default class Init extends React.Component {
                         <h2>ESOP contract addresses</h2>
                         <TextField floatingLabelText="Root of Trust" value={ESOPState.RoTAddress}
                                    style={{width: "32.000rem"}} disabled={true}/>
-                        <a target="_blank" href={`https://etherscan.io/address/${ESOPState.RoTAddress}`}>
+                        <a target="_blank" href={ContractUtils.formatEtherscanUrl(ESOPState.RoTAddress, ESOPState.networkId)}>
                             <FontIcon className="material-icons">link</FontIcon>
                         </a>
                         <br />
                         <TextField floatingLabelText="ESOP smart contract" value={ESOPState.ESOPAddress}
                                    style={{width: "32.000rem"}} disabled={true}/>
-                        <a target="_blank" href={`https://etherscan.io/address/${ESOPState.ESOPAddress}`}>
+                        <a target="_blank" href={ContractUtils.formatEtherscanUrl(ESOPState.ESOPAddress, ESOPState.networkId)}>
                             <FontIcon className="material-icons">link</FontIcon>
                         </a>
                     </div>

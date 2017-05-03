@@ -2,8 +2,9 @@ import React from 'react';
 
 import FontIcon from 'material-ui/FontIcon';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import ContractUtils from '../ContractUtils'
 
-export default ({RoTAddress, ESOPAddress}) => {
+export default ({RoTAddress, ESOPAddress, networkId}) => {
     return (
         <div>
             <div className="row">
@@ -15,7 +16,7 @@ export default ({RoTAddress, ESOPAddress}) => {
                                 <TableRowColumn>Root of trust</TableRowColumn>
                                 <TableRowColumn>
                                     {RoTAddress}
-                                    <a className="inline_link" target="_blank" href={`https://etherscan.io/address/${RoTAddress}`}>
+                                    <a className="inline_link" target="_blank" href={ContractUtils.formatEtherscanUrl(RoTAddress, networkId)}>
                                         <FontIcon className="material-icons material_icon_table">link</FontIcon></a>
                                 </TableRowColumn>
                             </TableRow>
@@ -23,7 +24,7 @@ export default ({RoTAddress, ESOPAddress}) => {
                                 <TableRowColumn>ESOP contract</TableRowColumn>
                                 <TableRowColumn>
                                     {ESOPAddress}
-                                    <a className="inline_link" target="_blank" href={`https://etherscan.io/address/${RoTAddress}`}>
+                                    <a className="inline_link" target="_blank" href={ContractUtils.formatEtherscanUrl(ESOPAddress, networkId)}>
                                         <FontIcon className="material-icons material_icon_table">link</FontIcon></a>
                                 </TableRowColumn>
                             </TableRow>

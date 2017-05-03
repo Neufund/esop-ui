@@ -82,7 +82,7 @@ export default class Esop extends React.Component {
                         {ESOPState.conversionOfferedAt != 0 &&
                         <ConversionStatus contractState={ESOPState}/>
                         }
-                        <ContractAddresses RoTAddress={ESOPState.RoTAddress} ESOPAddress={ESOPState.ESOPAddress}/>
+                        <ContractAddresses RoTAddress={ESOPState.RoTAddress} ESOPAddress={ESOPState.ESOPAddress} networkId={ESOPState.networkId}/>
                         <ContractParameters contractParameters={ESOPState}/>
 
                         <div className="row">
