@@ -15,17 +15,17 @@ export default ({RoTAddress, ESOPAddress, networkId}) => {
                             <TableRow >
                                 <TableRowColumn>Root of trust</TableRowColumn>
                                 <TableRowColumn>
-                                    {RoTAddress}
                                     <a className="inline_link" target="_blank" href={ContractUtils.formatEtherscanUrl(RoTAddress, networkId)}>
                                         <FontIcon className="material-icons material_icon_table">link</FontIcon></a>
+                                    {RoTAddress}
                                 </TableRowColumn>
                             </TableRow>
                             <TableRow>
                                 <TableRowColumn>ESOP contract</TableRowColumn>
                                 <TableRowColumn>
-                                    {ESOPAddress}
                                     <a className="inline_link" target="_blank" href={ContractUtils.formatEtherscanUrl(ESOPAddress, networkId)}>
                                         <FontIcon className="material-icons material_icon_table">link</FontIcon></a>
+                                    {ESOPAddress}
                                 </TableRowColumn>
                             </TableRow>
                         </TableBody>
