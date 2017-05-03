@@ -68,7 +68,6 @@ export default class App extends React.Component {
                         title="Please confirm account on your nano"
                         modal={true}
                         open={UIstate.nanoConfirmAccountDialog}>
-                        Handle timeout - timer and then instruction to disconnect and F5
                     </Dialog>
 
                     <Dialog
