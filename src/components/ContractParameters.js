@@ -10,7 +10,7 @@ export default ({contractParameters, isCEO, onClickTap}) => {
         <div>
             <div className="row">
                 <div className="col-xs-12">
-                    <h2>Contract parameters:</h2>
+                    <h2>ESOP terms and conditions:</h2>
                 </div>
             </div>
             <div className="row">
