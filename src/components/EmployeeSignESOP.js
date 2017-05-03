@@ -83,7 +83,7 @@ export default ({employee, ESOPState, signHandler, showPaperCopyHandler}) => {
     ];
 
     let cellClickHandler = (rowNumber, columnId) => {
-        let element = document.getElementById(`desc${rowNumber}`);
+        let element = document.getElementById(`descSign${rowNumber}`);
         if (element != null) {
             if (element.style.display == "" || element.style.display == "none") {
                 element.style.display = "block";
@@ -117,7 +117,7 @@ export default ({employee, ESOPState, signHandler, showPaperCopyHandler}) => {
                                                 <div className="title">
                                                     {row.title}<FontIcon className="material-icons">info_outline</FontIcon>
                                                 </div>
-                                                <div className="description" id={`desc${index}`}>{row.desc}</div>
+                                                <div className="description" id={`descSign${index}`}>{row.desc}</div>
                                             </div>
                                         }
                                     </TableRowColumn>
