@@ -29,10 +29,6 @@ export default ({contractParameters, isCEO, onClickTap}) => {
                                value={numberFormatter.format(contractParameters.totalPoolOptions)} disabled={true}/>
                     <TextField floatingLabelText="strike price" className="contract_parameter"
                                value={contractParameters.STRIKE_PRICE} disabled={true}/>
-                    {isCEO &&
-                        <RaisedButton label="Show Paper Contract" className="contract_parameter"
-                                      onTouchTap={onClickTap}/>
-                    }
                 </div>
             </div>
         </div>
