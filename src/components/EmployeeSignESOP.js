@@ -10,7 +10,7 @@ import Texting from '../texting'
 
 import moment from 'moment'
 
-export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
+export default ({employee, ESOPState, signHandler, showPaperCopyHandler}) => {
 
     let numberFormatter = new Intl.NumberFormat();
 
@@ -129,6 +129,11 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
                 </div>
             </div>
             <div className="row">
+                <div className="col-xs-12">
+                    <RaisedButton label="Show paper copy" onTouchTap={showPaperCopyHandler}/>
+                </div>
+            </div>
+            <div className="row">
                 <p className="col-xs-12">
                     I hereby subscribe for the Issued Options for shares in {Config.ipfs_tags.company} under the terms
                     and conditions as set out in the ESOP Smart Contract at address {ESOPState.RoTAddress} and made
@@ -136,9 +141,8 @@ export default ({employee, ESOPState, signHandler, showPapelCopeyHandler}) => {
                 </p>
             </div>
             <div className="row">
-                <div className="col-xs-12 buttons">
+                <div className="col-xs-12">
                     <RaisedButton label="Sign ESOP" onTouchTap={signHandler}/>
-                    <RaisedButton label="Show paper copy" onTouchTap={showPapelCopeyHandler}/>
                 </div>
             </div>
         </div>
