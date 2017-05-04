@@ -13,6 +13,45 @@ export default ({contractParameters}) => {
         padding: "0.5rem"
     };
 
+    let paramaters = [
+        {
+            text: "total pool options",
+            value: numberFormatter.format(contractParameters.totalPoolOptions),
+            desc: Texting.definitions.totalPoolOptions
+        },
+        {
+            text: "new employee pool",
+            value: `${contractParameters.newEmployeePoolPromille / 100}%`,
+            desc: Texting.definitions.newEmployeePool
+        },
+        {
+            text: "vesting period",
+            value: epochAsYears(contractParameters.vestingPeriod),
+            desc: Texting.definitions.vestingPeriod
+        },
+        {
+            text: "cliff period",
+            value: epochAsYears(contractParameters.cliffPeriod),
+            desc: Texting.definitions.cliffPeriod
+        },
+        {
+            text: "residual amount",
+            value: `${contractParameters.residualAmountPromille / 100}%`,
+            desc: Texting.definitions.residualAmount
+        },
+        {
+            text: "bonus options",
+            value: `${contractParameters.bonusOptionsPromille / 100}%`,
+            desc: Texting.definitions.bonusOptions
+        },
+        {
+            text: "strike price",
+            value: `${contractParameters.STRIKE_PRICE} EUR`,
+            desc: Texting.definitions.strikePrice
+        },
+
+    ];
+
     return (
         <div>
             <div className="row">
@@ -22,40 +61,15 @@ export default ({contractParameters}) => {
             </div>
             <div className="row">
                 <div className="col-xs-12 contract_parameters">
-                    <TextField floatingLabelText="total pool options" className="contract_parameter"
-                               value={numberFormatter.format(contractParameters.totalPoolOptions)} disabled={true}/>
-                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.totalPoolOptions}
-                                tooltipStyles={tooltipStyles}>info</IconButton>
+                    {paramaters.map((parameter, index) =>
+                        <div className="parameter_wrapper" key={index}>
+                            <TextField floatingLabelText={parameter.text} className="contract_parameter" disabled={true}
+                                       value={parameter.value}/>
+                            <IconButton iconClassName="material-icons" tooltip={parameter.desc}
+                                        tooltipStyles={tooltipStyles}>info</IconButton>
 
-                    <TextField floatingLabelText="new employee pool" className="contract_parameter"
-                               value={`${contractParameters.newEmployeePoolPromille / 100}%`} disabled={true}/>
-                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.newEmployeePool}
-                                tooltipStyles={tooltipStyles}>info</IconButton>
-
-                    <TextField floatingLabelText="vesting period" className="contract_parameter"
-                               value={epochAsYears(contractParameters.vestingPeriod)} disabled={true}/>
-                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.vestingPeriod}
-                                tooltipStyles={tooltipStyles}>info</IconButton>
-
-                    <TextField floatingLabelText="cliff period" className="contract_parameter"
-                               value={epochAsYears(contractParameters.cliffPeriod)} disabled={true}/>
-                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.cliffPeriod}
-                                tooltipStyles={tooltipStyles}>info</IconButton>
-
-                    <TextField floatingLabelText="residual amount" className="contract_parameter"
-                               value={`${contractParameters.residualAmountPromille / 100}%`} disabled={true}/>
-                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.residualAmount}
-                                tooltipStyles={tooltipStyles}>info</IconButton>
-
-                    <TextField floatingLabelText="bonus options" className="contract_parameter"
-                               value={`${contractParameters.bonusOptionsPromille / 100}%`} disabled={true}/>
-                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.bonusOptions}
-                                tooltipStyles={tooltipStyles}>info</IconButton>
-
-                    <TextField floatingLabelText="strike price" className="contract_parameter"
-                               value={`${contractParameters.STRIKE_PRICE} EUR`} disabled={true}/>
-                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.strikePrice}
-                                tooltipStyles={tooltipStyles}>info</IconButton>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
