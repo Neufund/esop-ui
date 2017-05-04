@@ -485,6 +485,7 @@ export default class ContractComService {
         console.log("waiting for transaction: " + transactionHash);
         return new Promise((resolve, reject) => {
             let blockNo = 0;
+            let prevBlockNo = -1;
             let ESOPState = this.store.getState().ESOP;
             let requiredConfirmations = ContractUtils.isMiningNetwork(ESOPState.networkId) ? Config.numberOfConfirmations : 0;
             let poll = function () {
@@ -493,9 +494,9 @@ export default class ContractComService {
                     if (!error) {
                         //console.log('result of getTransaction');
                         //console.log(result);
-                        if (result.blockNumber != null) {
-                            console.log("block no: ", blockNo);
-                            if (++blockNo > requiredConfirmations) {
+                        if (result.blockNumber != null && prevBlockNo != Number(result.blockNumber)) {
+                            console.log(`block count ${blockNo+1} block no ${result.blockNumber}`);
+                            if (++blockNo >= requiredConfirmations) {
                                 console.log('we have enough confirmations we can move on');
                                 resolve();
                             }
