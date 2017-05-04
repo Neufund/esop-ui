@@ -14,10 +14,6 @@ export default ({showDocumentDialog ,handleDialogRequestClose ,handlePrint ,titl
                 onTouchTap={handleDialogRequestClose}
             />
             <FlatButton
-                label="PDF"
-                primary={true}
-            />
-            <FlatButton
                 label="Print"
                 primary={true}
                 onTouchTap={handlePrint}
