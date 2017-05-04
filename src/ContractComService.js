@@ -1,6 +1,7 @@
 import {web3} from './web3';
 import Config from './config'
 import contractBuilder from "truffle-contract"
+import ContractUtils from './ContractUtils'
 
 //TODO: actually we need just ABI contracts here - find way to provide those during build process
 import RoTDef from 'truffle-artifacts/RoT.json'
@@ -270,7 +271,7 @@ export default class ContractComService {
                     if (success.logs[0].event == "ESOPOpened") {
                         resolve(success);
                     } else {
-                        reject(success);
+                        reject(ContractUtils.formatErrorFromReturnCode('openESOP', success));
                     }
                 }),
                 error => ContractComService.processCommonErrors(error))
@@ -354,7 +355,7 @@ export default class ContractComService {
                     if (success.logs[0].event == "ESOPOffered") {
                         resolve(success);
                     } else {
-                        reject(success);
+                        reject(ContractUtils.formatErrorFromReturnCode('offerOptionsToEmployee', success));
                     }
                 }),
                 error => ContractComService.processCommonErrors(error))
@@ -379,7 +380,7 @@ export default class ContractComService {
                     if (success.logs[0].event == "EmployeeSignedToESOP") {
                         resolve(success);
                     } else {
-                        reject(success);
+                        reject(ContractUtils.formatErrorFromReturnCode('employeeSignsToESOP', success));
                     }
                 }),
                 error => ContractComService.processCommonErrors(error))
@@ -411,7 +412,7 @@ export default class ContractComService {
                         || success.logs[0].event == "ContinueSuspendedEmployee") {
                         resolve(success);
                     } else {
-                        reject(success);
+                        reject(ContractUtils.formatErrorFromReturnCode('toggleEmployeeSuspension', success));
                     }
                 })
                 ,
@@ -443,7 +444,7 @@ export default class ContractComService {
                     if (success.logs[0].event == "TerminateEmployee") {
                         resolve(success);
                     } else {
-                        reject(success);
+                        reject(ContractUtils.formatErrorFromReturnCode('terminateEmployee', success));
                     }
                 }),
                 error => ContractComService.processCommonErrors(error))
@@ -468,7 +469,7 @@ export default class ContractComService {
                     if (success.logs[0].event == "OptionsConversionOffered") {
                         resolve(success);
                     } else {
-                        reject(success);
+                        reject(ContractUtils.formatErrorFromReturnCode('offerOptionsConversion', success));
                     }
                 }),
                 error => ContractComService.processCommonErrors(error)
