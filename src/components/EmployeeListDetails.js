@@ -1,8 +1,12 @@
 import React from 'react';
 import './EmployeeListDetails.scss';
+
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
+
 import ContractUtils from '../ContractUtils'
 import moment from 'moment'
 import {validateDoc, epochAsYears}from '../utils'
@@ -19,7 +23,9 @@ export default class EmployeeListDetails extends React.Component {
             terminateDate: new Date(),
             showDocumentDialog: false,
             LegalDocument: '',
-            IPFSHash: ''
+            IPFSHash: '',
+            openSuspendDialog: false,
+            openDeleteDialog: false
         };
 
     }
@@ -96,6 +102,13 @@ export default class EmployeeListDetails extends React.Component {
         mywindow.close();
     };
 
+    handleOpenSupend = () => {
+        this.setState({openSuspendDialog: true});
+    };
+
+    handleCloseSupend = () => {
+        this.setState({openSuspendDialog: false});
+    };
 
     handleToggleSuspendButton = () => {
 
@@ -104,6 +117,8 @@ export default class EmployeeListDetails extends React.Component {
         let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
         let employeePublicKey = employee.address;
         let toggledAt = new Date() / 1000;
+
+        this.setState({openSuspendDialog: false});
 
         this.store.dispatch({
             type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
@@ -206,7 +221,12 @@ export default class EmployeeListDetails extends React.Component {
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
         let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
+
         let toggleSuspendButtonLabel = employee.suspendedAt == 0 ? "Suspend" : "Continue Employment";
+        let suspendDialogText = employee.suspendedAt == 0 ?
+            "Do want to suspend employee?"
+            :
+            "Do want to continue employment of employee?";
 
         let showSuspendButton = employee.state == 1 || employee.state == 2; // WaitingForSignature or Employed
         let showTerminateButtons = employee.state < 3; // not Terminated  and not OptionsExercised
@@ -223,6 +243,23 @@ export default class EmployeeListDetails extends React.Component {
                 timeToSignValue = "expired"
             }
         }
+
+        const actionsSuspend = [
+            <FlatButton
+                label="Cancel"
+                primary={true}
+                onTouchTap={this.handleCloseSupend}
+            />,
+            <FlatButton
+                label={toggleSuspendButtonLabel}
+                primary={true}
+                onTouchTap={this.handleToggleSuspendButton}
+            />,
+        ];
+
+        const dialogTitleStyle = {
+            textAlign: 'center'
+        };
 
         return (
 
@@ -274,7 +311,7 @@ export default class EmployeeListDetails extends React.Component {
                 <div>
                     {showSuspendButton &&
                     <RaisedButton className="suspendButton" label={toggleSuspendButtonLabel}
-                                  onTouchTap={this.handleToggleSuspendButton}/>
+                                  onTouchTap={this.handleOpenSupend}/>
                     }
                     {showTerminateButtons &&
                     <div>
@@ -288,6 +325,9 @@ export default class EmployeeListDetails extends React.Component {
                     }
                 </div>
                 }
+
+                <Dialog title={suspendDialogText} titleStyle={dialogTitleStyle} actions={actionsSuspend} modal={true}
+                        open={this.state.openSuspendDialog}/>
             </div>
         )
     }
