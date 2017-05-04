@@ -57,6 +57,19 @@ const makeCancelable = (promise) => {
     };
 };
 
+function getUserTypeName(userType) {
+    switch (userType) {
+        case "ceo":
+            return "company management";
+        case "anonymous":
+            return "anonymous";
+        case "employee":
+            return "employee";
+        default:
+            throw "Unknown employee type";
+    }
+}
+
 /**
  * Reuturn duration of Epoch time in years rounded into 4 digit places
  * @param {int} timeDuration - Unix time
@@ -92,6 +105,7 @@ const validateDoc  = function (ESOPLegalWrapperIPFSHash , callback) {
 };
 
 export {
+    getUserTypeName,
     validateDoc,
     epochAsYears,
     toPromise

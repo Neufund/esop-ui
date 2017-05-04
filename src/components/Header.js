@@ -1,6 +1,7 @@
 import React from 'react';
 import './Header.scss';
 import ContractUtils from '../ContractUtils'
+import {getUserTypeName} from '../utils'
 
 export default ({userPK, userType, networkId}) => {
     return (
@@ -77,7 +78,7 @@ export default ({userPK, userType, networkId}) => {
                         {userType === "anonymous" ?
                             <p>If you are Neufund employee, please pass address above to us to be included in ESOP.</p>
                             :
-                            <p>Your position: {userType}</p>
+                            <p>Your position: <b>{getUserTypeName(userType)}</b></p>
                         }
                     </div>
                     }
