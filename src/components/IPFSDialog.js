@@ -9,7 +9,7 @@ export default ({showDocumentDialog ,handleDialogRequestClose ,handlePrint ,titl
     const standardActions = (
         <div>
             <FlatButton
-                label="Ok"
+                label="Close"
                 primary={true}
                 onTouchTap={handleDialogRequestClose}
             />

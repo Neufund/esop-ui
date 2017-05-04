@@ -231,7 +231,6 @@ export default class EmployeeListDetails extends React.Component {
                     showDocumentDialog={this.state.showDocumentDialog}
                     handleDialogRequestClose={this.handleDialogRequestClose}
                     handlePrint={this.handlePrint}
-                    title="Employee Share Option Pool Conditions"
                     documentHtml={this.state.LegalDocument}
                 />
 

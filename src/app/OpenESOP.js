@@ -276,25 +276,6 @@ export default class Init extends React.Component {
     };
 
     render() {
-        const standardActions = (
-            <div>
-                <FlatButton
-                    label="Ok"
-                    primary={true}
-                    onTouchTap={this.handleDialogRequestClose}
-                />
-                <FlatButton
-                    label="PDF"
-                    primary={true}
-                />
-                <FlatButton
-                    label="Print"
-                    primary={true}
-                    onTouchTap={this.handlePrint}
-                />
-            </div>
-        );
-
         let tooltipStyles = {
             fontSize: "0.8rem",
             padding: "0.4rem"
@@ -380,7 +361,6 @@ export default class Init extends React.Component {
                     showDocumentDialog={this.state.showDocumentDialog}
                     handleDialogRequestClose ={this.handleDialogRequestClose}
                     handlePrint ={this.handlePrint}
-                    title="Employee Share Option Pool Conditions"
                     documentHtml={this.state.LegalDocument}
                 />
 
