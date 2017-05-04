@@ -3,24 +3,21 @@ import './IPFSDialog.scss';
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
-export default ({showDocumentDialog ,handleDialogRequestClose ,handlePrint ,title , documentHtml}) => {
+export default ({showDocumentDialog, handleDialogRequestClose, handlePrint, title, documentHtml}) => {
 
+    const standardActions = [
 
-    const standardActions = (
-        <div>
-            <FlatButton
-                label="Close"
-                primary={true}
-                onTouchTap={handleDialogRequestClose}
-            />
-            <FlatButton
-                label="Print"
-                primary={true}
-                onTouchTap={handlePrint}
-            />
-        </div>
-    );
-
+        <FlatButton
+            label="Close"
+            primary={true}
+            onTouchTap={handleDialogRequestClose}
+        />,
+        <FlatButton
+            label="Print"
+            primary={true}
+            onTouchTap={handlePrint}
+        />
+    ];
 
 
     return (
@@ -31,7 +28,7 @@ export default ({showDocumentDialog ,handleDialogRequestClose ,handlePrint ,titl
             onRequestClose={handleDialogRequestClose}
             autoScrollBodyContent={true}
         >
-            <div id="ifmcontentstoprint" dangerouslySetInnerHTML={{ __html : documentHtml}}></div>
+            <div id="ifmcontentstoprint" dangerouslySetInnerHTML={{__html: documentHtml}}></div>
         </Dialog>
     )
 }
