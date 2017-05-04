@@ -204,7 +204,7 @@ export default class EmployeeAdd extends React.Component {
             <div className="row">
                 <div className="col-xs-12 employee_add">
                     {!this.state.showForm &&
-                    <RaisedButton label="Add employee" onClick={this.handleAddEmployeeButton}/>
+                    <RaisedButton className="add_employee_button" label="Add employee" onClick={this.handleAddEmployeeButton}/>
                     }
 
                     {this.state.showForm &&
