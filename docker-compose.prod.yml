@@ -5,6 +5,5 @@ services:
     build:
       context: .
       dockerfile: ./dockerfiles/prod_nginx_dockerfile
-
     ports:
-      - "8080:8080"
+      - "8080:80"
