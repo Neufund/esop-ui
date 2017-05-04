@@ -3,6 +3,7 @@ import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import FontIcon from 'material-ui/FontIcon';
 import ContractUtils from '../ContractUtils'
 import './ContractStatus.scss'
+import Texting from '../texting'
 
 export default ({contractState}) => {
     let numberFormatter = new Intl.NumberFormat();
@@ -21,17 +22,15 @@ export default ({contractState}) => {
         },
         {
             title: "Remaning pool options",
-            desc: "need description here",
             value: numberFormatter.format(contractState.remainingPoolOptions)
         },
         {
             title: "Extra options issued",
-            desc: "need description here",
+            desc: Texting.definitions.extraOptions,
             value: numberFormatter.format(contractState.totalExtraOptions)
         },
         {
             title: "ESOP state",
-            desc: "need description here",
             value: ContractUtils.getESOPStateName(contractState.esopState)
         }
     ];
