@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './EmployeeAdd.scss';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -211,19 +211,12 @@ export default class EmployeeAdd extends React.Component {
                     <div id="add_employee_form">
                         <h3>Offer options to employee:</h3>
 
+                        {this.state.employeePublicKey != '' &&
+                        <a className="etherscan_link" target="_blank" href={ContractUtils.formatEtherscanUrl(this.state.employeePublicKey, ESOPState.networkId)}>
+                            <FontIcon className="material-icons">link</FontIcon>
+                        </a>
+                        }
                         <TextField {...textFieldsProps.employeePublicKey}/>
-
-                        {this.state.employeePublicKey != '' &&
-                        <a target="_blank" href={ContractUtils.formatEtherscanUrl(this.state.employeePublicKey, ESOPState.networkId)}>
-                            <FontIcon className="material-icons">link</FontIcon>
-                        </a>
-                        }
-
-                        {this.state.employeePublicKey != '' &&
-                        <a target="_blank" href={`https://etherscan.io/address/${this.state.employeePublicKey}`}>
-                            <FontIcon className="material-icons">link</FontIcon>
-                        </a>
-                        }
 
                         <DatePicker hintText="issue date" mode="landscape"
                                     value={this.state.issueDate}

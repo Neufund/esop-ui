@@ -136,7 +136,7 @@ export default class Init extends React.Component {
         return validationOutcome;
     };
 
-    validateOptionsPerShare = (value, totalPoolOptionsValue) => {
+    validateOptionsPerShare = (value) => {
         let validationOutcome = value === '' ? "please fill this field" : "";
 
         if (validationOutcome == "") {
@@ -145,7 +145,7 @@ export default class Init extends React.Component {
                 validationOutcome = 'value is not a number';
             else if (num <= 0)
                 validationOutcome = 'value must be bigger than zero';
-            else if (totalPoolOptionsValue % value > 0)
+            else if (this.state.totalPoolOptions % value > 0)
                 validationOutcome = 'should be a divisor of total pool options';
         }
         this.setState({optionsPerShareValidation: validationOutcome});
@@ -175,7 +175,7 @@ export default class Init extends React.Component {
         let validateResidualAmount = this.validateResidualAmount(this.state.residualAmount) == '';
         let validateBonusOptions = this.validateBonusOptions(this.state.bonusOptions) == '';
         let validateNewEmployeePool = this.validateNewEmployeePool(this.state.newEmployeePool) == '';
-        let validateOptionsPerShare = this.validateOptionsPerShare(this.state.optionsPerShare, this.state.totalPoolOptions) == '';
+        let validateOptionsPerShare = this.validateOptionsPerShare(this.state.optionsPerShare) == '';
         let validatESOPLegalWrapperIPFSHash = this.validatESOPLegalWrapperIPFSHash(this.state.ESOPLegalWrapperIPFSHash) == '';
 
         return validateTotalPoolOptions && validateCliffPeriod && validateVestingPeriod
@@ -192,13 +192,13 @@ export default class Init extends React.Component {
                 showDocumentDialog:true
             });
         });
-    }
+    };
 
     handleDialogRequestClose=()=>{
         this.setState({
             showDocumentDialog: false,
         });
-    }
+    };
 
     handlePrint = () =>{
         let mywindow = window.open('', 'PRINT', 'height=400,width=600');
@@ -213,7 +213,7 @@ export default class Init extends React.Component {
 
         mywindow.print();
         mywindow.close();
-    }
+    };
 
     handleOpenEsopButton = () => {
 
@@ -295,6 +295,11 @@ export default class Init extends React.Component {
             </div>
         );
 
+        let tooltipStyles = {
+            fontSize: "0.8rem",
+            padding: "0.4rem"
+        };
+
         let ESOPState = this.store.getState().ESOP;
         let UIstate = this.store.getState().UI;
         let userState = this.store.getState().user;
@@ -351,7 +356,7 @@ export default class Init extends React.Component {
         };
 
         textFieldsProps.ESOPLegalWrapperIPFSHashProps = {
-            floatingLabelText: "ESOP Legal Wrapper IPFS Hash",
+            floatingLabelText: "ESOP Terms & Conditions Document IPFS Hash",
             style: {width: "32.000rem"},
             value: this.state.ESOPLegalWrapperIPFSHash,
             onChange: this.handleTextFieldChange("ESOPLegalWrapperIPFSHash", this.validatESOPLegalWrapperIPFSHash)
@@ -381,71 +386,83 @@ export default class Init extends React.Component {
 
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
-                        <h1>ESOP not initialized</h1>
+                        <h1>ESOP terms and conditions not set</h1>
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-offset-1">
-                        <h2>ESOP contract addresses</h2>
-                        <TextField floatingLabelText="Root of Trust" value={ESOPState.RoTAddress}
-                                   style={{width: "32.000rem"}} disabled={true}/>
+                        <h2>ESOP contract addresses:</h2>
                         <a target="_blank" href={ContractUtils.formatEtherscanUrl(ESOPState.RoTAddress, ESOPState.networkId)}>
                             <FontIcon className="material-icons">link</FontIcon>
                         </a>
-                        <br />
-                        <TextField floatingLabelText="ESOP smart contract" value={ESOPState.ESOPAddress}
+                        <TextField floatingLabelText="Root of Trust" value={ESOPState.RoTAddress}
                                    style={{width: "32.000rem"}} disabled={true}/>
+
+                        <br />
                         <a target="_blank" href={ContractUtils.formatEtherscanUrl(ESOPState.ESOPAddress, ESOPState.networkId)}>
                             <FontIcon className="material-icons">link</FontIcon>
                         </a>
+                        <TextField floatingLabelText="ESOP smart contract" value={ESOPState.ESOPAddress}
+                                   style={{width: "32.000rem"}} disabled={true}/>
+
                     </div>
                 </div>
 
                 {userState.userType != "ceo" ?
                     <div className="row">
                         <div className="col-xs-12 col-md-10 col-md-offset-1">
-                            <h3>Please connect company's Nano Ledger to initialize ESOP.</h3>
+                            <h3>To set the terms & conditions of ESOP please connect company manages's account {ESOPState.companyAddress} configured during deployment process</h3>
                         </div>
                     </div>
                     :
-                    <div>
+                    <div className="contract_parameters">
                         <div className="row">
                             <div className="col-xs-12 col-md-10 col-md-offset-1">
                                 <h2>Please fill ESOP parameters before employees can be added</h2>
-
-                                <div className="paramter_wrapper">
-                                    <TextField {...textFieldsProps.totalPoolOptionsProps}/>
-                                    <IconButton tooltip={Texting.definitions.totalPoolOptions} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
-                                    <TextField {...textFieldsProps.cliffPeriodProps}/>
-                                    <IconButton tooltip={Texting.definitions.cliffPeriod} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-5 col-md-offset-1">
+                                <TextField {...textFieldsProps.totalPoolOptionsProps}/>
+                                <IconButton tooltip={Texting.definitions.totalPoolOptions} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                            <div className="col-xs-12 col-md-5">
+                                <TextField {...textFieldsProps.cliffPeriodProps}/>
+                                <IconButton tooltip={Texting.definitions.cliffPeriod} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-5 col-md-offset-1">
                                     <TextField {...textFieldsProps.vestingPeriodProps}/>
-                                    <IconButton tooltip={Texting.definitions.vestingPeriod} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
+                                    <IconButton tooltip={Texting.definitions.vestingPeriod} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                            <div className="col-xs-12 col-md-5">
                                     <TextField {...textFieldsProps.residualAmountProps}/>
-                                    <IconButton tooltip={Texting.definitions.residualAmount} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
+                                    <IconButton tooltip={Texting.definitions.residualAmount} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-5 col-md-offset-1">
                                     <TextField {...textFieldsProps.bonusOptionsProps}/>
-                                    <IconButton tooltip={Texting.definitions.bonusOptions} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
+                                    <IconButton tooltip={Texting.definitions.bonusOptions} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                            <div className="col-xs-12 col-md-5">
                                     <TextField {...textFieldsProps.newEmployeePoolProps}/>
-                                    <IconButton tooltip={Texting.definitions.newEmployeePool} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <div className="paramter_wrapper">
-                                    <TextField {...textFieldsProps.optionsPerShareProps}/>
-                                    <IconButton tooltip={Texting.definitions.optionsPerShare} iconClassName="material-icons">info</IconButton>
-                                </div>
-                                <br />
+                                    <IconButton tooltip={Texting.definitions.newEmployeePool} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-5 col-md-offset-1">
+                                <TextField {...textFieldsProps.optionsPerShareProps}/>
+                                <IconButton tooltip={Texting.definitions.optionsPerShare} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-10 col-md-offset-1">
                                 <TextField {...textFieldsProps.ESOPLegalWrapperIPFSHashProps}/>
-                                <IconButton tooltip={Texting.definitions.termsDocIPFSHash} iconClassName="material-icons">info</IconButton>
-                                <RaisedButton label="Validate doc" className="validate_button"
+                                <IconButton tooltip={Texting.definitions.termsDocIPFSHash} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                                <RaisedButton label="preview document" className="preview_button"
                                               onTouchTap={this.handleValidateDoc} />
                             </div>
                         </div>
