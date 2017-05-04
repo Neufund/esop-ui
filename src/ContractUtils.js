@@ -55,6 +55,11 @@ export default class ContractUtils {
         }
     }
 
+    static isMiningNetwork(id) {
+        // returns true if we know that given network is actively mining new blocks
+        return [1,3,42].some(i => i == id);
+    }
+
     static formatEtherscanUrl(address, networkId) {
         return `https://${this.networkIdToEtherscan(networkId)}etherscan.io/address/${address}`;
     }

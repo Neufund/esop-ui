@@ -485,41 +485,33 @@ export default class ContractComService {
         console.log("waiting for transaction: " + transactionHash);
         return new Promise((resolve, reject) => {
             let blockNo = 0;
-            let filter = web3.eth.filter("latest", (error, result) => {
-                if (!error) {
-                    //console.log(result);
-                    web3.eth.getTransaction(transactionHash, (error, result) => {
-                        if (!error) {
-                            //console.log('result of getTransaction');
-                            //console.log(result);
-                            if (result.blockNumber != null) {
-                                //console.log("block no: ", blockNo);
-                                if (blockNo++ >= Config.numberOfConfirmations - 1) {
-                                    //console.log('we have enough confirmations we can move on');
-                                    filter.stopWatching((error, result) => {
-                                        if (error) {
-                                            console.log('error in filter.stopWatching');
-                                            console.log(error);
-                                            reject(error);
-                                        }
-                                    });
-                                    resolve();
-                                }
+            let ESOPState = this.store.getState().ESOP;
+            let requiredConfirmations = ContractUtils.isMiningNetwork(ESOPState.networkId) ? Config.numberOfConfirmations : 0;
+            let poll = function () {
+                //console.log(result);
+                web3.eth.getTransaction(transactionHash, (error, result) => {
+                    if (!error) {
+                        //console.log('result of getTransaction');
+                        //console.log(result);
+                        if (result.blockNumber != null) {
+                            console.log("block no: ", blockNo);
+                            if (++blockNo > requiredConfirmations) {
+                                console.log('we have enough confirmations we can move on');
+                                resolve();
                             }
-                        } else {
-                            console.log('error in web3.eth.getTransaction');
-                            console.log(error);
-                            reject(error);
+                            else {
+                                window.setTimeout(poll, 1000);
+                            }
                         }
-                    });
-                } else {
-                    console.log('error in web3.eth.filter');
-                    console.log(error);
-                    reject(error);
-                }
-            });
-        })
-
+                    } else {
+                        console.log('error in web3.eth.getTransaction');
+                        console.log(error);
+                        reject(error);
+                    }
+                });
+            };
+            window.setTimeout(poll, 1000);
+        });
     }
 
     /**
