@@ -6,6 +6,4 @@ services:
       context: .
       dockerfile: ./dockerfiles/stage_nginx_dockerfile
     ports:
-      - "8080:8080"
-    volumes:
-      - ./../frontend_resources/logs:/var/log/nginx
+      - "8080:80"
