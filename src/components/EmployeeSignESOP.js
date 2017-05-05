@@ -22,17 +22,18 @@ export default ({employee, ESOPState, signHandler, showPaperCopyHandler}) => {
     let table = [
         {
             title: "Public Key (Ethereum Address of Employee)",
-            desc: <div>I want to use &lt;br /&gt; <br /> element</div>,
             value: <div>{employee.address} <a key={1} className="inline_link" target="_blank"
                                               href={ContractUtils.formatEtherscanUrl(employee.address, ESOPState.networkId)}>
                 <FontIcon className="material-icons material_icon_table">link</FontIcon></a></div>
         },
         {
             title: "Issued Options",
+            desc: Texting.definitions.issuedOptions,
             value: numberFormatter.format(employee.poolOptions + employee.extraOptions)
         },
         {
             title: "Pool Options",
+            desc: Texting.definitions.poolOptions,
             value: numberFormatter.format(employee.poolOptions)
         },
         {
@@ -42,34 +43,42 @@ export default ({employee, ESOPState, signHandler, showPaperCopyHandler}) => {
         },
         {
             title: "Strike price",
+            desc: Texting.definitions.strikePrice,
             value: `EUR ${ESOPState.STRIKE_PRICE} per share`
         },
         {
             title: "Options per Share",
+            desc: Texting.definitions.optionsPerShare,
             value: `${ESOPState.optionsPerShare}`
         },
         {
             title: "Issue Date",
+            desc: Texting.definitions.issueDate,
             value: moment.unix(employee.issueDate).format(Config.dateFormat)
         },
         {
             title: "Vesting Period",
+            desc: Texting.definitions.vestingPeriod,
             value: epochAsYears(ESOPState.vestingPeriod)
         },
         {
             title: "Cliff Period",
+            desc: Texting.definitions.cliffPeriod,
             value: epochAsYears(ESOPState.cliffPeriod)
         },
         {
             title: "Bonus Options",
+            desc: Texting.definitions.bonusOptions,
             value: `${ESOPState.bonusOptionsPromille / 100}%`
         },
         {
             title: "Fade Out Period",
+            desc: Texting.definitions.fadeOutPeriod,
             value: "Employment period"
         },
         {
             title: "Residual amount",
+            desc: Texting.definitions.residualAmount,
             value: `${ESOPState.residualAmountPromille / 100}%`
         },
         {
