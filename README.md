@@ -17,6 +17,8 @@ At this moment ESOP-ui project depends on compiled contracts that you will find 
     |-- ESOP
     |-- ESOP-ui
 
+<sup>you can have different structure -> see config file</sup>
+
 Commands to do it
 
     git clone git@github.com:Neufund/ESOP.git
@@ -42,6 +44,13 @@ Just issue ```npm run build``` and Webpack will compile standalone build into ``
 Just put contents of ```build``` directory on any https capable webserver. Github pages etc are also good. Since its DAPP it only requires address of Ethereum node. You can use some existing ones ex. [infura](https://infura.io/) or you can host your own (that can be a bit tricky).
     
 TODO: add information about nginx files you see in repo
+
+## Implementation details
+
+* describe truffle artifacts used, how we get addresses of the contracts
+* how we wait for transaction to be mined
+* describe how we inject web3: metamask first then nano and what if nothing
+
 
 ## Dev Tips
 Info how to deploy your own smartcontracts just general tips you should start in our main ESOP repo and read and understand at least [development/deployment part](https://github.com/Neufund/ESOP#development)  
