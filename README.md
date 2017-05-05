@@ -1,4 +1,5 @@
-# Neufund Employee Stock Options Plan UI 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Neufund/ESOP-ui.svg)](https://greenkeeper.io/)
+# Neufund Employee Stock Options Plan UI
 ESOP-ui is frontend application that allows you to view and manipulate [Neufund ESOP smart contract](https://github.com/Neufund/ESOP).  
   
 This README is meant to provide technical information how to run and connect UI to existing smartcontract. For
