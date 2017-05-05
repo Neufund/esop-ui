@@ -48,8 +48,7 @@ export default ({contractParameters}) => {
             text: "strike price",
             value: `${contractParameters.STRIKE_PRICE} EUR`,
             desc: Texting.definitions.strikePrice
-        },
-
+        }
     ];
 
     return (
@@ -66,7 +65,7 @@ export default ({contractParameters}) => {
                             <TextField floatingLabelText={parameter.text} className="contract_parameter" disabled={true}
                                        value={parameter.value}/>
                             <IconButton iconClassName="material-icons" tooltip={parameter.desc}
-                                        tooltipStyles={tooltipStyles}>info</IconButton>
+                                        tooltipStyles={tooltipStyles}>info_outline</IconButton>
 
                         </div>
                     )}

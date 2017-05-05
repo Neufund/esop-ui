@@ -405,43 +405,43 @@ export default class Init extends React.Component {
                         <div className="row">
                             <div className="col-xs-12 col-md-5 col-md-offset-1">
                                 <TextField {...textFieldsProps.totalPoolOptionsProps}/>
-                                <IconButton tooltip={Texting.definitions.totalPoolOptions} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                                <IconButton tooltip={Texting.definitions.totalPoolOptions} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
                             <div className="col-xs-12 col-md-5">
                                 <TextField {...textFieldsProps.cliffPeriodProps}/>
-                                <IconButton tooltip={Texting.definitions.cliffPeriod} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                                <IconButton tooltip={Texting.definitions.cliffPeriod} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-xs-12 col-md-5 col-md-offset-1">
                                     <TextField {...textFieldsProps.vestingPeriodProps}/>
-                                    <IconButton tooltip={Texting.definitions.vestingPeriod} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                                    <IconButton tooltip={Texting.definitions.vestingPeriod} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
                             <div className="col-xs-12 col-md-5">
                                     <TextField {...textFieldsProps.residualAmountProps}/>
-                                    <IconButton tooltip={Texting.definitions.residualAmount} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                                    <IconButton tooltip={Texting.definitions.residualAmount} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-xs-12 col-md-5 col-md-offset-1">
                                     <TextField {...textFieldsProps.bonusOptionsProps}/>
-                                    <IconButton tooltip={Texting.definitions.bonusOptions} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                                    <IconButton tooltip={Texting.definitions.bonusOptions} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
                             <div className="col-xs-12 col-md-5">
                                     <TextField {...textFieldsProps.newEmployeePoolProps}/>
-                                    <IconButton tooltip={Texting.definitions.newEmployeePool} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                                    <IconButton tooltip={Texting.definitions.newEmployeePool} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-xs-12 col-md-5 col-md-offset-1">
                                 <TextField {...textFieldsProps.optionsPerShareProps}/>
-                                <IconButton tooltip={Texting.definitions.optionsPerShare} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                                <IconButton tooltip={Texting.definitions.optionsPerShare} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-xs-12 col-md-10 col-md-offset-1">
                                 <TextField {...textFieldsProps.ESOPLegalWrapperIPFSHashProps}/>
-                                <IconButton tooltip={Texting.definitions.termsDocIPFSHash} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info</IconButton>
+                                <IconButton tooltip={Texting.definitions.termsDocIPFSHash} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                                 <RaisedButton label="preview document" className="preview_button"
                                               onTouchTap={this.handleValidateDoc} />
                             </div>
