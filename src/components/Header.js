@@ -37,9 +37,11 @@ export default ({userPK, userType, networkId}) => {
                                 <i className="material-icons">mode_edit</i>
                             </div>
                             <div>
-                                <p>If you are Neufund employee or CEO you can log in with Ledger NANO S or Metamask.</p>
-                                <p>As a Contract Owner you will be able to add employees and manage their plan.</p>
-                                <p>As an Employee you will be able to confirm the ownership of your stock and sign the contract.</p>
+                                <p>
+                                    If you are Neufund employee or CEO you can log in with Ledger NANO S or Metamask. <br />
+                                    As a Contract Owner you will be able to add employees and manage their plan. <br />
+                                    As an Employee you will be able to confirm the ownership of your stock and sign the contract.
+                                </p>
                             </div>
                         </div>
                         <div className="col-xs-4">
@@ -55,8 +57,10 @@ export default ({userPK, userType, networkId}) => {
                                 <i className="material-icons">remove_red_eye</i>
                             </div>
                             <div>
-                                <p>If you are interested in the legal side of the idea of tokenizing options read our <a href="http://banciur.org">Medium Post</a>.</p>
-                                <p>If you are interested on the detailed rules governing the contract go to <a href="http://banciur.org">Github</a>.</p>
+                                <p>
+                                    If you are interested in the legal side of the idea of tokenizing options read our <a href="http://banciur.org">Medium Post</a>.<br />
+                                    If you are interested on the detailed rules governing the contract go to <a href="http://banciur.org">Github</a>.
+                                </p>
                             </div>
                         </div>
                     </div>
