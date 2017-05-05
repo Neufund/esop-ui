@@ -9,7 +9,7 @@ export default ({userPK, userType, networkId}) => {
             <div className="row">
                 <div className="col-xs-12 col-md-10 col-md-offset-1">
                     <div className="header">
-                        Employee Stock Option Plan (ESOP) manager [on: {ContractUtils.getNetworkName(networkId)}]
+                        Employee Stock Option Plan Manager <span className="smaller">[on: {ContractUtils.getNetworkName(networkId)}]</span>
                     </div>
                 </div>
             </div>
