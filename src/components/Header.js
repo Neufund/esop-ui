@@ -39,7 +39,7 @@ export default ({userPK, userType, networkId}) => {
                             <div>
                                 <p>
                                     If you are Neufund employee or CEO you can log in with Ledger NANO S or Metamask. <br />
-                                    As a Contract Owner you will be able to add employees and manage their plan. <br />
+                                    As a Company Management you will be able to add employees and manage their plan. <br />
                                     As an Employee you will be able to confirm the ownership of your stock and sign the contract.
                                 </p>
                             </div>
