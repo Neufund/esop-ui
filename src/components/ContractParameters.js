@@ -66,7 +66,6 @@ export default ({contractParameters}) => {
                                        value={parameter.value}/>
                             <IconButton iconClassName="material-icons" tooltip={parameter.desc}
                                         tooltipStyles={tooltipStyles}>info_outline</IconButton>
-
                         </div>
                     )}
                 </div>

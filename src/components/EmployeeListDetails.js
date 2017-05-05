@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
 
 import ContractUtils from '../ContractUtils'
@@ -12,6 +13,7 @@ import moment from 'moment'
 import {validateDoc, epochAsYears}from '../utils'
 import Config from '../config'
 import IPFSDialog from '../components/IPFSDialog';
+import Texting from '../texting'
 
 export default class EmployeeListDetails extends React.Component {
     constructor(props) {
@@ -261,6 +263,11 @@ export default class EmployeeListDetails extends React.Component {
             textAlign: 'center'
         };
 
+        let tooltipStyles = {
+            fontSize: "1rem",
+            padding: "0.5rem"
+        };
+
         return (
 
             <div className="employee_details">
@@ -276,36 +283,56 @@ export default class EmployeeListDetails extends React.Component {
                 <div>
                     <RaisedButton label="Show agreement" onTouchTap={this.showPaperCopyHandler}/>
                 </div>
-
-                <TextField floatingLabelText="Issue date" className="employee_parameter"
-                           value={moment.unix(employee.issueDate).format(Config.dateFormat)} disabled={true}/>
+                <div className="parameter_wrapper">
+                    <TextField floatingLabelText="Issue date" className="employee_parameter"
+                               value={moment.unix(employee.issueDate).format(Config.dateFormat)} disabled={true}/>
+                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.issueDate}
+                                tooltipStyles={tooltipStyles}>info_outline</IconButton>
+                </div>
 
                 {showTimeToSign &&
-                <TextField floatingLabelText="Time to sign" className="employee_parameter" value={timeToSignValue}
-                           disabled={true}/>
+                <div className="parameter_wrapper">
+                    <TextField floatingLabelText="Time to sign" className="employee_parameter" value={timeToSignValue}
+                               disabled={true}/>
+                </div>
                 }
 
                 {employee.terminatedAt != 0 &&
-                <TextField floatingLabelText="Terminated at" className="employee_parameter"
-                           value={moment.unix(employee.terminatedAt).format(Config.dateFormat)} disabled={true}/>
+                <div className="parameter_wrapper">
+                    <TextField floatingLabelText="Terminated at" className="employee_parameter"
+                               value={moment.unix(employee.terminatedAt).format(Config.dateFormat)} disabled={true}/>
+                </div>
                 }
 
-                <TextField floatingLabelText="Pool options" className="employee_parameter"
-                           value={numberFormatter.format(employee.poolOptions)} disabled={true}/>
+                <div className="parameter_wrapper">
+                    <TextField floatingLabelText="Pool options" className="employee_parameter"
+                               value={numberFormatter.format(employee.poolOptions)} disabled={true}/>
+                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.poolOptions}
+                                tooltipStyles={tooltipStyles}>info_outline</IconButton>
+                </div>
 
-                <TextField floatingLabelText="Extra options" className="employee_parameter"
-                           value={numberFormatter.format(employee.extraOptions)} disabled={true}/>
+                <div className="parameter_wrapper">
+                    <TextField floatingLabelText="Extra options" className="employee_parameter"
+                               value={numberFormatter.format(employee.extraOptions)} disabled={true}/>
+                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.extraOptions}
+                                tooltipStyles={tooltipStyles}>info_outline</IconButton>
+                </div>
 
-                <TextField floatingLabelText="Vested options" className="employee_parameter"
-                           value={numberFormatter.format(employee.vestedOptions)} disabled={true}/>
+                <div className="parameter_wrapper">
+                    <TextField floatingLabelText="Vested options" className="employee_parameter"
+                               value={numberFormatter.format(employee.vestedOptions)} disabled={true}/>
+                </div>
 
                 {employee.suspendedAt != 0 &&
-                <TextField floatingLabelText="Suspened at" className="employee_parameter"
-                           value={moment.unix(employee.suspendedAt).format(Config.dateFormat)} disabled={true}/>
+                <div className="parameter_wrapper">
+                    <TextField floatingLabelText="Suspened at" className="employee_parameter"
+                               value={moment.unix(employee.suspendedAt).format(Config.dateFormat)} disabled={true}/>
+                </div>
                 }
-
-                <TextField floatingLabelText="State" className="employee_parameter"
-                           value={ContractUtils.getEmployeeStateName(employee.state)} disabled={true}/>
+                <div className="parameter_wrapper">
+                    <TextField floatingLabelText="State" className="employee_parameter"
+                               value={ContractUtils.getEmployeeStateName(employee.state)} disabled={true}/>
+                </div>
                 <br />
                 {userState.userType == "ceo" &&
                 <div>
