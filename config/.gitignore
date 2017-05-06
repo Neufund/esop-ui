@@ -1,3 +1,0 @@
-prod_*.env
-!prod_nginx.conf
-*.tmp

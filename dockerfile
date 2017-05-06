@@ -3,4 +3,4 @@ FROM nginx:stable-alpine
 RUN rm /usr/share/nginx/html/*
 
 COPY ./build /usr/share/nginx/html
-COPY ./config/prod_nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf

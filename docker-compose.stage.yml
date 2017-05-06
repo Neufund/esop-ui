@@ -1,9 +1,0 @@
-version: '2'
-services:
-  nginx:
-    restart: always
-    build:
-      context: .
-      dockerfile: ./dockerfiles/stage_nginx_dockerfile
-    ports:
-      - "8080:80"

@@ -1,7 +1,0 @@
-FROM nginx:stable-alpine
-
-RUN rm /usr/share/nginx/html/*
-
-COPY ./build /usr/share/nginx/html
-COPY ./config/stage_nginx.conf /etc/nginx/conf.d/default.conf
-COPY ./config/stage_nginx.htpasswd /etc/nginx/.htpasswd
