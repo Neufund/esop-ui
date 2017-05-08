@@ -2,7 +2,7 @@ export default {
     numberOfConfirmations: 1, // number of block that need to be mined so we assume transaction is mined
     dateFormat: 'YY-MM-DD',
     //ethEndpoint: '/api/',
-    ethEndpoint: 'https://ropsten.infura.io/33uWXyqdb2ZEons5VtEm',
+    ethEndpoint: 'https://neufund.org/nodes/ropsten/',
     truffleArtifacts: '../../ESOP/deployed_artifacts/ropsten', // where ABIs and addresses of smart contracts are, used by webpack
     //truffleArtifacts: '../../ESOP/build/contracts',
     ipfs_tags: {
