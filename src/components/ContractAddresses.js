@@ -8,7 +8,7 @@ export default ({RoTAddress, ESOPAddress, networkId}) => {
     return (
         <div>
             <div className="row">
-                <div className="col-xs-12">
+                <div className="col-xs-12 col-md-12 col-lg-10">
                     <h2>Contract addresses:</h2>
                     <Table selectable={false}>
                         <TableBody displayRowCheckbox={false}>

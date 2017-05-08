@@ -106,7 +106,7 @@ export default ({employee, ESOPState, signHandler, showPaperCopyHandler}) => {
     return (
         <div className="employee_sign_esop">
             <div className="row">
-                <div className="col-xs-12">
+                <div className="col-xs-12 col-md-12 col-lg-10">
                     <div className="esop_title">
                         <h3>Fifth force GmBH identifed by address {ESOPState.companyAddress}
                             <a className="inline_link" target="_blank"
