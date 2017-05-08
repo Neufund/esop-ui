@@ -43,7 +43,7 @@ export default class Esop extends React.Component {
                     <div className="esop">
 
                         <div className="row">
-                            <div className="col-xs-12 col-md-3">
+                            <div className="col-xs-12">
                                 <h1>Neufund’s ESOP overview</h1>
                             </div>
                         </div>
