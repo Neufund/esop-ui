@@ -492,18 +492,17 @@ export default class ContractComService {
                 //console.log(result);
                 web3.eth.getTransaction(transactionHash, (error, result) => {
                     if (!error) {
-                        //console.log('result of getTransaction');
+                        console.log('result of getTransaction');
                         //console.log(result);
                         if (result.blockNumber != null && prevBlockNo != Number(result.blockNumber)) {
                             console.log(`block count ${blockNo+1} block no ${result.blockNumber}`);
                             if (++blockNo >= requiredConfirmations) {
                                 console.log('we have enough confirmations we can move on');
                                 resolve();
-                            }
-                            else {
-                                window.setTimeout(poll, 1000);
+                                return;
                             }
                         }
+                        window.setTimeout(poll, 1000);
                     } else {
                         console.log('error in web3.eth.getTransaction');
                         console.log(error);
