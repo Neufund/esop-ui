@@ -12,7 +12,8 @@ module.exports = {
     plugins: [
         // Copy our app's index.html to the build folder.
         new CopyWebpackPlugin([
-            {from: './public/index.html', to: "index.html"}
+            {from: './public/index.html', to: "index.html"},
+            {from: './public/favicon.ico', to: "favicon.ico"}
         ]),
         new webpack.NamedModulesPlugin()
     ],
