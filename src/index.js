@@ -15,6 +15,8 @@ import reducersUI from './reducers/reducersUI';
 import ContractComService from './ContractComService';
 import UserManagment from './UserManagment'
 
+import platform from 'platform';
+
 (async function app() {
     injectTapEventPlugin();
     const reducer = combineReducers({
@@ -38,21 +40,25 @@ import UserManagment from './UserManagment'
     await services.ESOPService.obtainContractAddreses();
     services.ESOPService.getESOPDataFromContract();
 
-    if (externalWeb3) {
-        services.userManagment.getAccount()
-    } else {
-        LedgerLoginProvider.start();
-        LedgerLoginProvider.onConnect(() => {
-            LedgerLoginProvider.stop();
-            store.dispatch({
-                type: "SHOW_NANO_CONFIRM_ACCOUNT_DIALOG",
-                nanoConfirmAccountDialog: true
+    // TODO: we need real feature / browser detection.
+    if(platform.os.toString() !== "iOS 10.0") {
+
+        if (externalWeb3) {
+            services.userManagment.getAccount()
+        } else {
+            LedgerLoginProvider.start();
+            LedgerLoginProvider.onConnect(() => {
+                LedgerLoginProvider.stop();
+                store.dispatch({
+                    type: "SHOW_NANO_CONFIRM_ACCOUNT_DIALOG",
+                    nanoConfirmAccountDialog: true
+                });
+                services.userManagment.getAccount().then(() => store.dispatch({
+                    type: "SHOW_NANO_CONFIRM_ACCOUNT_DIALOG",
+                    nanoConfirmAccountDialog: false
+                }));
             });
-            services.userManagment.getAccount().then(() => store.dispatch({
-                type: "SHOW_NANO_CONFIRM_ACCOUNT_DIALOG",
-                nanoConfirmAccountDialog: false
-            }));
-        });
+        }
     }
 
 })();
