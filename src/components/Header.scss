@@ -1,32 +1,53 @@
 @import "../styles/colors";
 
 .header {
-  height: 3.75rem;
-  margin-top: -0.5rem;
-  line-height: 3.75rem;
-  padding-left: 11.938rem;
-  font-size: 1.625rem;
+  .logo_section {
+    .logo {
+      height: 3.75rem;
+      width: 10.688rem;
+      background-image: url('../images/NeuFund_logo.png');
+      background-size: 10.688rem 2rem;
+      background-position: left center;
+      background-repeat: no-repeat;
 
-  background-image: url('../images/NeuFund_logo.png');
-  background-size: 10.688rem 2rem;
-  background-position: left center;
-  background-repeat: no-repeat;
+      margin-right: 1rem;
+    }
 
-  .smaller {
-    font-size: 0.875rem;
+    .title {
+      font-size: 1.625rem;
+
+      .smaller {
+        font-size: 0.875rem;
+      }
+    }
+
+    @media (min-width: 751px) {
+      display: flex;
+      flex-wrap: wrap;
+      .title {
+        line-height: 3.75rem;
+      }
+    }
+
+    @media (max-width: 750px) {
+      .title {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .introduction {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: $description-section-background;
+
+    ol {
+      list-style-type: lower-latin;
+    }
+
+    .introduction_column_header {
+      text-align: center;
+    }
   }
 }
 
-.introduction {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  background-color: $description-section-background;
-
-  ol {
-    list-style-type: lower-latin;
-  }
-
-  .introduction_column_header {
-    text-align: center;
-  }
-}

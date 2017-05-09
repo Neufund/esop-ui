@@ -5,10 +5,11 @@ import {getUserTypeName} from '../utils'
 
 export default ({userPK, userType, networkId}) => {
     return (
-        <div>
+        <div className="header">
             <div className="row">
-                <div className="col-xs-12 col-md-10 col-md-offset-1">
-                    <div className="header">
+                <div className="col-xs-12 col-md-10 col-md-offset-1 logo_section">
+                    <div className="logo"></div>
+                    <div className="title">
                         Employee Stock Option Plan Manager <span className="smaller">[on: {ContractUtils.getNetworkName(networkId)}]</span>
                     </div>
                 </div>
