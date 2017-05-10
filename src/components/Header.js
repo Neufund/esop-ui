@@ -17,38 +17,38 @@ export default ({userPK, userType, networkId}) => {
 
             {userType === "anonymous" &&
             <div className="introduction">
-                <div className="row greeting">
-                    <div className="text col-xs-12 col-md-5 col-md-offset-1">
+                <div className="row center-md greeting">
+                    <div className="text col-xs-12 col-md-5">
                         <h2>Welcome ESOP manager</h2>
                         <p>Neufund’s mission is to establish an active secondary market for startup equity, through providing a solution to represent startup shares as Blockchain tokens. <b>This works also for non-Blockchain projects (e.g AI, biotech, hardware etc.)</b> To demonstrate to the Blockchain community that our concept has practical potential, we have converted the 10% pool of Neufund stock reserved for the employees into Ethereum tokens, and have provided a smart contract to govern it in place of a legal agreement. Now any incorporated startup can use our solution to implement their ESOP on Blockchain.</p>
                     </div>
-                    <div className="image_wrapper col-xs-0 col-md-5">
+                    <div className="image_wrapper col-xs-0 col-md-4">
                         <div className="image"></div>
                     </div>
                 </div>
-                <div className="row columns">
-                    <div className="col-xs-12 col-md-10 col-md-offset-1">
+                <div className="row center-md columns">
+                    <div className="col-xs-12 col-md-9">
                         <div className="row">
                             <div className="col-xs-12 col-sm-4 col_first">
                                 <p className="column_title">For Neufund team</p>
-                                <p>Neufund Employees and Contract Managers (e.g. CEO) can log in with Ledger NANO S or Metamask. Contract Manager can add employees and manage their stock options plan. Employees can confirm the ownership of the stock granted and sign the contract with the Ledger NANO S.</p>
+                                <p className="column_text">Neufund Employees and Contract Managers (e.g. CEO) can log in with Ledger NANO S or Metamask. Contract Manager can add employees and manage their stock options plan. Employees can confirm the ownership of the stock granted and sign the contract with the Ledger NANO S.</p>
                             </div>
                             <div className="col-xs-12 col-sm-4 col_middle">
                                 <p className="column_title">For other startups</p>
-                                <p>If you want to build your employee stock option plan based on Neufund’s solution <a href="https://github.com/Neufund/ESOP">go to GitHub</a>. Neufund ESOP smart contract is open sourced and available to anyone on the MIT license. Instructions are provided on the GitHub page, if you have any questions go to <a href="https://neufundorg.signup.team/">Slack</a>  or <a href="https://gitter.im/Neufund">Gitter</a>.</p>
+                                <p className="column_text">If you want to build your employee stock option plan based on Neufund’s solution <a href="https://github.com/Neufund/ESOP">go to GitHub</a>. Neufund ESOP smart contract is open sourced and available to anyone on the MIT license. Instructions are provided on the GitHub page, if you have any questions go to <a href="https://neufundorg.signup.team/">Slack</a>  or <a href="https://gitter.im/Neufund">Gitter</a>.</p>
                             </div>
                             <div className="col-xs-12 col-sm-4 col_last">
                                 <p className="column_title">For others</p>
-                                <p>ESOPs are complex mechanisms, but also a great method to make employees participate in the startup’s upside. ESOPs can be improved even more by tokenization. Read more about ESOPs and option-tokens in our <a target="_blank" href="https://medium.com/p/37376fd0384a">Medium Post</a>.</p>
+                                <p className="column_text">ESOPs are complex mechanisms, but also a great method to make employees participate in the startup’s upside. ESOPs can be improved even more by tokenization. Read more about ESOPs and option-tokens in our <a target="_blank" href="https://medium.com/p/37376fd0384a">Medium Post</a>.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="row content">
-                    <div className="round_logo_wrapper col-xs-0 col-xs-offset-0 col-md-4 col-md-offset-1" >
+                <div className="row center-md content">
+                    <div className="round_logo_wrapper col-xs-0 col-xs-offset-0 col-md-3" >
                         <div className="round_logo"></div>
                     </div>
-                    <div className="col-xs-12 col-md-6">
+                    <div className="col-xs-12 col-md-6 content_text">
                         <p><b>For startups there is a number of upshots to implementing an ESOP on Blockchain: *</b></p>
                         <p>There is a certain opaqueness surrounding option grants and their potential value.  Most startup employees do not have enough information to properly evaluate the offer they receive, nor compare it against industry benchmarks. This can be mitigated by employers granting and managing options on Blockchain, in an <b>immutable and transparent</b> smart contract and providing trustless trust <a href="http://insights.instech.london/post/102dw0w/trustless-trust-a-brief-explanation">(read more about the concept)</a>.</p>
                         <p>Today many startup employees see options as a bonus that may or may not arrive, at a potential exit in 5-10 years. This is a quite intangible incentive accessible only in a very long time horizon, which is why employees often completely ignore stock options when evaluating a job offer. In Neufund’s concept the tokenized ESOP allows for a liquid asset position if the company issuing the ESOP either permits trading of vested options on Blockchain exchanges (like Kraken or Poloniex), or lets the employees convert their options into other tradable tokens in an ICO. This creates a secondary option-token market from which both employers and employees benefit greatly - <b>employees would likely be a lot more incentivized by options which they could monetize within a shorter time</b> (e.g. 1-2 years).</p>

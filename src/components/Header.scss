@@ -52,6 +52,7 @@
       .text {
         p {
           margin-bottom: 1rem;
+          text-align: left;
         }
       }
 
@@ -63,6 +64,7 @@
         text-transform: capitalize;
         margin-top: 0;
         margin-bottom: 1rem;
+        text-align: left;
       }
 
       .image_wrapper {
@@ -72,10 +74,10 @@
       .image {
         position: absolute;
         $margin: 20%;
-        left: $margin;
-        right: $margin;
+        left: 2 * $margin;
+        right: 0;
         top: 0;
-        bottom: $margin;
+        bottom: 2 * $margin;
 
         background-image: url('../images/Introduction_greeting.png');
         background-position: center center;
@@ -105,6 +107,11 @@
       .column_title {
         color: #424a52;
         font-weight: bold;
+        text-align: left;
+      }
+
+      .column_text {
+        text-align: left;
       }
 
       a {
@@ -143,14 +150,19 @@
         color: $neufundGreen;
       }
 
+      .content_text {
+        text-align: left;
+      }
+
       .round_logo_wrapper {
         position: relative;
       }
+
       .round_logo {
         position: absolute;
         $margin: 10%;
-        left: $margin;
-        right: $margin;
+        left: 0;
+        right: 2 * $margin;
         top: $margin;
         bottom: $margin;
 
