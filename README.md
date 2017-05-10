@@ -29,7 +29,7 @@ commands to clone both repos:
     git clone git@github.com:Neufund/ESOP-ui.git
     
 edit ```./ESOP-ui/src/config.js``` and set ```ethEndpoint``` to any of public Ethereum endpoints. Our demo contracts are 
-deployed to Ethereum testnet so you have to use endpoint that serves testnet data. Ex ```https://api.myetherapi.com/rop```. 
+deployed to Ethereum testnet, so you have to use testnet endpoint data ex. ```https://api.myetherapi.com/rop```. 
     
 switch into ESOP-ui directory, download dependencies and run webpack in development mode.
 
