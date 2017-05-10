@@ -49,7 +49,7 @@ export default ({contractState}) => {
 
     return (
         <div className="row contract_status">
-            <div className="col-xs-12">
+            <div className="col-xs-12 col-md-12 col-lg-10">
                 <h2 className="contracts_stats">Neufund employee option grants status:</h2>
                 <Table selectable={false} onCellClick={cellClickHandler}>
                     <TableBody displayRowCheckbox={false}>
