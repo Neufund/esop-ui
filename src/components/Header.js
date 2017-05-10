@@ -18,11 +18,11 @@ export default ({userPK, userType, networkId}) => {
             {userType === "anonymous" &&
             <div className="introduction">
                 <div className="row center-md greeting">
-                    <div className="text col-xs-12 col-md-5">
+                    <div className="text col-xs-12 col-md-6">
                         <h2>Welcome ESOP manager</h2>
                         <p>Neufund’s mission is to establish an active secondary market for startup equity, through providing a solution to represent startup shares as Blockchain tokens. <span className="bold">This works also for non-Blockchain projects (e.g AI, biotech, hardware etc.)</span> To demonstrate to the Blockchain community that our concept has practical potential, we have converted the 10% pool of Neufund stock reserved for the employees into Ethereum tokens, and have provided a smart contract to govern it in place of a legal agreement. Now any incorporated startup can use our solution to implement their ESOP on Blockchain.</p>
                     </div>
-                    <div className="image_wrapper col-xs-0 col-md-4">
+                    <div className="image_wrapper col-xs-0 col-md-3">
                         <div className="image"></div>
                     </div>
                 </div>

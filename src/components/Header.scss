@@ -80,10 +80,10 @@
       .image {
         position: absolute;
         $margin: 20%;
-        left: 2 * $margin;
+        left: $margin;
         right: 0;
         top: 0;
-        bottom: 2 * $margin;
+        bottom: $margin;
 
         background-image: url('../images/Introduction_greeting.png');
         background-position: center center;
@@ -99,6 +99,7 @@
         }
 
         .text {
+          padding-right: 1.5rem; // value of .col_middle padding-right
           p {
             margin-bottom: 6.25rem;
           }
