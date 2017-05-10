@@ -37,16 +37,96 @@
   }
 
   .introduction {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    background-color: $description-section-background;
+    font-size: 0.938rem;
+    color: #333941;
 
-    ol {
-      list-style-type: lower-latin;
+    a {
+      text-decoration: none;
     }
 
-    .introduction_column_header {
-      text-align: center;
+    .greeting {
+      background-color: #444C53;
+      color: #d0d3d4;
+      padding-top: 6.25rem;
+
+      .text {
+        p {
+          margin-bottom: 6.25rem;
+        }
+      }
+
+      h2 {
+        font-size: 1.813rem;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        color: $neufundGreen;
+        text-transform: capitalize;
+        margin-bottom: 2.5rem;
+      }
+
+      .image_wrapper {
+        position: relative;
+      }
+
+      .image {
+        position: absolute;
+        $margin: 10%;
+        left: $margin;
+        right: $margin;
+        top: $margin;
+        bottom: $margin;
+
+        background-image: url('../images/Introduction_greeting.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+    }
+
+    .columns {
+      background-color: $neufundGreen;
+      color: $neufundGrey;
+
+      .column_title {
+        color: #424a52;
+        font-weight: bold;
+      }
+
+      a {
+        color: #fff;
+        font-weight: bold;
+      }
+
+      @media (min-width: 48rem) {
+
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+
+        $padding_width: 3rem;
+        .col_first {
+          padding-right: $padding_width;
+        }
+
+        .col_middle {
+          padding-right: $padding_width;
+          padding-left: $padding_width;
+        }
+
+        .col_last {
+          padding-left: $padding_width;
+        }
+      }
+
+    }
+
+    .content {
+      background-color: #F7F8F8;
+
+      .round_logo {
+        background-image: url('../images/NeuFund_logo_solo.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
     }
   }
 }
