@@ -12,6 +12,9 @@ export default ({userPK, userType, networkId}) => {
                     <div className="title">
                         Employee Stock Option Plan Manager <span className="smaller">[on: {ContractUtils.getNetworkName(networkId)}]</span>
                     </div>
+                    {userType === "anonymous" &&
+                    <div className="goTo"><a href="#esop_dapp">Go to DAPP</a></div>
+                    }
                 </div>
             </div>
 

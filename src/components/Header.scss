@@ -21,11 +21,26 @@
       }
     }
 
+    .goTo {
+      cursor: pointer;
+      a {
+        text-decoration: none;
+        color: inherit;
+
+      }
+    }
+
     @media (min-width: 751px) {
       display: flex;
       flex-wrap: wrap;
       .title {
         line-height: 3.75rem;
+        margin-right: auto;
+      }
+
+      .goTo {
+        line-height: 3.75rem;
+        margin-right: 1rem;
       }
     }
 
@@ -150,7 +165,6 @@
       background-color: #F7F8F8;
       padding-top: 3.125rem;
       padding-bottom: 3.125rem;
-
 
       .content_text {
         text-align: left;

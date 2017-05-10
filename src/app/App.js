@@ -62,6 +62,7 @@ export default class App extends React.Component {
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div>
                     <Header userPK={userState.userPK} userType={userState.userType} networkId={ESOPstate.networkId}/>
+                    <a name="esop_dapp"/>
                     {componentToRender}
 
                     <Dialog
