@@ -47,11 +47,11 @@
     .greeting {
       background-color: #444C53;
       color: #d0d3d4;
-      padding-top: 6.25rem;
+      padding-top: 1rem;
 
       .text {
         p {
-          margin-bottom: 6.25rem;
+          margin-bottom: 1rem;
         }
       }
 
@@ -61,7 +61,8 @@
         font-weight: 400;
         color: $neufundGreen;
         text-transform: capitalize;
-        margin-bottom: 2.5rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
       }
 
       .image_wrapper {
@@ -70,16 +71,30 @@
 
       .image {
         position: absolute;
-        $margin: 10%;
+        $margin: 20%;
         left: $margin;
         right: $margin;
-        top: $margin;
+        top: 0;
         bottom: $margin;
 
         background-image: url('../images/Introduction_greeting.png');
         background-position: center center;
         background-repeat: no-repeat;
         background-size: contain;
+      }
+
+      @media (min-width: 48rem) {
+        padding-top: 6.25rem;
+
+        h2 {
+          margin-bottom: 2.5rem;
+        }
+
+        .text {
+          p {
+            margin-bottom: 6.25rem;
+          }
+        }
       }
     }
 
@@ -99,8 +114,8 @@
 
       @media (min-width: 48rem) {
 
-        padding-top: 3rem;
-        padding-bottom: 3rem;
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
 
         $padding_width: 3rem;
         .col_first {
@@ -116,11 +131,12 @@
           padding-left: $padding_width;
         }
       }
-
     }
 
     .content {
       background-color: #F7F8F8;
+      padding-top: 3.125rem;
+      padding-bottom: 3.125rem;
 
       .round_logo {
         background-image: url('../images/NeuFund_logo_solo.png');

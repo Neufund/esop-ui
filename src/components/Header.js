@@ -22,7 +22,7 @@ export default ({userPK, userType, networkId}) => {
                         <h2>Welcome ESOP manager</h2>
                         <p>Neufund’s mission is to establish an active secondary market for startup equity, through providing a solution to represent startup shares as Blockchain tokens. <b>This works also for non-Blockchain projects (e.g AI, biotech, hardware etc.)</b> To demonstrate to the Blockchain community that our concept has practical potential, we have converted the 10% pool of Neufund stock reserved for the employees into Ethereum tokens, and have provided a smart contract to govern it in place of a legal agreement. Now any incorporated startup can use our solution to implement their ESOP on Blockchain.</p>
                     </div>
-                    <div className="image_wrapper col-xs-0 col-md-6">
+                    <div className="image_wrapper col-xs-0 col-md-5">
                         <div className="image"></div>
                     </div>
                 </div>
@@ -46,10 +46,9 @@ export default ({userPK, userType, networkId}) => {
                 </div>
                 <div className="row content">
                     <div className="round_logo col-xs-0 col-xs-offset-0 col-md-4 col-md-offset-1" >
-
                     </div>
                     <div className="col-xs-12 col-md-6">
-                        <p>For startups there is a number of upshots to implementing an ESOP on Blockchain: *</p>
+                        <p><b>For startups there is a number of upshots to implementing an ESOP on Blockchain: *</b></p>
                         <p>There is a certain opaqueness surrounding option grants and their potential value.  Most startup employees do not have enough information to properly evaluate the offer they receive, nor compare it against industry benchmarks. This can be mitigated by employers granting and managing options on Blockchain, in an <b>immutable and transparent</b> smart contract and providing trustless trust <a href="http://insights.instech.london/post/102dw0w/trustless-trust-a-brief-explanation">(read more about the concept)</a>.</p>
                         <p>Today many startup employees see options as a bonus that may or may not arrive, at a potential exit in 5-10 years. This is a quite intangible incentive accessible only in a very long time horizon, which is why employees often completely ignore stock options when evaluating a job offer. In Neufund’s concept the tokenized ESOP allows for a liquid asset position if the company issuing the ESOP either permits trading of vested options on Blockchain exchanges (like Kraken or Poloniex), or lets the employees convert their options into other tradable tokens in an ICO. This creates a secondary option-token market from which both employers and employees benefit greatly - <b>employees would likely be a lot more incentivized by options which they could monetize within a shorter time</b> (e.g. 1-2 years).</p>
                         <p>Smart contracts enforce the performance of the ESOP agreement between the employer and employee, and make contractual clause unnecessary. This makes the management and maintenance of often very complicated ESOP algorithms <b>a lot easier and cheaper for the startup, and a lot more trustworthy for the employees</b>. In our concept, however, the employees are additionally protected by legal clause, enforceable through standard legal proceedings and court orders, in case smart contract or Ethereum Blockchain fails. The templates for this are also provided in our solution for any startup to use.</p>
