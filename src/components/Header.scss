@@ -143,11 +143,21 @@
         color: $neufundGreen;
       }
 
+      .round_logo_wrapper {
+        position: relative;
+      }
       .round_logo {
+        position: absolute;
+        $margin: 10%;
+        left: $margin;
+        right: $margin;
+        top: $margin;
+        bottom: $margin;
+
         background-image: url('../images/NeuFund_logo_solo.png');
         background-position: center center;
         background-repeat: no-repeat;
-        background-size: 80%;
+        background-size: contain;
       }
     }
   }

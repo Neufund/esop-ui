@@ -45,7 +45,8 @@ export default ({userPK, userType, networkId}) => {
                     </div>
                 </div>
                 <div className="row content">
-                    <div className="round_logo col-xs-0 col-xs-offset-0 col-md-4 col-md-offset-1" >
+                    <div className="round_logo_wrapper col-xs-0 col-xs-offset-0 col-md-4 col-md-offset-1" >
+                        <div className="round_logo"></div>
                     </div>
                     <div className="col-xs-12 col-md-6">
                         <p><b>For startups there is a number of upshots to implementing an ESOP on Blockchain: *</b></p>
