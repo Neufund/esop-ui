@@ -61,10 +61,10 @@ import platform from 'platform';
 
     // TODO: we need real feature / browser detection.
     if (platform.os.toString() !== "iOS 10.0") {
-
         if (externalWeb3) {
             services.userManagment.getAccount()
         } else {
+            ///TODO: here we handle nano - it should be moved to separate place
             LedgerLoginProvider.start();
             LedgerLoginProvider.onConnect(() => {
                 LedgerLoginProvider.stop();
@@ -72,12 +72,26 @@ import platform from 'platform';
                     type: "SHOW_NANO_CONFIRM_ACCOUNT_DIALOG",
                     nanoConfirmAccountDialog: true
                 });
-                services.userManagment.getAccount().then(() => store.dispatch({
-                    type: "SHOW_NANO_CONFIRM_ACCOUNT_DIALOG",
-                    nanoConfirmAccountDialog: false
-                }));
+
+                services.userManagment.getAccount()
+                    .then(
+                        null,
+                        error => {
+                            if (error === 'Invalid status 6985')
+                                console.log('Rejected account confirmation on Nano');
+                            else if (error.errorCode !== undefined && error.errorCode === 5)
+                                console.log('Timeout');
+                            else
+                                throw (error);
+                        }
+                    )
+                    .then(
+                        () => store.dispatch({
+                            type: "SHOW_NANO_CONFIRM_ACCOUNT_DIALOG",
+                            nanoConfirmAccountDialog: false
+                        })
+                    );
             });
         }
     }
-
 })();
