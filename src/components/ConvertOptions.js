@@ -31,7 +31,7 @@ export default class ConvertOptions extends React.Component {
         this.services.ESOPService.offerOptionsConversion(optionsConverterAddress).then(
             success => {
                 this.services.ESOPService.getESOPDataFromContract();
-                this.services.ESOPService.obtainContractAddreses();
+                this.services.ESOPService.obtainContractAddresses();
                 this.store.dispatch({
                     type: "SHOW_CONFIRM_TRANSACTION_DIALOG",
                     confirmTransactionDialog: false

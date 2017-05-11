@@ -28,7 +28,7 @@ export default class ContractComService {
         this.OptionsCalculatorAbstr.setProvider(web3.currentProvider);
     }
 
-    obtainContractAddreses = async() => {
+    obtainContractAddresses = async() => {
 
         let ESOPAddress = await this.RoTContract.then(contract => {
             this.store.dispatch({

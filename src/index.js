@@ -38,7 +38,7 @@ import platform from 'platform';
         await initWeb3();
         services.userManagment = new UserManagment(store);
         services.ESOPService = new ContractComService(store);
-        await services.ESOPService.obtainContractAddreses();
+        await services.ESOPService.obtainContractAddresses();
         services.ESOPService.getESOPDataFromContract();
     } catch (exception) {
 
