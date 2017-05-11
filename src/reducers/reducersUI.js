@@ -1,4 +1,5 @@
 export default (state = {
+    waitingForData: true,
     errorDialog: false,
     errorDialogMsg: '',
     nanoConfirmAccountDialog: false,
@@ -34,6 +35,12 @@ export default (state = {
             return {
                 ...state,
                 selectedUser: action.selectedUser
+            };
+            break;
+        case "SET_WAITING_FOR_DATA":
+            return {
+                ...state,
+                waitingForData: action.waitingForData
             };
             break;
         default:

@@ -248,6 +248,11 @@ export default class ContractComService {
                 companyAddress: companyAddress,
                 employees: employees
             });
+
+            this.store.dispatch({
+                type: "SET_WAITING_FOR_DATA",
+                waitingForData: false
+            });
         });
     }
 

@@ -1,4 +1,4 @@
-export default (state = {waitingForData: true}, action) => {
+export default (state = {}, action) => {
 
     switch (action.type) {
         case "SET_CONTRACT_ADDRESS":
@@ -11,7 +11,6 @@ export default (state = {waitingForData: true}, action) => {
         case "SET_ESOP_DATA":
             return {
                 ...state,
-                waitingForData: false,
                 companyAddress: action.companyAddress,
                 cliffPeriod: action.cliffPeriod,
                 vestingPeriod: action.vestingPeriod,

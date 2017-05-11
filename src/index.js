@@ -34,14 +34,33 @@ import platform from 'platform';
         document.getElementById('root')
     );
 
-    await initWeb3();
-    services.userManagment = new UserManagment(store);
-    services.ESOPService = new ContractComService(store);
-    await services.ESOPService.obtainContractAddreses();
-    services.ESOPService.getESOPDataFromContract();
+    try {
+        await initWeb3();
+        services.userManagment = new UserManagment(store);
+        services.ESOPService = new ContractComService(store);
+        await services.ESOPService.obtainContractAddreses();
+        services.ESOPService.getESOPDataFromContract();
+    } catch (exception) {
+
+        store.dispatch({
+            type: "SET_ERROR_DIALOG_MSG",
+            errorDialogMsg: exception.toString()
+        });
+
+        store.dispatch({
+            type: "SHOW_ERROR_DIALOG",
+            errorDialog: true
+        });
+
+        store.dispatch({
+            type: "SET_WAITING_FOR_DATA",
+            waitingForData: false
+        });
+        throw exception
+    }
 
     // TODO: we need real feature / browser detection.
-    if(platform.os.toString() !== "iOS 10.0") {
+    if (platform.os.toString() !== "iOS 10.0") {
 
         if (externalWeb3) {
             services.userManagment.getAccount()

@@ -11,6 +11,7 @@ import Header from '../components/Header'
 import Esop from './Esop'
 import Waiting from './Waiting'
 import OpenESOP from './OpenESOP'
+import FailedToLoad from '../components/FailedToLoad'
 
 export default class App extends React.Component {
 
@@ -46,13 +47,17 @@ export default class App extends React.Component {
         let userState = this.store.getState().user;
 
         let componentToRender;
-        if (ESOPstate.waitingForData) {
+        if (UIstate.waitingForData) {
             componentToRender = <Waiting/>
         } else {
-            if (ESOPstate.esopState == 0) {
-                componentToRender = <OpenESOP store={this.store} services={this.services}/>
+            if (ESOPstate.esopState === undefined) {
+                componentToRender = <FailedToLoad/>;
             } else {
-                componentToRender = <Esop store={this.store} services={this.services}/>
+                if (ESOPstate.esopState == 0) {
+                    componentToRender = <OpenESOP store={this.store} services={this.services}/>
+                } else {
+                    componentToRender = <Esop store={this.store} services={this.services}/>
+                }
             }
         }
 
