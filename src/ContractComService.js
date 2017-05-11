@@ -543,6 +543,10 @@ export default class ContractComService {
             && error.message.startsWith('Error: MetaMask Tx Signature: User denied'))
             return Promise.reject('You rejected transaction using metamask.');
 
+        if (error.errorCode !== undefined && error.errorCode === 5) {
+            return Promise.reject('There is timeout error on your Nano. Please reconnect it and reload ESOP page!');
+        }
+
         return Promise.reject(error)
     }
 }

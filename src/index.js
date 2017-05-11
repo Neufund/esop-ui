@@ -79,8 +79,20 @@ import platform from 'platform';
                         error => {
                             if (error === 'Invalid status 6985')
                                 console.log('Rejected account confirmation on Nano');
-                            else if (error.errorCode !== undefined && error.errorCode === 5)
-                                console.log('Timeout');
+                            else if (error.errorCode !== undefined && error.errorCode === 5) {
+                                let msg = <div>
+                                    <p>There is timeout on your Nano.</p>
+                                    <p>Please reconnect it and reload ESOP page.</p>
+                                </div>;
+                                store.dispatch({
+                                    type: "SET_ERROR_DIALOG_MSG",
+                                    errorDialogMsg: msg
+                                });
+                                store.dispatch({
+                                    type: "SHOW_ERROR_DIALOG",
+                                    errorDialog: true
+                                });
+                            }
                             else
                                 throw (error);
                         }
