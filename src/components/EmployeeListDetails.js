@@ -226,12 +226,12 @@ export default class EmployeeListDetails extends React.Component {
 
         let toggleSuspendButtonLabel = employee.suspendedAt == 0 ? "Suspend" : "Continue Employment";
         let suspendDialogText = employee.suspendedAt == 0 ?
-            "Do want to suspend employee?"
+            "Do you want to suspend employee?"
             :
-            "Do want to continue employment of employee?";
+            "Do you want to continue employment of employee?";
 
-        let showSuspendButton = employee.state == 1 || employee.state == 2; // WaitingForSignature or Employed
-        let showTerminateButtons = employee.state < 3; // not Terminated  and not OptionsExercised
+        let showSuspendButton = employee.state == 2; // Only for Employed
+        let showTerminateButtons = employee.state == 1 || employee.state == 2; // Only for WaitingForSignature or Employed
 
         let showTimeToSign = false;
         let timeToSignValue;
