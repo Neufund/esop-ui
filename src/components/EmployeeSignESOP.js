@@ -87,7 +87,7 @@ export default ({employee, ESOPState, signHandler, showPaperCopyHandler}) => {
         },
         {
             title: "EMPLOYEE STATUS",
-            value: ContractUtils.getEmployeeStateName(employee.state)
+            value: ContractUtils.getEmployeeStateName(employee.state, employee.suspendedAt, employee.timeToSign <= ESOPState.currentBlockTimestamp)
         }
     ];
 

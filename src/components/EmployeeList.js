@@ -69,7 +69,7 @@ export default class Init extends React.Component {
                                 <TableRowColumn>{moment.unix(employee.issueDate).format(dateFormat)}</TableRowColumn>
                                 <TableRowColumn>{numberFormatter.format(employee.poolOptions + employee.extraOptions)}</TableRowColumn>
                                 <TableRowColumn>{numberFormatter.format(employee.vestedOptions)}</TableRowColumn>
-                                <TableRowColumn>{ContractUtils.getEmployeeStateName(employee.state)}</TableRowColumn>
+                                <TableRowColumn>{ContractUtils.getEmployeeStateName(employee.state, employee.suspendedAt, employee.timeToSign <= ESOPState.currentBlockTimestamp)}</TableRowColumn>
                             </TableRow>
                         ))}
                     </TableBody>

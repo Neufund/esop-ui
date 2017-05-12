@@ -12,7 +12,22 @@ export default class ContractUtils {
         }
     }
 
-    static getEmployeeStateName(EmployeeState) {
+    static getEmployeeStateName(EmployeeState, suspendedAt, timeToSignExpired) {
+        if (suspendedAt != 0)
+            return "Suspended";
+
+        if (timeToSignExpired)
+            return "Signature expired";
+
+        return this.getEmployeeContractStateName(EmployeeState);
+    }
+
+    /**
+     * Translate contract employee state from int to human readable name
+     * @param EmployeeState
+     * @returns {String}
+     */
+    static getEmployeeContractStateName(EmployeeState) {
         switch (EmployeeState) {
             case 0:
                 return "Not set";

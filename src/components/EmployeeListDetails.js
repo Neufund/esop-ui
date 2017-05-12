@@ -233,18 +233,9 @@ export default class EmployeeListDetails extends React.Component {
         let showSuspendButton = employee.state == 2; // Only for Employed
         let showTerminateButtons = employee.state == 1 || employee.state == 2; // Only for WaitingForSignature or Employed
 
-        let showTimeToSign = false;
-        let timeToSignValue;
-
-        if (employee.state < 2) { // 0: Not set; 1: Waiting for signature
-            showTimeToSign = true;
-
-            if (employee.timeToSign > ESOPState.currentBlockTimestamp) {
-                timeToSignValue = moment.unix(employee.timeToSign).format(Config.dateFormat);
-            } else {
-                timeToSignValue = "expired"
-            }
-        }
+        let timeToSignExpired = employee.timeToSign <= ESOPState.currentBlockTimestamp;
+        let showTimeToSign = employee.state == 1 && !timeToSignExpired;
+        let timeToSignValue = moment.unix(employee.timeToSign).format(Config.dateFormat)
 
         const actionsSuspend = [
             <FlatButton
@@ -331,7 +322,8 @@ export default class EmployeeListDetails extends React.Component {
                 }
                 <div className="parameter_wrapper">
                     <TextField floatingLabelText="State" className="employee_parameter"
-                               value={ContractUtils.getEmployeeStateName(employee.state)} disabled={true}/>
+                               value={ContractUtils.getEmployeeStateName(employee.state, employee.suspendedAt, timeToSignExpired)}
+                               disabled={true}/>
                 </div>
                 <br />
                 {userState.userType == "ceo" &&
