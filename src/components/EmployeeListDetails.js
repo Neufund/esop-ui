@@ -8,11 +8,12 @@ import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
 
-import ContractUtils from '../ContractUtils'
 import moment from 'moment'
+import IPFSDialog from './IPFSDialog';
+import TextFieldWithToolTip from './TextFieldWithToolTip'
+import ContractUtils from '../ContractUtils'
 import {validateDoc, epochAsYears}from '../utils'
 import Config from '../config'
-import IPFSDialog from '../components/IPFSDialog';
 import Texting from '../texting'
 
 export default class EmployeeListDetails extends React.Component {
@@ -259,8 +260,50 @@ export default class EmployeeListDetails extends React.Component {
             padding: "0.5rem"
         };
 
-        return (
+        let paramaters = [];
+        paramaters.push({
+            label: "Issue date",
+            value: moment.unix(employee.issueDate).format(Config.dateFormat),
+            desc: Texting.definitions.issueDate
+        });
+        if (showTimeToSign) {
+            paramaters.push({
+                label: "Time to sign",
+                value: timeToSignValue,
+            })
+        }
+        if (employee.terminatedAt != 0) {
+            paramaters.push({
+                label: "Terminated at",
+                value: moment.unix(employee.terminatedAt).format(Config.dateFormat),
+            })
+        }
+        paramaters.push({
+            label: "Pool options",
+            value: numberFormatter.format(employee.poolOptions),
+            desc: Texting.definitions.poolOptions
+        });
+        paramaters.push({
+            label: "Extra options",
+            value: numberFormatter.format(employee.extraOptions),
+            desc: Texting.definitions.extraOptions
+        });
+        paramaters.push({
+            label: "Vested options",
+            value: numberFormatter.format(employee.vestedOptions),
+        });
+        if (employee.suspendedAt != 0) {
+            paramaters.push({
+                label: "Suspened at",
+                value: moment.unix(employee.suspendedAt).format(Config.dateFormat),
+            })
+        }
+        paramaters.push({
+            label: "State",
+            value: ContractUtils.getEmployeeStateName(employee.state, employee.suspendedAt, timeToSignExpired),
+        });
 
+        return (
             <div className="employee_details">
                 <IPFSDialog
                     showDocumentDialog={this.state.showDocumentDialog}
@@ -268,63 +311,15 @@ export default class EmployeeListDetails extends React.Component {
                     handlePrint={this.handlePrint}
                     documentHtml={this.state.LegalDocument}
                 />
-
                 <h3>Employee details:</h3>
                 <p>Employee address: {employee.address}</p>
                 <div>
                     <RaisedButton label="Show agreement" onTouchTap={this.showPaperCopyHandler}/>
                 </div>
-                <div className="parameter_wrapper">
-                    <TextField floatingLabelText="Issue date" className="employee_parameter"
-                               value={moment.unix(employee.issueDate).format(Config.dateFormat)} disabled={true}/>
-                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.issueDate}
-                                tooltipStyles={tooltipStyles}>info_outline</IconButton>
-                </div>
-
-                {showTimeToSign &&
-                <div className="parameter_wrapper">
-                    <TextField floatingLabelText="Time to sign" className="employee_parameter" value={timeToSignValue}
-                               disabled={true}/>
-                </div>
-                }
-
-                {employee.terminatedAt != 0 &&
-                <div className="parameter_wrapper">
-                    <TextField floatingLabelText="Terminated at" className="employee_parameter"
-                               value={moment.unix(employee.terminatedAt).format(Config.dateFormat)} disabled={true}/>
-                </div>
-                }
-
-                <div className="parameter_wrapper">
-                    <TextField floatingLabelText="Pool options" className="employee_parameter"
-                               value={numberFormatter.format(employee.poolOptions)} disabled={true}/>
-                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.poolOptions}
-                                tooltipStyles={tooltipStyles}>info_outline</IconButton>
-                </div>
-
-                <div className="parameter_wrapper">
-                    <TextField floatingLabelText="Extra options" className="employee_parameter"
-                               value={numberFormatter.format(employee.extraOptions)} disabled={true}/>
-                    <IconButton iconClassName="material-icons" tooltip={Texting.definitions.extraOptions}
-                                tooltipStyles={tooltipStyles}>info_outline</IconButton>
-                </div>
-
-                <div className="parameter_wrapper">
-                    <TextField floatingLabelText="Vested options" className="employee_parameter"
-                               value={numberFormatter.format(employee.vestedOptions)} disabled={true}/>
-                </div>
-
-                {employee.suspendedAt != 0 &&
-                <div className="parameter_wrapper">
-                    <TextField floatingLabelText="Suspened at" className="employee_parameter"
-                               value={moment.unix(employee.suspendedAt).format(Config.dateFormat)} disabled={true}/>
-                </div>
-                }
-                <div className="parameter_wrapper">
-                    <TextField floatingLabelText="State" className="employee_parameter"
-                               value={ContractUtils.getEmployeeStateName(employee.state, employee.suspendedAt, timeToSignExpired)}
-                               disabled={true}/>
-                </div>
+                {paramaters.map((parameter, index) =>
+                    <TextFieldWithToolTip label={parameter.label} value={parameter.value}
+                                          description={parameter.desc} key={index}/>
+                )}
                 <br />
                 {userState.userType == "ceo" &&
                 <div>
@@ -344,7 +339,6 @@ export default class EmployeeListDetails extends React.Component {
                     }
                 </div>
                 }
-
                 <Dialog title={suspendDialogText} titleStyle={dialogTitleStyle} actions={actionsSuspend} modal={true}
                         open={this.state.openSuspendDialog}/>
             </div>
