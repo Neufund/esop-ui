@@ -2,7 +2,7 @@ import React from 'react';
 import {epochAsYears} from '../utils'
 import Texting from '../texting'
 
-import TextFieldWithToolTip from './TextFieldWithToolTip'
+import TwoColumnParametersList from './TwoColumnParametersList'
 
 export default ({contractParameters}) => {
     let numberFormatter = new Intl.NumberFormat();
@@ -52,14 +52,7 @@ export default ({contractParameters}) => {
                     <h2>ESOP terms and conditions:</h2>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-xs-12 contract_parameters">
-                    {paramaters.map((parameter, index) =>
-                        <TextFieldWithToolTip label={parameter.label} value={parameter.value}
-                                              description={parameter.desc} key={index}/>
-                    )}
-                </div>
-            </div>
+            <TwoColumnParametersList parameters={paramaters}/>
         </div>
     )
 };

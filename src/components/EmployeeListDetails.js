@@ -10,7 +10,7 @@ import Dialog from 'material-ui/Dialog';
 
 import moment from 'moment'
 import IPFSDialog from './IPFSDialog';
-import TextFieldWithToolTip from './TextFieldWithToolTip'
+import TwoColumnParametersList from './TwoColumnParametersList'
 import ContractUtils from '../ContractUtils'
 import {validateDoc, epochAsYears}from '../utils'
 import Config from '../config'
@@ -316,10 +316,7 @@ export default class EmployeeListDetails extends React.Component {
                 <div>
                     <RaisedButton label="Show agreement" onTouchTap={this.showPaperCopyHandler}/>
                 </div>
-                {paramaters.map((parameter, index) =>
-                    <TextFieldWithToolTip label={parameter.label} value={parameter.value}
-                                          description={parameter.desc} key={index}/>
-                )}
+                <TwoColumnParametersList parameters={paramaters}/>
                 <br />
                 {userState.userType == "ceo" &&
                 <div>
