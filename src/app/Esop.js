@@ -32,6 +32,11 @@ export default class Esop extends React.Component {
         this.unsubscribe();
     }
 
+    handleEmployeeListClick = employee => this.store.dispatch({
+        type: "SET_SELECTED_USER",
+        selectedUser: employee
+    });
+
     render() {
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
@@ -49,7 +54,7 @@ export default class Esop extends React.Component {
                         </div>
 
                         {(userState.userType == 'employee') &&
-                            <EmployeeDetails services={this.services} store={this.store}/>
+                        <EmployeeDetails services={this.services} store={this.store}/>
                         }
 
                         <ContractStatus contractState={ESOPState}/>
@@ -57,7 +62,8 @@ export default class Esop extends React.Component {
                         {ESOPState.conversionOfferedAt != 0 &&
                         <ConversionStatus contractState={ESOPState}/>
                         }
-                        <ContractAddresses RoTAddress={ESOPState.RoTAddress} ESOPAddress={ESOPState.ESOPAddress} networkId={ESOPState.networkId}/>
+                        <ContractAddresses RoTAddress={ESOPState.RoTAddress} ESOPAddress={ESOPState.ESOPAddress}
+                                           networkId={ESOPState.networkId}/>
                         <ContractParameters contractParameters={ESOPState}/>
 
                         <div className="row">
@@ -66,11 +72,10 @@ export default class Esop extends React.Component {
                             </div>
                         </div>
 
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <EmployeeList store={this.store}/>
-                            </div>
-                        </div>
+                        <EmployeeList employees={ESOPState.employees} selectedUser={UIState.selectedUser}
+                                      currentBlockTimestamp={ESOPState.currentBlockTimestamp}
+                                      rowSelectAction={this.handleEmployeeListClick}
+                                      networkId={ESOPState.networkId}/>
 
                         {(UIState.selectedUser !== undefined) &&
                         <div className="row">
@@ -84,8 +89,8 @@ export default class Esop extends React.Component {
                         <EmployeeAdd services={this.services} store={this.store}/>
                         }
 
-                        {(userState.userType === "ceo" && ESOPState.esopState ===1 && false) &&
-                            <ConvertOptions store={this.store} services={this.services}/>
+                        {(userState.userType === "ceo" && ESOPState.esopState === 1 && false) &&
+                        <ConvertOptions store={this.store} services={this.services}/>
                         }
                     </div>
                 </div>

@@ -1,0 +1,80 @@
+.employee_list {
+  .selected {
+    background-color: rgb(224, 224, 224);
+  }
+
+  .public_key {
+    white-space: nowrap;
+  }
+
+  table {
+    border-collapse: collapse;
+
+    tr {
+      border-bottom: 0.063rem solid rgb(224, 224, 224);
+    }
+
+    th {
+      font-weight: normal;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.875rem;
+    }
+
+    tbody {
+      tr:last-of-type {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  // xs - 768px
+  @media (max-width: 48rem) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: 0.063rem solid rgb(224, 224, 224);
+    }
+
+    td {
+      border-bottom: 0.063rem solid rgb(224, 224, 224);
+    }
+
+    td:before {
+      display: block;
+      font-size: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    td:nth-of-type(1):before {
+      content: "Public key";
+    }
+    td:nth-of-type(2):before {
+      content: "Issue date";
+    }
+    td:nth-of-type(3):before {
+      content: "Issued options";
+    }
+    td:nth-of-type(4):before {
+      content: "Vested options";
+    }
+    td:nth-of-type(5):before {
+      content: "State";
+    }
+
+    .selected {
+      background-color: rgb(236, 236, 236);
+    }
+  }
+}

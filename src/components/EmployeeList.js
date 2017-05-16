@@ -1,81 +1,70 @@
 import React from 'react';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import './EmployeeList.scss';
+
 import FontIcon from 'material-ui/FontIcon';
 import moment from 'moment'
 import ContractUtils from '../ContractUtils'
+import Config from '../config'
 
-export default class Init extends React.Component {
-    constructor(props) {
-        super(props);
-        this.store = props.store;
-    }
+export default ({employees, selectedUser, currentBlockTimestamp, rowSelectAction, networkId}) => {
 
-    componentDidMount() {
-        this.unsubscribe = this.store.subscribe(() => this.forceUpdate());
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
-    handleRowSelection = index => {
-        let selectedEmployee;
-
-        if (index[0] != undefined) {
-            let ESOPState = this.store.getState().ESOP;
-            let employeeList = ESOPState.employees;
-            selectedEmployee = employeeList[index[0]].address;
-
-            //TODO: scroll to bottom of form -  timeout due to react render - should be done better
-            window.setTimeout(() => {
-                window.scrollTo(0, document.getElementById("user_list_bottom").offsetTop);
-            }, 100);
-        } else {
-            selectedEmployee = undefined
+    let handleRowClick = address => {
+        return () => {
+            if (address == selectedUser) {
+                rowSelectAction(undefined);
+            } else {
+                rowSelectAction(address);
+                window.setTimeout(() => {
+                    window.scrollTo(0, document.getElementById("user_list_bottom").offsetTop);
+                }, 100);
+            }
         }
-
-        this.store.dispatch({
-            type: "SET_SELECTED_USER",
-            selectedUser: selectedEmployee
-        });
     };
 
-    render() {
-        let userState = this.store.getState().user;
-        let ESOPState = this.store.getState().ESOP;
-        let employeeList = ESOPState.employees;
-        let dateFormat = 'YY-MM-DD'; //TODO: this should go to configuration
-        let numberFormatter = new Intl.NumberFormat();
+    let numberFormatter = new Intl.NumberFormat();
 
-        return (
-            <div>
+    return (
+        <div className="row employee_list">
+            <div className="col-xs-12">
                 <h3>Employee list:</h3>
-                <Table onRowSelection={this.handleRowSelection}>
-                    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                        <TableRow>
-                            <TableHeaderColumn>Public key</TableHeaderColumn>
-                            <TableHeaderColumn>Issue date</TableHeaderColumn>
-                            <TableHeaderColumn>Issued options</TableHeaderColumn>
-                            <TableHeaderColumn>Vested options</TableHeaderColumn>
-                            <TableHeaderColumn>State</TableHeaderColumn>
-                        </TableRow>
-                    </TableHeader>
-                    //TODO: there is problem with colors - same for selected row and stripped row fix it before turning on
-                    <TableBody displayRowCheckbox={false} stripedRows={false} deselectOnClickaway={false}>
-                        {employeeList.map((employee, index) => (
-                            <TableRow key={index}>
-                                <TableRowColumn><a className="inline_link" target="_blank" href={ContractUtils.formatEtherscanUrl(employee.address, ESOPState.networkId)}>
-                                    <FontIcon className="material-icons material_icon_table">link</FontIcon></a>{employee.address}</TableRowColumn>
-                                <TableRowColumn>{moment.unix(employee.issueDate).format(dateFormat)}</TableRowColumn>
-                                <TableRowColumn>{numberFormatter.format(employee.poolOptions + employee.extraOptions)}</TableRowColumn>
-                                <TableRowColumn>{numberFormatter.format(employee.vestedOptions)}</TableRowColumn>
-                                <TableRowColumn>{ContractUtils.getEmployeeStateName(employee.state, employee.suspendedAt, employee.timeToSign <= ESOPState.currentBlockTimestamp)}</TableRowColumn>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                <table>
+                    <thead>
+                    <tr>
+                        <th className="public_key">Public key</th>
+                        <th>Issue date</th>
+                        <th>Issued options</th>
+                        <th>Vested options</th>
+                        <th>State</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {employees.map((employee, index) =>
+                        <tr key={index} onTouchTap={handleRowClick(employee.address)}
+                            className={employee.address == selectedUser ? "selected" : undefined}>
+                            <td className="public_key">
+                                <a className="inline_link" target="_blank"
+                                   href={ContractUtils.formatEtherscanUrl(employee.address, networkId)}>
+                                    <FontIcon className="material-icons material_icon_table">link</FontIcon>
+                                </a>{employee.address}
+                            </td>
+                            <td>
+                                {moment.unix(employee.issueDate).format(Config.dateFormat)}
+                            </td>
+                            <td>
+                                {numberFormatter.format(employee.poolOptions + employee.extraOptions)}
+                            </td>
+                            <td>
+                                {numberFormatter.format(employee.vestedOptions)}
+                            </td>
+                            <td>
+                                {ContractUtils.getEmployeeStateName(employee.state, employee.suspendedAt, employee.timeToSign <= currentBlockTimestamp)}
+                            </td>
+                        </tr>
+                    )}
+                    </tbody>
+                </table>
                 <div id="user_list_bottom"></div>
             </div>
-        )
-    }
+        </div>
+    )
 }
