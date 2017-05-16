@@ -389,7 +389,7 @@ export default class Init extends React.Component {
                     </div>
                 </div>
 
-                {userState.userType != "ceo" ?
+                {userState.userType == "ceo" ?
                     <div className="row">
                         <div className="col-xs-12 col-md-10 col-md-offset-1">
                             <h3>To set the terms & conditions of ESOP please connect company manages's account {ESOPState.companyAddress} configured during deployment process</h3>
@@ -403,37 +403,37 @@ export default class Init extends React.Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-xs-12 col-md-5 col-md-offset-1">
+                            <div className="col-xs-12 col-sm-6 col-md-5 col-md-offset-1 col-lg-4">
                                 <TextField {...textFieldsProps.totalPoolOptionsProps}/>
                                 <IconButton tooltip={Texting.definitions.totalPoolOptions} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
-                            <div className="col-xs-12 col-md-5">
+                            <div className="col-xs-12 col-sm-6 col-md-5 col-lg-4">
                                 <TextField {...textFieldsProps.cliffPeriodProps}/>
                                 <IconButton tooltip={Texting.definitions.cliffPeriod} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-xs-12 col-md-5 col-md-offset-1">
+                            <div className="col-xs-12 col-sm-6 col-md-5 col-md-offset-1 col-lg-4">
                                     <TextField {...textFieldsProps.vestingPeriodProps}/>
                                     <IconButton tooltip={Texting.definitions.vestingPeriod} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
-                            <div className="col-xs-12 col-md-5">
+                            <div className="col-xs-12 col-sm-6 col-md-5 col-lg-4">
                                     <TextField {...textFieldsProps.residualAmountProps}/>
                                     <IconButton tooltip={Texting.definitions.residualAmount} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-xs-12 col-md-5 col-md-offset-1">
+                            <div className="col-xs-12 col-sm-6 col-md-5 col-md-offset-1 col-lg-4">
                                     <TextField {...textFieldsProps.bonusOptionsProps}/>
                                     <IconButton tooltip={Texting.definitions.bonusOptions} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
-                            <div className="col-xs-12 col-md-5">
+                            <div className="col-xs-12 col-sm-6 col-md-5 col-lg-4">
                                     <TextField {...textFieldsProps.newEmployeePoolProps}/>
                                     <IconButton tooltip={Texting.definitions.newEmployeePool} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-xs-12 col-md-5 col-md-offset-1">
+                            <div className="col-xs-12 col-sm-6 col-md-5 col-md-offset-1 col-lg-4">
                                 <TextField {...textFieldsProps.optionsPerShareProps}/>
                                 <IconButton tooltip={Texting.definitions.optionsPerShare} iconClassName="material-icons" tooltipStyles={tooltipStyles}>info_outline</IconButton>
                             </div>
