@@ -389,7 +389,7 @@ export default class Init extends React.Component {
                     </div>
                 </div>
 
-                {userState.userType == "ceo" ?
+                {userState.userType != "ceo" ?
                     <div className="row">
                         <div className="col-xs-12 col-md-10 col-md-offset-1">
                             <h3>To set the terms & conditions of ESOP please connect company manages's account {ESOPState.companyAddress} configured during deployment process</h3>
