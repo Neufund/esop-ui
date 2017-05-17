@@ -42,7 +42,7 @@ export default ({userPK, userType, networkId}) => {
                             </div>
                             <div className="col-xs-12 col-sm-4 col_last">
                                 <p className="column_title">For others</p>
-                                <p className="column_text">ESOPs are complex mechanisms, but also a great method to make employees participate in the startup’s upside. ESOPs can be improved even more by tokenization. Read more about ESOPs and option-tokens in our <a target="_blank" href="https://medium.com/p/37376fd0384a">Medium Post</a>.</p>
+                                <p className="column_text">ESOPs are complex mechanisms, but also a great method to make employees participate in the startup’s upside. ESOPs can be improved even more by tokenization. Read more about ESOPs and option-tokens in our <a target="_blank" href="https://blog.neufund.org/tokenizing-startup-equity-part-1-employee-incentive-options-plan-esop-on-ethereum-blockchain-dce2416f4505">Medium Post</a>.</p>
                             </div>
                         </div>
                     </div>
