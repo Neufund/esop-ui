@@ -9,11 +9,11 @@ export default ({parameters}) => {
         <div>
             {rows.map((value, index) =>
                 <div className="row" key={index}>
-                    <div className="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+                    <div className="col-xs-12 col-sm-4 col-md-4 col-lg-3">
                         <TextFieldWithToolTip label={value[0].label} value={value[0].value} description={value[0].desc}/>
                     </div>
                     {value[1] != undefined &&
-                    <div className="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+                    <div className="col-xs-12 col-sm-4 col-md-4 col-lg-3">
                         <TextFieldWithToolTip label={value[1].label} value={value[1].value} description={value[1].desc}/>
                     </div>
                     }
