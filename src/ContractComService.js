@@ -492,12 +492,21 @@ export default class ContractComService {
         console.log("waiting for transaction: " + transactionHash);
         return new Promise((resolve, reject) => {
             let prevBlockNo = -1;
+            let startingBlock = -1;
             let ESOPState = this.store.getState().ESOP;
             let requiredConfirmations = ContractUtils.isMiningNetwork(ESOPState.networkId) ? Config.numberOfConfirmations : 0;
             let poll = function () {
                 web3.eth.getBlockNumber((error, result) => {
                     if (!error) {
                         let currentBlockNo = result;
+                        if(startingBlock == -1) {
+                            startingBlock = currentBlockNo;
+                        }
+                        if(currentBlockNo - startingBlock >= Config.maxNumberOfBlocksToWait) {
+                            reject(`Your transaction has not been mined in last ${Config.maxNumberOfBlocksToWait} blocks`);
+                            return;
+                        }
+
                         console.log(`got block number ${result} prev block number ${prevBlockNo}`);
                         if (currentBlockNo != prevBlockNo) {
                             prevBlockNo = currentBlockNo;
