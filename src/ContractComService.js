@@ -1,4 +1,5 @@
 import {web3} from './web3';
+import {toPromise} from './utils'
 import Config from './config'
 import contractBuilder from "truffle-contract"
 import ContractUtils from './ContractUtils'
@@ -495,45 +496,43 @@ export default class ContractComService {
             let startingBlock = -1;
             let ESOPState = this.store.getState().ESOP;
             let requiredConfirmations = ContractUtils.isMiningNetwork(ESOPState.networkId) ? Config.numberOfConfirmations : 0;
-            let poll = function () {
-                web3.eth.getBlockNumber((error, result) => {
-                    if (!error) {
-                        let currentBlockNo = result;
-                        if(startingBlock == -1) {
-                            startingBlock = currentBlockNo;
-                        }
-                        if(currentBlockNo - startingBlock >= Config.maxNumberOfBlocksToWait) {
-                            reject(`Your transaction has not been mined in last ${Config.maxNumberOfBlocksToWait} blocks`);
-                            return;
-                        }
+            let poll = async() => {
 
-                        console.log(`got block number ${result} prev block number ${prevBlockNo}`);
-                        if (currentBlockNo != prevBlockNo) {
-                            prevBlockNo = currentBlockNo;
-                            web3.eth.getTransaction(transactionHash, (error, result) => {
-                                if (!error) {
-                                    console.log(`got transaction with block number: ${result.blockNumber}`);
-                                    if (result.blockNumber != null) {
-                                        if (currentBlockNo - result.blockNumber >= requiredConfirmations) {
-                                            console.log('we have enough confirmations we can move on');
-                                            resolve();
-                                            return;
-                                        }
-                                    }
-                                } else {
-                                    console.log('error in web3.eth.getTransaction');
-                                    console.log(error);
-                                    reject(error);
-                                }
-                            })
+                let currentBlockNo;
+                try {
+                    currentBlockNo = await toPromise(web3.eth.getBlockNumber);
+                } catch (e) {
+                    console.log('error in web3.eth.getBlockNumber');
+                    console.log(e);
+                    return reject(e);
+                }
+                if (startingBlock == -1) {
+                    startingBlock = currentBlockNo;
+                }
+                if (currentBlockNo - startingBlock >= Config.maxNumberOfBlocksToWait) {
+                    return reject(`Your transaction has not been mined in last ${Config.maxNumberOfBlocksToWait} blocks`);
+                }
+
+                //console.log(`got block number ${currentBlockNo} prev block number ${prevBlockNo}`);
+                if (currentBlockNo != prevBlockNo) {
+                    prevBlockNo = currentBlockNo;
+
+                    try {
+                        let transaction = await toPromise(web3.eth.getTransaction, transactionHash);
+                        //console.log(`got transaction with block number: ${transaction.blockNumber}`);
+                        if (transaction.blockNumber != null) {
+                            if (currentBlockNo - transaction.blockNumber >= requiredConfirmations) {
+                                //console.log('we have enough confirmations we can move on');
+                                return resolve();
+                            }
                         }
-                        window.setTimeout(poll, 5000);
-                    } else {
-                        console.log('error in web3.eth.getBlockNumber');
-                        console.log(error);
-                        reject(error);
+                    } catch (e) {
+                        console.log('error in web3.eth.getTransaction');
+                        console.log(e);
+                        return reject(e);
                     }
-                });
+                }
+                window.setTimeout(poll, 1000);
             };
             window.setTimeout(poll, 1000);
         });
