@@ -33,13 +33,13 @@ export default class ContractComService {
         let ESOPAddress = await this.RoTContract.then(contract => {
             this.store.dispatch({
                 type: "SET_CONTRACT_ADDRESS",
-                address: {RoTAddress: contract.address}
+                address: { RoTAddress: contract.address }
             });
             return contract.ESOPAddress()
         });
         this.store.dispatch({
             type: "SET_CONTRACT_ADDRESS",
-            address: {ESOPAddress}
+            address: { ESOPAddress }
         });
 
         this.ESOPContract = this.ESOPContractAbstr.deployed();
@@ -50,14 +50,14 @@ export default class ContractComService {
 
         this.store.dispatch({
             type: "SET_CONTRACT_ADDRESS",
-            address: {EmployeesListAddress}
+            address: { EmployeesListAddress }
         });
         this.EmployeesListContract = this.EmployeesListContractAbstr.deployed();
         //this.EmployeesListContract = this.EmployeesListContractAbstr.at(EmployeesListAddress);
 
         this.store.dispatch({
             type: "SET_CONTRACT_ADDRESS",
-            address: {OptionsCalculatorAddress}
+            address: { OptionsCalculatorAddress }
         });
         this.OptionsCalculatorContract = this.OptionsCalculatorAbstr.deployed();
         //this.OptionsCalculatorContract = this.OptionsCalculatorAbstr.at(EmployeesListAddress);
@@ -234,7 +234,7 @@ export default class ContractComService {
     }
 
     getESOPDataFromContract() {
-        this.obtainESOPData().then(({companyAddress, ESOPData, OptionsData, employees}) => {
+        this.obtainESOPData().then(({ companyAddress, ESOPData, OptionsData, employees }) => {
             this.store.dispatch({
                 type: "SET_ESOP_DATA",
                 companyAddress: companyAddress,
@@ -290,7 +290,9 @@ export default class ContractComService {
     setParametersOptional(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare, hasSetParameters) {
         if (hasSetParameters) {
             // return empty promise
-            return new Promise((resolve, reject) => { resolve('params already set') });
+            return new Promise((resolve, reject) => {
+                resolve('params already set')
+            });
         }
         return this.setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare)
     }
@@ -489,27 +491,36 @@ export default class ContractComService {
     transactionConfirmation(transactionHash) {
         console.log("waiting for transaction: " + transactionHash);
         return new Promise((resolve, reject) => {
-            let blockNo = 0;
             let prevBlockNo = -1;
             let ESOPState = this.store.getState().ESOP;
             let requiredConfirmations = ContractUtils.isMiningNetwork(ESOPState.networkId) ? Config.numberOfConfirmations : 0;
             let poll = function () {
-                //console.log(result);
-                web3.eth.getTransaction(transactionHash, (error, result) => {
+                web3.eth.getBlockNumber((error, result) => {
                     if (!error) {
-                        console.log('result of getTransaction');
-                        //console.log(result);
-                        if (result.blockNumber != null && prevBlockNo != Number(result.blockNumber)) {
-                            console.log(`block count ${blockNo+1} block no ${result.blockNumber}`);
-                            if (++blockNo >= requiredConfirmations) {
-                                console.log('we have enough confirmations we can move on');
-                                resolve();
-                                return;
-                            }
+                        let currentBlockNo = result;
+                        console.log(`got block number ${result} prev block number ${prevBlockNo}`);
+                        if (currentBlockNo != prevBlockNo) {
+                            prevBlockNo = currentBlockNo;
+                            web3.eth.getTransaction(transactionHash, (error, result) => {
+                                if (!error) {
+                                    console.log(`got transaction with block number: ${result.blockNumber}`);
+                                    if (result.blockNumber != null) {
+                                        if (currentBlockNo - result.blockNumber >= requiredConfirmations) {
+                                            console.log('we have enough confirmations we can move on');
+                                            resolve();
+                                            return;
+                                        }
+                                    }
+                                } else {
+                                    console.log('error in web3.eth.getTransaction');
+                                    console.log(error);
+                                    reject(error);
+                                }
+                            })
                         }
-                        window.setTimeout(poll, 1000);
+                        window.setTimeout(poll, 5000);
                     } else {
-                        console.log('error in web3.eth.getTransaction');
+                        console.log('error in web3.eth.getBlockNumber');
                         console.log(error);
                         reject(error);
                     }
