@@ -1,4 +1,3 @@
-import moment from 'moment'
 import axios from 'axios'
 let jQuery = require('jquery');
 import Config from './config'

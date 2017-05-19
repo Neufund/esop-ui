@@ -1,5 +1,6 @@
 export default {
-    numberOfConfirmations: 1, // number of block that need to be mined so we assume transaction is mined
+    numberOfConfirmations: 2, // number of block that need to be mined so we assume transaction is mined
+    maxNumberOfBlocksToWait: 30,
     dateFormat: 'YY-MM-DD',
     //ethEndpoint: '/api/',
     // ethEndpoint: 'https://neufund.org/nodes/ropsten/',
