@@ -30,6 +30,10 @@ module.exports = {
             "/api": {
                 target: "http://localhost:8444",
                 pathRewrite: {"^/api": ""}
+            },
+            "/pdfrender": {
+                target: "https://neufund.net/pdfrender/api/document",
+                pathRewrite: {"^/pdfrender": ""}
             }
         }
     },

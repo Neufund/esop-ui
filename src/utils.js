@@ -1,5 +1,7 @@
 import moment from 'moment'
 import axios from 'axios'
+let jQuery = require('jquery');
+import Config from './config'
 
 const failableCallback = (resolve, reject) => {
     return (error, data) => {
@@ -104,9 +106,34 @@ const validateDoc  = function (ESOPLegalWrapperIPFSHash , callback) {
             });
 };
 
+const downloadFile = function (ESOPLegalWrapperIPFSHash) {
+
+    if (ESOPLegalWrapperIPFSHash)
+        jQuery.ajax({
+            type: "POST",
+            url: `${Config.pdfRenderServer}?hash=${ESOPLegalWrapperIPFSHash}&type=html`,
+            contentType: "application/json",
+            data: JSON.stringify(Config.ipfs_tags),
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function(blob, status){
+                var link=document.createElement('a');
+                link.href=window.URL.createObjectURL(blob);
+                link.download="Dossier_" + new Date() + ".pdf";
+                link.click();
+            },
+            error: function(result, status, err) {
+                console.log("Error")
+                console.log(result , status ,err)
+            }
+        });
+};
+
 export {
     getUserTypeName,
     validateDoc,
     epochAsYears,
-    toPromise
+    toPromise,
+    downloadFile
 }

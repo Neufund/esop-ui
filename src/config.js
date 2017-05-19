@@ -2,9 +2,13 @@ export default {
     numberOfConfirmations: 1, // number of block that need to be mined so we assume transaction is mined
     dateFormat: 'YY-MM-DD',
     //ethEndpoint: '/api/',
-    ethEndpoint: 'https://neufund.org/nodes/ropsten/',
+    // ethEndpoint: 'https://neufund.org/nodes/ropsten/',
+    ethEndpoint: 'https://ropsten.infura.io/',
     truffleArtifacts: '../../ESOP/deployed_artifacts/ropsten', // where ABIs and addresses of smart contracts are, used by webpack
     //truffleArtifacts: '../../ESOP/build/contracts',
+
+    pdfRenderServer:'/pdfrender/',
+
     ipfs_tags: {
         "company": "Fifth Force GmbH",
         "country": "Germany",

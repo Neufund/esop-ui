@@ -12,7 +12,7 @@ import moment from 'moment'
 import IPFSDialog from './IPFSDialog';
 import TwoColumnParametersList from './TwoColumnParametersList'
 import ContractUtils from '../ContractUtils'
-import {validateDoc, epochAsYears}from '../utils'
+import {validateDoc, epochAsYears} from '../utils'
 import Config from '../config'
 import Texting from '../texting'
 
@@ -91,6 +91,7 @@ export default class EmployeeListDetails extends React.Component {
     };
 
     handlePrint = () => {
+
         let mywindow = window.open('', 'PRINT', 'height=400,width=600');
 
         mywindow.document.write('<html><head><title>' + document.title + '</title>');
@@ -306,6 +307,7 @@ export default class EmployeeListDetails extends React.Component {
         return (
             <div className="employee_details">
                 <IPFSDialog
+                    ipfsHash={this.state.ipfsHash}
                     showDocumentDialog={this.state.showDocumentDialog}
                     handleDialogRequestClose={this.handleDialogRequestClose}
                     handlePrint={this.handlePrint}

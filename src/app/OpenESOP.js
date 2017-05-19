@@ -358,6 +358,7 @@ export default class Init extends React.Component {
 
             <div className="new_esop">
                 <IPFSDialog
+                    IPFSDialog={this.state.ESOPLegalWrapperIPFSHash}
                     showDocumentDialog={this.state.showDocumentDialog}
                     handleDialogRequestClose ={this.handleDialogRequestClose}
                     handlePrint ={this.handlePrint}
