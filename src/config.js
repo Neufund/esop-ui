@@ -3,7 +3,7 @@ export default {
     maxNumberOfBlocksToWait: 30,
     dateFormat: 'YY-MM-DD',
     //ethEndpoint: '/api/',
-    ethEndpoint: 'https://neufund.org/nodes/ropsten/',
+    ethEndpoint: 'https://ropsten.infura.io/c1GeHOZ7ipPvjO7nDP7l',
     truffleArtifacts: '../../ESOP/deployed_artifacts/ropsten', // where ABIs and addresses of smart contracts are, used by webpack
     //truffleArtifacts: '../../ESOP/build/contracts',
     ipfs_tags: {
