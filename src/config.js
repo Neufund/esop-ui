@@ -8,7 +8,8 @@ export default {
     truffleArtifacts: '../../ESOP/deployed_artifacts/ropsten', // where ABIs and addresses of smart contracts are, used by webpack
     //truffleArtifacts: '../../ESOP/build/contracts',
 
-    pdfRenderServer:'/pdfrender/',
+    pdfRenderServer:'https://neufund.org/pdfrender/api/document',
+    //pdfRenderServer:'/pdfrender/',
 
     ipfs_tags: {
         "company": "Fifth Force GmbH",
