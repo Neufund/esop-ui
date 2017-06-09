@@ -18,7 +18,6 @@ class IFrame extends React.Component{
         this.updateIFrameContents();
     }
 
-
     render() {
         return <iframe
             id="ifmcontentstoprint"
@@ -31,15 +30,12 @@ class IFrame extends React.Component{
     }
 }
 
-
-
-export default ({IPFSDialog, showDocumentDialog, handleDialogRequestClose, handlePrint, title, documentHtml}) => {
+export default ({IPFSDialog, showDocumentDialog, handleDialogRequestClose, handlePrint, title, documentHtml, ipfsHash}) => {
     function downloadPDF() {
         downloadFile(ipfsHash)
     }
 
     const standardActions = [
-
         <FlatButton
             label="Close"
             primary={true}
@@ -56,11 +52,11 @@ export default ({IPFSDialog, showDocumentDialog, handleDialogRequestClose, handl
             onTouchTap={downloadPDF}
         />
     ];
-    
+
     function componentDidMount() {
-        console.log("mounted")
+        // console.log("mounted")
     }
-    
+
     return (
         <Dialog
             open={showDocumentDialog}
