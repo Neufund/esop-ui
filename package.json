@@ -19,7 +19,7 @@
     "file-loader": "^0.10.1",
     "flexboxgrid": "^6.3.1",
     "jquery": "^3.2.1",
-    "ledger-wallet-provider": "^1.14.19",
+    "ledger-wallet-provider": "^1.15.4",
     "material-ui": "^0.17.0",
     "moment": "^2.18.1",
     "platform": "^1.3.4",
