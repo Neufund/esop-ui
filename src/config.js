@@ -1,6 +1,6 @@
 export default {
-    numberOfConfirmations: 2, // number of block that need to be mined so we assume transaction is mined
-    maxNumberOfBlocksToWait: 30,
+    numberOfConfirmations: 2, // number of blocks that need to be mined so we assume transaction is mined
+    maxNumberOfBlocksToWait: 30, // maximum number of blocks for waiting to transaction to be mined
     dateFormat: 'YY-MM-DD',
     //ethEndpoint: '/api/',
     // ethEndpoint: 'https://neufund.org/nodes/ropsten/',
@@ -8,7 +8,8 @@ export default {
     truffleArtifacts: '../../ESOP/deployed_artifacts/ropsten', // where ABIs and addresses of smart contracts are, used by webpack
     //truffleArtifacts: '../../ESOP/build/contracts',
 
-    pdfRenderServer:'https://neufund.org/pdfrender/api/document',
+    pdfRenderServer:'',
+    //pdfRenderServer:'https://neufund.org/pdfrender/api/document',
     //pdfRenderServer:'/pdfrender/',
 
     ipfs_tags: {

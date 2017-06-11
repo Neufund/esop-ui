@@ -40,8 +40,7 @@ switch into ESOP-ui directory, download dependencies and run webpack in developm
 This will fire local development webserver that will compile and display DAPP connected to Neufund ESOP demo contract.    
 
 ## Configuration
-UI app depends only on two key parameters: truffle contract artifacts and Ethereum endpoint, both are defined through
- ```./src/config.js```. 
+UI app depends on three key parameters: truffle contract artifacts, Ethereum endpoint, and [PDF render server](https://github.com/Neufund/document-rendering-server) endpoint (optionsl), both are defined through ```./src/config.js```. 
    
 * ```truffleArtifacts``` key store absolute or relative path to directory where truffle artifacts are located.
 Those are used by [truffle-contract](https://github.com/trufflesuite/truffle-contract) library which is wrapper to
@@ -50,7 +49,9 @@ deployment of UI.
 * ```ethEndpoint``` url of Ethereum node. Dapps (abbr decentralized application) are not using typical backend
 which provides API. Instead you can connect to any (all are sharing same network) eth node that provides json
 RPC api. You can use existing public ones ex. [Infura](https://infura.io/) or you can host your own (that can be a bit
-tricky).
+tricky).  
+* ```pdfRenderServer``` is endpoint where instance of [PDF render server](https://github.com/Neufund/document-rendering-server) is deployed.
+ It is service that will generate pdf's with employee data similar to html view in "Show agreement" popup. If you leave this option empty this functionality will stay off.  
 
 ## Build
 Issue ```npm run build``` command and Webpack will compile build into ```./ESOP-ui/build``` directory. 

@@ -3,6 +3,7 @@ import './IPFSDialog.scss';
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import {downloadFile} from '../utils'
+import Config from '../config'
 
 class IFrame extends React.Component{
 
@@ -46,12 +47,14 @@ export default ({IPFSDialog, showDocumentDialog, handleDialogRequestClose, handl
             primary={true}
             onTouchTap={handlePrint}
         />,
-        <FlatButton
+    ];
+
+    if(Config.pdfRenderServer !== '') {
+        standardActions.push(<FlatButton
             label="Download PDF"
             primary={true}
-            onTouchTap={downloadPDF}
-        />
-    ];
+            onTouchTap={downloadPDF}/>)
+    }
 
     function componentDidMount() {
         // console.log("mounted")
