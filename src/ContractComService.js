@@ -16,17 +16,30 @@ export default class ContractComService {
 
         this.RoTContractAbstr = contractBuilder(RoTDef);
         this.RoTContractAbstr.setProvider(web3.currentProvider);
+        this.RoTContractAbstr.defaults({
+            gasPrice: Config.gasPriceLimit
+        });
+
         //TODO: it should be not deployed but .at() with address set through configuration created build deployment
         this.RoTContract = this.RoTContractAbstr.deployed();
 
         this.ESOPContractAbstr = contractBuilder(ESOPDef);
         this.ESOPContractAbstr.setProvider(web3.currentProvider);
+        this.ESOPContractAbstr.defaults({
+            gasPrice: Config.gasPriceLimit
+        });
 
         this.EmployeesListContractAbstr = contractBuilder(EmployeesListDef);
         this.EmployeesListContractAbstr.setProvider(web3.currentProvider);
+        this.EmployeesListContractAbstr.defaults({
+            gasPrice: Config.gasPriceLimit
+        });
 
         this.OptionsCalculatorAbstr = contractBuilder(OptionsCalculatorDef);
         this.OptionsCalculatorAbstr.setProvider(web3.currentProvider);
+        this.OptionsCalculatorAbstr.defaults({
+            gasPrice: Config.gasPriceLimit
+        });
     }
 
     obtainContractAddresses = async() => {
@@ -267,7 +280,8 @@ export default class ContractComService {
         let userState = this.store.getState().user;
 
         this.ESOPContractAbstr.defaults({
-            from: userState.userPK
+            from: userState.userPK,
+            gasPrice: Config.gasPriceLimit
         });
 
         return this.ESOPContractAbstr.deployed()
@@ -302,7 +316,8 @@ export default class ContractComService {
         let userState = this.store.getState().user;
 
         this.OptionsCalculatorAbstr.defaults({
-            from: userState.userPK
+            from: userState.userPK,
+            gasPrice: Config.gasPriceLimit
         });
 
         return this.OptionsCalculatorAbstr.deployed()
@@ -338,7 +353,8 @@ export default class ContractComService {
         let userState = this.store.getState().user;
 
         this.ESOPContractAbstr.defaults({
-            from: userState.userPK
+            from: userState.userPK,
+            gasPrice: Config.gasPriceLimit
         });
 
         return this.ESOPContractAbstr.deployed()
@@ -378,7 +394,8 @@ export default class ContractComService {
         let userState = this.store.getState().user;
 
         this.ESOPContractAbstr.defaults({
-            from: userState.userPK
+            from: userState.userPK,
+            gasPrice: Config.gasPriceLimit
         });
 
         return this.ESOPContractAbstr.deployed()
@@ -409,7 +426,8 @@ export default class ContractComService {
         let userState = this.store.getState().user;
 
         this.ESOPContractAbstr.defaults({
-            from: userState.userPK
+            from: userState.userPK,
+            gasPrice: Config.gasPriceLimit
         });
 
         return this.ESOPContractAbstr.deployed()
@@ -442,7 +460,8 @@ export default class ContractComService {
         let userState = this.store.getState().user;
 
         this.ESOPContractAbstr.defaults({
-            from: userState.userPK
+            from: userState.userPK,
+            gasPrice: Config.gasPriceLimit
         });
 
         return this.ESOPContractAbstr.deployed()
@@ -467,7 +486,8 @@ export default class ContractComService {
         let userState = this.store.getState().user;
 
         this.ESOPContractAbstr.defaults({
-            from: userState.userPK
+            from: userState.userPK,
+            gasPrice: Config.gasPriceLimit
         });
 
         return this.ESOPContractAbstr.deployed()
