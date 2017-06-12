@@ -1,5 +1,6 @@
 export default {
     derivationPath: "44'/60'/104'/0",
+    gasLimit: 3000,
     numberOfConfirmations: 2, // number of blocks that need to be mined so we assume transaction is mined
     maxNumberOfBlocksToWait: 30, // maximum number of blocks for waiting to transaction to be mined
     dateFormat: 'YY-MM-DD',
