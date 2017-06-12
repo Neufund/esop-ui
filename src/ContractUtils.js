@@ -12,14 +12,14 @@ export default class ContractUtils {
         }
     }
 
-    static getEmployeeStateName(EmployeeState, suspendedAt, timeToSignExpired) {
-        if (suspendedAt != 0)
+    static getEmployeeStateName(employeeState, suspendedAt, timeToSignExpired) {
+        if (suspendedAt !== 0)
             return "Suspended";
 
-        if (timeToSignExpired)
+        if (employeeState === 1 && timeToSignExpired)
             return "Signature expired";
 
-        return this.getEmployeeContractStateName(EmployeeState);
+        return this.getEmployeeContractStateName(employeeState);
     }
 
     /**
