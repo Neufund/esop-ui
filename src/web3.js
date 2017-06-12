@@ -16,7 +16,13 @@ let initWeb3 = async function () {
         externalWeb3 = true;
     } else {
         let engine = new ProviderEngine();
-        let ledgerWalletSubProvider = await LedgerWalletSubproviderFactory();
+        let ledgerWalletSubProvider;
+
+        if(Config.derivationPath !== undefined && Config.derivationPath !== '') {
+            ledgerWalletSubProvider = await LedgerWalletSubproviderFactory(Config.derivationPath);
+        } else {
+            ledgerWalletSubProvider = await LedgerWalletSubproviderFactory();
+        }
         ledger = ledgerWalletSubProvider.ledger;
         engine.addProvider(ledgerWalletSubProvider);
         engine.addProvider(new RpcSubprovider({
