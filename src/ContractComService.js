@@ -434,7 +434,6 @@ export default class ContractComService {
             .then(contract => contract.toggleEmployeeSuspension(employeePublicKey, toggledAt))
             .then(
                 success => new Promise((resolve, reject) => {
-                    console.log(success);
                     if (success.logs[0].event == "SuspendEmployee"
                         || success.logs[0].event == "ContinueSuspendedEmployee") {
                         resolve(success);
