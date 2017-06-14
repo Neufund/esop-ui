@@ -1,11 +1,9 @@
 import React from 'react';
 import './EmployeeListDetails.scss';
 
-import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
 
 import moment from 'moment'
@@ -44,7 +42,7 @@ export default class EmployeeListDetails extends React.Component {
     showPaperCopyHandler = () => {
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
-        let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
+        let employee = ESOPState.employees.find(e => e.address === UIState.selectedUser);
         let numberFormatter = new Intl.NumberFormat();
 
         const dic = {
@@ -118,7 +116,7 @@ export default class EmployeeListDetails extends React.Component {
 
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
-        let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
+        let employee = ESOPState.employees.find(e => e.address === UIState.selectedUser);
         let employeePublicKey = employee.address;
         let toggledAt = new Date() / 1000;
 
@@ -166,7 +164,7 @@ export default class EmployeeListDetails extends React.Component {
 
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
-        let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
+        let employee = ESOPState.employees.find(e => e.address === UIState.selectedUser);
 
         let tType;
         if (terminationType === "Regular") {
@@ -224,20 +222,20 @@ export default class EmployeeListDetails extends React.Component {
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
         let UIState = this.store.getState().UI;
-        let employee = ESOPState.employees.find(e => e.address == UIState.selectedUser);
+        let employee = ESOPState.employees.find(e => e.address === UIState.selectedUser);
 
-        let toggleSuspendButtonLabel = employee.suspendedAt == 0 ? "Suspend" : "Continue Employment";
-        let suspendDialogText = employee.suspendedAt == 0 ?
+        let toggleSuspendButtonLabel = employee.suspendedAt === 0 ? "Suspend" : "Continue Employment";
+        let suspendDialogText = employee.suspendedAt === 0 ?
             "Do you want to suspend employee?"
             :
             "Do you want to continue employment of employee?";
 
-        let showSuspendButton = employee.state == 2; // Only for Employed
-        let showTerminateButtons = employee.state == 1 || employee.state == 2; // Only for WaitingForSignature or Employed
+        let showSuspendButton = employee.state === 2; // Only for Employed
+        let showTerminateButtons = employee.state === 1 || employee.state === 2; // Only for WaitingForSignature or Employed
 
         let timeToSignExpired = employee.timeToSign <= ESOPState.currentBlockTimestamp;
-        let showTimeToSign = employee.state == 1 && !timeToSignExpired;
-        let timeToSignValue = moment.unix(employee.timeToSign).format(Config.dateFormat)
+        let showTimeToSign = employee.state === 1 && !timeToSignExpired;
+        let timeToSignValue = moment.unix(employee.timeToSign).format(Config.dateFormat);
 
         const actionsSuspend = [
             <FlatButton
@@ -256,50 +254,45 @@ export default class EmployeeListDetails extends React.Component {
             textAlign: 'center'
         };
 
-        let tooltipStyles = {
-            fontSize: "1rem",
-            padding: "0.5rem"
-        };
-
-        let paramaters = [];
-        paramaters.push({
+        let parameters = [];
+        parameters.push({
             label: "Issue date",
             value: moment.unix(employee.issueDate).format(Config.dateFormat),
             desc: Texting.definitions.issueDate
         });
         if (showTimeToSign) {
-            paramaters.push({
+            parameters.push({
                 label: "Time to sign",
                 value: timeToSignValue,
             })
         }
-        if (employee.terminatedAt != 0) {
-            paramaters.push({
+        if (employee.terminatedAt !== 0) {
+            parameters.push({
                 label: "Terminated at",
                 value: moment.unix(employee.terminatedAt).format(Config.dateFormat),
             })
         }
-        paramaters.push({
+        parameters.push({
             label: "Pool options",
             value: numberFormatter.format(employee.poolOptions),
             desc: Texting.definitions.poolOptions
         });
-        paramaters.push({
+        parameters.push({
             label: "Extra options",
             value: numberFormatter.format(employee.extraOptions),
             desc: Texting.definitions.extraOptions
         });
-        paramaters.push({
+        parameters.push({
             label: "Vested options",
             value: numberFormatter.format(employee.vestedOptions),
         });
-        if (employee.suspendedAt != 0) {
-            paramaters.push({
+        if (employee.suspendedAt !== 0) {
+            parameters.push({
                 label: "Suspened at",
                 value: moment.unix(employee.suspendedAt).format(Config.dateFormat),
             })
         }
-        paramaters.push({
+        parameters.push({
             label: "State",
             value: ContractUtils.getEmployeeStateName(employee.state, employee.suspendedAt, timeToSignExpired),
         });
@@ -318,9 +311,9 @@ export default class EmployeeListDetails extends React.Component {
                 <div>
                     <RaisedButton label="Show agreement" onTouchTap={this.showPaperCopyHandler}/>
                 </div>
-                <TwoColumnParametersList parameters={paramaters}/>
+                <TwoColumnParametersList parameters={parameters}/>
                 <br />
-                {userState.userType == "ceo" &&
+                {userState.userType === "ceo" &&
                 <div>
                     {showSuspendButton &&
                     <RaisedButton className="suspendButton" label={toggleSuspendButtonLabel}
