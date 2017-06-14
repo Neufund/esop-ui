@@ -79,7 +79,7 @@ function getUserTypeName(userType) {
 function epochAsYears(timeDuration) {
     let year = 365 * 24 * 60 * 60;
     let ret = Math.round((timeDuration / year) * 1000) / 1000;
-    return ret + (ret == 1 ? ' year' : ' years');
+    return ret + (ret === 1 ? ' year' : ' years');
 }
 /**
  * Todo: Handle the error in IPFSHASH
@@ -117,13 +117,13 @@ const downloadFile = function (ESOPLegalWrapperIPFSHash) {
                 responseType: 'blob'
             },
             success: function(blob, status){
-                var link=document.createElement('a');
-                link.href=window.URL.createObjectURL(blob);
-                link.download="Dossier_" + new Date() + ".pdf";
+                let link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "Dossier_" + new Date() + ".pdf";
                 link.click();
             },
             error: function(result, status, err) {
-                console.log("Error")
+                console.log("Error");
                 console.log(result , status ,err)
             }
         });
