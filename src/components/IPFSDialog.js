@@ -8,8 +8,8 @@ import Config from '../config'
 class IFrame extends React.Component{
 
     componentDidMount() {
-        const content= this.props.content
-        let doc = document.getElementById('ifmcontentstoprint').contentWindow.document
+        const content= this.props.content;
+        let doc = document.getElementById('ifmcontentstoprint').contentWindow.document;
         doc.open();
         doc.write(content);
         doc.close()
@@ -31,7 +31,7 @@ class IFrame extends React.Component{
     }
 }
 
-export default ({IPFSDialog, showDocumentDialog, handleDialogRequestClose, handlePrint, title, documentHtml, ipfsHash}) => {
+export default ({showDocumentDialog, handleDialogRequestClose, handlePrint, title, documentHtml, ipfsHash}) => {
     function downloadPDF() {
         downloadFile(ipfsHash)
     }
@@ -54,10 +54,6 @@ export default ({IPFSDialog, showDocumentDialog, handleDialogRequestClose, handl
             label="Download PDF"
             primary={true}
             onTouchTap={downloadPDF}/>)
-    }
-
-    function componentDidMount() {
-        // console.log("mounted")
     }
 
     return (
