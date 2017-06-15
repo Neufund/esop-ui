@@ -325,7 +325,7 @@ export default class EmployeeListDetails extends React.Component {
             'company-address': ESOPState.companyAddress,
             'esop-sc-address': ESOPState.ESOPAddress,
             'options-per-share': numberFormatter.format(ESOPState.optionsPerShare),
-            'strike-price': ESOPState.STRIKE_PRICE,
+            'strike-price': ESOPState.STRIKE_PRICE.toString(),
             'pool-options': numberFormatter.format(ESOPState.totalPoolOptions),
             'new-employee-pool-share': (ESOPState.newEmployeePoolPromille / 100) + '%',
             'employee-address': employee.address,
