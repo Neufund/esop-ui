@@ -105,14 +105,13 @@ const validateDoc  = function (ESOPLegalWrapperIPFSHash , callback) {
             });
 };
 
-const downloadFile = function (ESOPLegalWrapperIPFSHash) {
-
+const downloadFile = function (ESOPLegalWrapperIPFSHash, employeeData) {
     if (ESOPLegalWrapperIPFSHash)
         jQuery.ajax({
             type: "POST",
             url: `${Config.pdfRenderServer}?hash=${ESOPLegalWrapperIPFSHash}&type=html`,
             contentType: "application/json",
-            data: JSON.stringify(Config.ipfs_tags),
+            data: JSON.stringify({...Config.ipfs_tags, ...employeeData}),
             xhrFields: {
                 responseType: 'blob'
             },
