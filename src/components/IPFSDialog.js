@@ -31,9 +31,9 @@ class IFrame extends React.Component{
     }
 }
 
-export default ({showDocumentDialog, handleDialogRequestClose, handlePrint, title, documentHtml, ipfsHash}) => {
+export default ({showDocumentDialog, handleDialogRequestClose, handlePrint, title, documentHtml, ipfsHash, employeeData}) => {
     function downloadPDF() {
-        downloadFile(ipfsHash)
+        downloadFile(ipfsHash, employeeData)
     }
 
     const standardActions = [
