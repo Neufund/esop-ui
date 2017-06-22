@@ -1,9 +1,15 @@
-export default (state = {userType: "anonymous", userPK: undefined}, action) => {
+export default (state = {userType: "anonymous", userPK: undefined, userETH: undefined}, action) => {
     switch (action.type) {
         case "SET_USER_PK":
             return {
                 ...state,
                 userPK: action.userPK
+            };
+            break;
+        case "SET_USER_ETH":
+            return {
+                ...state,
+                userETH: action.userETH
             };
             break;
         case "SET_USER_TYPE":

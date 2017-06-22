@@ -231,6 +231,16 @@ export default class ContractComService {
         })
     });
 
+    getBalance = address => new Promise((resolve, reject) => {
+        web3.eth.getBalance(address, (error, result) => {
+            if (error) {
+                reject(error);
+            }
+            let eth = web3.fromWei(result, 'ether').toNumber();
+            resolve(eth);
+        });
+    });
+
     async obtainESOPData() {
         let companyAddress = this.getCompanyAddress(this.RoTContract);
         let ESOPData = await this.getESOPData().then(result => this.parseESOPData(result));

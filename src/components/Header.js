@@ -3,7 +3,7 @@ import './Header.scss';
 import ContractUtils from '../ContractUtils'
 import {getUserTypeName} from '../utils'
 
-export default ({userPK, userType, networkId}) => {
+export default ({userPK, userETH, userType, networkId}) => {
     return (
         <div className="header">
             <div className="row">
@@ -66,7 +66,7 @@ export default ({userPK, userType, networkId}) => {
                 <div className="col-xs-12 col-md-10 col-md-offset-1">
                     {userPK !== undefined &&
                     <div>
-                        <p>Hello, you provided us with address: <b>{userPK}</b></p>
+                        <p>Hello, you provided us with address: <b>{userPK}</b>, your ETH balance: <b>{userETH}</b></p>
                         {userType === "anonymous" ?
                             <p>If you are Neufund employee, please pass address above to us to be included in ESOP.</p>
                             :

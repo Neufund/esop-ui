@@ -22,7 +22,7 @@ export default class UserManagment {
                 companyAddress: esopState.companyAddress,
                 employees: esopState.employees
             });
-            resolve();
+            resolve(publicKey);
         })
     });
 };

@@ -63,6 +63,14 @@ import platform from 'platform';
     if (platform.os.toString() !== "iOS 10.0") {
         if (externalWeb3) {
             services.userManagment.getAccount()
+                .then(
+                    success => {
+                        services.ESOPService.getBalance(success).then(balance =>
+                            store.dispatch({
+                                type: "SET_USER_ETH",
+                                userETH: balance
+                            }));
+                    })
         } else {
             ///TODO: here we handle nano - it should be moved to separate place
             LedgerLoginProvider.start();
@@ -75,7 +83,13 @@ import platform from 'platform';
 
                 services.userManagment.getAccount()
                     .then(
-                        null,
+                        success => {
+                            services.ESOPService.getBalance(success).then(balance =>
+                                store.dispatch({
+                                    type: "SET_USER_ETH",
+                                    userETH: balance
+                                }));
+                        },
                         error => {
                             if (error === 'Invalid status 6985')
                                 console.log('Rejected account confirmation on Nano');
