@@ -7,13 +7,9 @@ export default {
     maxNumberOfBlocksToWait: 30, // maximum number of blocks for waiting to transaction to be mined
     dateFormat: 'YY-MM-DD',
     //ethEndpoint: '/api/',
-
-    ethEndpoint: 'https://ropsten.infura.io/',
-    truffleArtifacts: '../../ESOP/deployed_artifacts/ropsten',
-
-//    ethEndpoint: 'https://neufund.org/nodes/mainnet/',
+    ethEndpoint: 'https://neufund.org/nodes/mainnet/',
     //ethEndpoint: 'https://ropsten.infura.io/',
-//    truffleArtifacts: '../../ESOP/deployed_artifacts/mainnet', // where ABIs and addresses of smart contracts are, used by webpack
+    truffleArtifacts: '../../ESOP/deployed_artifacts/mainnet', // where ABIs and addresses of smart contracts are, used by webpack
     //truffleArtifacts: '../../ESOP/deployed_artifacts/ropsten', // where ABIs and addresses of smart contracts are, used by webpack
     //truffleArtifacts: '../../ESOP/build/contracts',
 
