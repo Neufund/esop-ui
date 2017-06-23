@@ -106,7 +106,6 @@ const validateDoc  = function (ESOPLegalWrapperIPFSHash , callback) {
 };
 
 const downloadFile = function (ESOPLegalWrapperIPFSHash, employeeData) {
-
     // there was a change in printing service keys must have form of {key} - curly bracket is required
     let rawData = {...Config.ipfs_tags, ...employeeData};
     let data = {};

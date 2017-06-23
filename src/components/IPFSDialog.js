@@ -31,9 +31,24 @@ class IFrame extends React.Component{
     }
 }
 
-export default ({showDocumentDialog, handleDialogRequestClose, handlePrint, title, documentHtml, ipfsHash, employeeData}) => {
+export default ({showDocumentDialog, handleDialogRequestClose, title, documentHtml, ipfsHash, employeeData}) => {
     function downloadPDF() {
         downloadFile(ipfsHash, employeeData)
+    }
+    function handlePrint(){
+        // console.log(document.getElementById("ifmcontentstoprint").contentWindow.document.);
+        let mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+        mywindow.document.write('<html><head><title>' + document.title + '</title>');
+        mywindow.document.write(document.getElementById("ifmcontentstoprint").contentWindow.document.head.innerHTML);
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(document.getElementById("ifmcontentstoprint").contentWindow.document.body.innerHTML);
+        mywindow.document.write('</body></html>');
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.print();
+        mywindow.close();
     }
 
     const standardActions = [

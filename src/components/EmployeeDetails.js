@@ -112,21 +112,6 @@ export default class EmployeeDetails extends React.Component {
         });
     };
 
-    handlePrint = () => {
-        let mywindow = window.open('', 'PRINT', 'height=400,width=600');
-
-        mywindow.document.write('<html><head><title>' + document.title + '</title>');
-        mywindow.document.write('</head><body >');
-        mywindow.document.write(document.getElementById("ifmcontentstoprint").innerHTML);
-        mywindow.document.write('</body></html>');
-
-        mywindow.document.close(); // necessary for IE >= 10
-        mywindow.focus(); // necessary for IE >= 10*/
-
-        mywindow.print();
-        mywindow.close();
-    };
-
     render() {
         let userState = this.store.getState().user;
         let ESOPState = this.store.getState().ESOP;
@@ -139,7 +124,6 @@ export default class EmployeeDetails extends React.Component {
                 <IPFSDialog
                     showDocumentDialog={this.state.showDocumentDialog}
                     handleDialogRequestClose={this.handleDialogRequestClose}
-                    handlePrint={this.handlePrint}
                     documentHtml={this.state.LegalDocument}
                 />
                 {employee.state == 1 &&
