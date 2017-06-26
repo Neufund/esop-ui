@@ -587,9 +587,9 @@ export default class ContractComService {
     static processCommonErrors(error) {
 
         // no enough gas when using nano ledger (
-        if (error.code != undefined
-            && error.message != undefined
-            && error.code == -32010
+        if (error.code !== undefined
+            && error.message !== undefined
+            && error.code === -32010
             && error.message.startsWith('Insufficient funds. The account you tried to send transaction')) {
             return Promise.reject('Your account has not enough ETH.');
         }
@@ -598,8 +598,12 @@ export default class ContractComService {
         if (error === 'Invalid status 6985')
             return Promise.reject('You rejected transaction on your Nano Ledger.');
 
+        // transaction rejected when using nano ledger
+        if (error === 'Invalid status 6a80')
+            return Promise.reject('Please enable contract data on your Nano Ledger.');
+
         // transaction rejected when using metamask
-        if (error.message != undefined
+        if (error.message !== undefined
             && error.message.startsWith('Error: MetaMask Tx Signature: User denied'))
             return Promise.reject('You rejected transaction using metamask.');
 
