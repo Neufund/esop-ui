@@ -53,7 +53,7 @@ export default class App extends React.Component {
             if (ESOPstate.esopState === undefined) {
                 componentToRender = <FailedToLoad/>;
             } else {
-                if (ESOPstate.esopState == 0) {
+                if (ESOPstate.esopState === 0) {
                     componentToRender = <OpenESOP store={this.store} services={this.services}/>
                 } else {
                     componentToRender = <Esop store={this.store} services={this.services}/>
