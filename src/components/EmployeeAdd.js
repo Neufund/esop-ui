@@ -1,11 +1,11 @@
 import React from 'react';
-import './EmployeeAdd.scss';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import FontIcon from 'material-ui/FontIcon';
 import ContractUtils from '../ContractUtils';
+import './EmployeeAdd.scss';
 
 export default class EmployeeAdd extends React.Component {
   constructor(props) {
@@ -13,7 +13,8 @@ export default class EmployeeAdd extends React.Component {
     this.services = props.services;
     this.store = props.store;
 
-    this.miniSignPeriod = Math.floor(this.store.getState().ESOP.MINIMUM_MANUAL_SIGN_PERIOD / this.day) + 1;
+    this.miniSignPeriod =
+      Math.floor(this.store.getState().ESOP.MINIMUM_MANUAL_SIGN_PERIOD / this.day) + 1;
 
     this.state = {
       showForm: false,
@@ -40,8 +41,8 @@ export default class EmployeeAdd extends React.Component {
     validateTimeToSign = (value) => {
       let validationOutcome = value === '' ? 'please fill this field' : '';
 
-      if (validationOutcome == '') {
-        const num = parseInt(value);
+      if (validationOutcome === '') {
+        const num = parseInt(value, 10);
         if (isNaN(num)) { validationOutcome = 'value is not a number'; } else if (num < this.miniSignPeriod) { validationOutcome = `value must be bigger than ${this.miniSignPeriod - 1}`; }
       }
       this.setState({ timeToSignValidation: validationOutcome });
@@ -49,13 +50,14 @@ export default class EmployeeAdd extends React.Component {
     };
 
     validateExtraOptions = (value) => {
-      if (!this.state.extraOptions) // we do not validate if extra options checkbox is not checked
-      { return ''; }
+      if (!this.state.extraOptions) { // we do not validate if extra options checkbox is not checked
+        return '';
+      }
 
       let validationOutcome = value === '' ? 'please fill this field' : '';
 
-      if (validationOutcome == '') {
-        const num = parseInt(value);
+      if (validationOutcome === '') {
+        const num = parseInt(value, 10);
         if (isNaN(num)) { validationOutcome = 'value is not a number'; } else if (num <= 0) { validationOutcome = 'value must be bigger than zero'; }
       }
       this.setState({ extraOptionsNumberValidation: validationOutcome });
@@ -73,9 +75,9 @@ export default class EmployeeAdd extends React.Component {
       };
 
     validateFields = () => {
-      const validateEmployeePublicKey = this.validatePublicKey(this.state.employeePublicKey) == '';
-      const validateTimeToSign = this.validateTimeToSign(this.state.timeToSign) == '';
-      const validateExtraOptionsNumber = this.validateExtraOptions(this.state.extraOptionsNumber) == '';
+      const validateEmployeePublicKey = this.validatePublicKey(this.state.employeePublicKey) === '';
+      const validateTimeToSign = this.validateTimeToSign(this.state.timeToSign) === '';
+      const validateExtraOptionsNumber = this.validateExtraOptions(this.state.extraOptionsNumber) === '';
 
       return validateEmployeePublicKey && validateTimeToSign && validateExtraOptionsNumber;
     };
@@ -92,9 +94,10 @@ export default class EmployeeAdd extends React.Component {
 
       const employeePublicKey = this.state.employeePublicKey;
       const issueDate = Math.floor(this.state.issueDate / 1000);
-      const timeToSign = Math.floor(new Date() / 1000) + this.day * parseInt(this.state.timeToSign);
+      const timeToSign =
+        Math.floor(new Date() / 1000) + (this.day * parseInt(this.state.timeToSign, 10));
       const grantExtraOptions = this.state.extraOptions;
-      let extraOptionsNumber = parseInt(this.state.extraOptionsNumber);
+      let extraOptionsNumber = parseInt(this.state.extraOptionsNumber, 10);
 
       if (!grantExtraOptions) {
         extraOptionsNumber = 0;
@@ -105,39 +108,41 @@ export default class EmployeeAdd extends React.Component {
         confirmTransactionDialog: true,
       });
 
-      this.services.ESOPService.addEmployee(employeePublicKey, issueDate, timeToSign, extraOptionsNumber).then(
-        (success) => {
-          this.services.ESOPService.getESOPDataFromContract();
-          this.setState({
-            employeePublicKey: '',
-            issueDate: new Date(),
-            extraOptions: false,
-            timeToSign: '15',
-            extraOptionsNumber: '',
-          });
-          this.store.dispatch({
-            type: 'SHOW_CONFIRM_TRANSACTION_DIALOG',
-            confirmTransactionDialog: false,
-          });
-        },
-        (error) => {
-          this.store.dispatch({
-            type: 'SHOW_CONFIRM_TRANSACTION_DIALOG',
-            confirmTransactionDialog: false,
-          });
+      this.services.ESOPService.addEmployee(employeePublicKey, issueDate, timeToSign,
+        extraOptionsNumber)
+        .then(
+          (success) => {
+            this.services.ESOPService.getESOPDataFromContract();
+            this.setState({
+              employeePublicKey: '',
+              issueDate: new Date(),
+              extraOptions: false,
+              timeToSign: '15',
+              extraOptionsNumber: '',
+            });
+            this.store.dispatch({
+              type: 'SHOW_CONFIRM_TRANSACTION_DIALOG',
+              confirmTransactionDialog: false,
+            });
+          },
+          (error) => {
+            this.store.dispatch({
+              type: 'SHOW_CONFIRM_TRANSACTION_DIALOG',
+              confirmTransactionDialog: false,
+            });
 
-          this.store.dispatch({
-            type: 'SET_ERROR_DIALOG_MSG',
-            errorDialogMsg: error.toString(),
-          });
+            this.store.dispatch({
+              type: 'SET_ERROR_DIALOG_MSG',
+              errorDialogMsg: error.toString(),
+            });
 
-          this.store.dispatch({
-            type: 'SHOW_ERROR_DIALOG',
-            errorDialog: true,
-          });
-          console.log(error);
-        }
-      );
+            this.store.dispatch({
+              type: 'SHOW_ERROR_DIALOG',
+              errorDialog: true,
+            });
+            console.log(error);
+          }
+        );
     };
 
     handleAddEmployeeButton = () => {
@@ -202,7 +207,7 @@ export default class EmployeeAdd extends React.Component {
             <div id="add_employee_form">
               <h3>Offer options to employee:</h3>
 
-              {this.state.employeePublicKey != '' &&
+              {this.state.employeePublicKey !== '' &&
               <a className="etherscan_link" target="_blank" href={ContractUtils.formatEtherscanUrl(this.state.employeePublicKey, ESOPState.networkId)}>
                 <FontIcon className="material-icons">link</FontIcon>
               </a>

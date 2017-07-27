@@ -1,12 +1,10 @@
 import React from 'react';
-
+import moment from 'moment';
 import EmployeeSignESOP from './EmployeeSignESOP';
 import { web3 } from '../web3';
 import { validateDoc, epochAsYears } from '../utils';
 import IPFSDialog from '../components/IPFSDialog';
 import Config from '../config';
-
-import moment from 'moment';
 
 export default class EmployeeDetails extends React.Component {
   constructor(props) {
@@ -65,7 +63,7 @@ export default class EmployeeDetails extends React.Component {
     showPaperCopyHandler = () => {
       const userState = this.store.getState().user;
       const ESOPState = this.store.getState().ESOP;
-      const employee = ESOPState.employees.find(e => e.address == userState.userPK);
+      const employee = ESOPState.employees.find(e => e.address === userState.userPK);
       const numberFormatter = new Intl.NumberFormat();
 
       const dic = {
@@ -114,7 +112,7 @@ export default class EmployeeDetails extends React.Component {
       const userState = this.store.getState().user;
       const ESOPState = this.store.getState().ESOP;
 
-      const employee = ESOPState.employees.find(e => e.address == userState.userPK);
+      const employee = ESOPState.employees.find(e => e.address === userState.userPK);
 
       return (
         <div>
@@ -124,7 +122,7 @@ export default class EmployeeDetails extends React.Component {
             handleDialogRequestClose={this.handleDialogRequestClose}
             documentHtml={this.state.LegalDocument}
           />
-          {employee.state == 1 &&
+          {employee.state === 1 &&
           <EmployeeSignESOP
             employee={employee}
             ESOPState={ESOPState}

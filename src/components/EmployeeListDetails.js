@@ -1,12 +1,10 @@
 import React from 'react';
-import './EmployeeListDetails.scss';
-
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-
 import moment from 'moment';
+import './EmployeeListDetails.scss';
 import IPFSDialog from './IPFSDialog';
 import TwoColumnParametersList from './TwoColumnParametersList';
 import ContractUtils from '../ContractUtils';
@@ -191,7 +189,8 @@ export default class EmployeeListDetails extends React.Component {
         'Do you want to continue employment of employee?';
 
       const showSuspendButton = employee.state === 2; // Only for Employed
-      const showTerminateButtons = employee.state === 1 || employee.state === 2; // Only for WaitingForSignature or Employed
+      // Only for WaitingForSignature or Employed
+      const showTerminateButtons = employee.state === 1 || employee.state === 2;
 
       const timeToSignExpired = employee.timeToSign <= ESOPState.currentBlockTimestamp;
       const showTimeToSign = employee.state === 1 && !timeToSignExpired;
@@ -254,7 +253,8 @@ export default class EmployeeListDetails extends React.Component {
       }
       parameters.push({
         label: 'State',
-        value: ContractUtils.getEmployeeStateName(employee.state, employee.suspendedAt, timeToSignExpired),
+        value: ContractUtils.getEmployeeStateName(employee.state, employee.suspendedAt,
+          timeToSignExpired),
       });
 
       return (

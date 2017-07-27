@@ -1,13 +1,10 @@
 import React from 'react';
-import './OpenESOP.scss';
-import { web3 } from '../web3';
-
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
-
+import './OpenESOP.scss';
+import { web3 } from '../web3';
 import { validateDoc } from '../utils';
 import IPFSDialog from '../components/IPFSDialog';
 import Texting from '../texting';
@@ -46,8 +43,8 @@ export default class Init extends React.Component {
     validateTotalPoolOptions = (value) => {
       let validationOutcome = value === '' ? 'please fill this field' : '';
 
-      if (validationOutcome == '') {
-        const num = parseInt(value);
+      if (validationOutcome === '') {
+        const num = parseInt(value, 10);
         if (isNaN(num)) { validationOutcome = 'value is not a number'; } else if (num < 10000) { validationOutcome = 'value must be > 10000'; }
         // else if (num > 1100000)
         //    validationOutcome = 'value must be less than 100';
@@ -59,8 +56,8 @@ export default class Init extends React.Component {
     validateCliffPeriod = (value) => {
       let validationOutcome = value === '' ? 'please fill this field' : '';
 
-      if (validationOutcome == '') {
-        const num = Number.parseInt(value);
+      if (validationOutcome === '') {
+        const num = Number.parseInt(value, 10);
         if (isNaN(num)) { validationOutcome = 'value is not a number'; } else if (num <= 0) { validationOutcome = 'time period must be bigger than zero'; }
       }
       this.setState({ cliffPeriodValidation: validationOutcome });
@@ -70,8 +67,8 @@ export default class Init extends React.Component {
     validateVestingPeriod = (value) => {
       let validationOutcome = value === '' ? 'please fill this field' : '';
 
-      if (validationOutcome == '') {
-        const num = Number.parseInt(value);
+      if (validationOutcome === '') {
+        const num = Number.parseInt(value, 10);
         if (isNaN(num)) { validationOutcome = 'value is not a number'; } else if (num <= 0) { validationOutcome = 'time period must be bigger than zero'; }
       }
       this.setState({ vestingPeriodValidation: validationOutcome });
@@ -81,8 +78,8 @@ export default class Init extends React.Component {
     validateResidualAmount = (value) => {
       let validationOutcome = value === '' ? 'please fill this field' : '';
 
-      if (validationOutcome == '') {
-        const num = parseInt(value);
+      if (validationOutcome === '') {
+        const num = parseInt(value, 10);
         if (isNaN(num)) { validationOutcome = 'value is not a number'; } else if (num <= 0) { validationOutcome = 'value must be bigger than zero'; } else if (num > 100) { validationOutcome = 'value must be less than 100'; }
       }
       this.setState({ residualAmountValidation: validationOutcome });
@@ -92,8 +89,8 @@ export default class Init extends React.Component {
     validateBonusOptions = (value) => {
       let validationOutcome = value === '' ? 'please fill this field' : '';
 
-      if (validationOutcome == '') {
-        const num = parseInt(value);
+      if (validationOutcome === '') {
+        const num = parseInt(value, 10);
         if (isNaN(num)) { validationOutcome = 'value is not a number'; } else if (num <= 0) { validationOutcome = 'value must be bigger than zero'; } else if (num > 100) { validationOutcome = 'value must be less than 100'; }
       }
       this.setState({ bonusOptionsValidation: validationOutcome });
@@ -103,8 +100,8 @@ export default class Init extends React.Component {
     validateNewEmployeePool = (value) => {
       let validationOutcome = value === '' ? 'please fill this field' : '';
 
-      if (validationOutcome == '') {
-        const num = parseInt(value);
+      if (validationOutcome === '') {
+        const num = parseInt(value, 10);
         if (isNaN(num)) { validationOutcome = 'value is not a number'; } else if (num <= 0) { validationOutcome = 'value must be bigger than zero'; } else if (num > 100) { validationOutcome = 'value must be less than 100'; }
       }
       this.setState({ newEmployeePoolValidation: validationOutcome });
@@ -114,8 +111,8 @@ export default class Init extends React.Component {
     validateOptionsPerShare = (value) => {
       let validationOutcome = value === '' ? 'please fill this field' : '';
 
-      if (validationOutcome == '') {
-        const num = parseInt(value);
+      if (validationOutcome === '') {
+        const num = parseInt(value, 10);
         if (isNaN(num)) { validationOutcome = 'value is not a number'; } else if (num <= 0) { validationOutcome = 'value must be bigger than zero'; } else if (this.state.totalPoolOptions % value > 0) { validationOutcome = 'should be a divisor of total pool options'; }
       }
       this.setState({ optionsPerShareValidation: validationOutcome });
@@ -139,22 +136,22 @@ export default class Init extends React.Component {
       };
 
     validateFields = () => {
-      const validateTotalPoolOptions = this.validateTotalPoolOptions(this.state.totalPoolOptions) == '';
-      const validateCliffPeriod = this.validateCliffPeriod(this.state.cliffPeriod) == '';
-      const validateVestingPeriod = this.validateVestingPeriod(this.state.vestingPeriod) == '';
-      const validateResidualAmount = this.validateResidualAmount(this.state.residualAmount) == '';
-      const validateBonusOptions = this.validateBonusOptions(this.state.bonusOptions) == '';
-      const validateNewEmployeePool = this.validateNewEmployeePool(this.state.newEmployeePool) == '';
-      const validateOptionsPerShare = this.validateOptionsPerShare(this.state.optionsPerShare) == '';
-      const validatESOPLegalWrapperIPFSHash = this.validatESOPLegalWrapperIPFSHash(this.state.ESOPLegalWrapperIPFSHash) == '';
+      const validateTotalPoolOptions = this.validateTotalPoolOptions(this.state.totalPoolOptions) === '';
+      const validateCliffPeriod = this.validateCliffPeriod(this.state.cliffPeriod) === '';
+      const validateVestingPeriod = this.validateVestingPeriod(this.state.vestingPeriod) === '';
+      const validateResidualAmount = this.validateResidualAmount(this.state.residualAmount) === '';
+      const validateBonusOptions = this.validateBonusOptions(this.state.bonusOptions) === '';
+      const validateNewEmployeePool = this.validateNewEmployeePool(this.state.newEmployeePool) === '';
+      const validateOptionsPerShare = this.validateOptionsPerShare(this.state.optionsPerShare) === '';
+      const validatESOPLegalWrapperIPFSHash = this.validatESOPLegalWrapperIPFSHash(this.state.ESOPLegalWrapperIPFSHash) === '';
 
       return validateTotalPoolOptions && validateCliffPeriod && validateVestingPeriod
-            && validateResidualAmount && validateBonusOptions && validateNewEmployeePool && validateOptionsPerShare
-            && validatESOPLegalWrapperIPFSHash;
+        && validateResidualAmount && validateBonusOptions && validateNewEmployeePool
+        && validateOptionsPerShare && validatESOPLegalWrapperIPFSHash;
     };
 
     handleValidateDoc = () => {
-      const ESOPLegalWrapperIPFSHash = this.state.ESOPLegalWrapperIPFSHash; // QmXq9u2GPyCv8q9XCMPYtSMBe1WVAjoZidnhjX6P1SbiRt
+      const ESOPLegalWrapperIPFSHash = this.state.ESOPLegalWrapperIPFSHash;
 
       validateDoc(ESOPLegalWrapperIPFSHash, (data) => {
         this.setState({
@@ -178,14 +175,14 @@ export default class Init extends React.Component {
       }
       const year = 365 * 24 * 60 * 60;
 
-      const totalPoolOptions = parseInt(this.state.totalPoolOptions);
+      const totalPoolOptions = parseInt(this.state.totalPoolOptions, 10);
       const ESOPLegalWrapperIPFSHash = web3.toBigNumber(`0x${new Buffer(this.state.ESOPLegalWrapperIPFSHash, 'ascii').toString('hex')}`);
-      const cliffPeriod = Number.parseInt(this.state.cliffPeriod) * year;
-      const vestingPeriod = Number.parseInt(this.state.vestingPeriod) * year;
-      const residualAmount = parseInt(this.state.residualAmount) * 100;
-      const bonusOptions = parseInt(this.state.bonusOptions) * 100;
-      const newEmployeePool = parseInt(this.state.newEmployeePool) * 100;
-      const optionsPerShare = parseInt(this.state.optionsPerShare);
+      const cliffPeriod = parseInt(this.state.cliffPeriod, 10) * year;
+      const vestingPeriod = parseInt(this.state.vestingPeriod, 10) * year;
+      const residualAmount = parseInt(this.state.residualAmount, 10) * 100;
+      const bonusOptions = parseInt(this.state.bonusOptions, 10) * 100;
+      const newEmployeePool = parseInt(this.state.newEmployeePool, 10) * 100;
+      const optionsPerShare = parseInt(this.state.optionsPerShare, 10);
 
       this.store.dispatch({
         type: 'SHOW_CONFIRM_TRANSACTION_DIALOG',
@@ -237,7 +234,6 @@ export default class Init extends React.Component {
       };
 
       const ESOPState = this.store.getState().ESOP;
-      const UIstate = this.store.getState().UI;
       const userState = this.store.getState().user;
 
       const textFieldsProps = {};
@@ -306,7 +302,8 @@ export default class Init extends React.Component {
         textFieldsProps.bonusOptionsProps.errorText = this.state.bonusOptionsValidation;
         textFieldsProps.newEmployeePoolProps.errorText = this.state.newEmployeePoolValidation;
         textFieldsProps.optionsPerShareProps.errorText = this.state.optionsPerShareValidation;
-        textFieldsProps.ESOPLegalWrapperIPFSHashProps.errorText = this.state.ESOPLegalWrapperIPFSHashValidation;
+        textFieldsProps.ESOPLegalWrapperIPFSHashProps.errorText =
+          this.state.ESOPLegalWrapperIPFSHashValidation;
       }
 
       return (
@@ -352,10 +349,13 @@ export default class Init extends React.Component {
             </div>
           </div>
 
-          {userState.userType != 'ceo' ?
+          {userState.userType !== 'ceo' ?
             <div className="row">
               <div className="col-xs-12 col-md-10 col-md-offset-1">
-                <h3>To set the terms & conditions of ESOP please connect company manages's account {ESOPState.companyAddress} configured during deployment process</h3>
+                <h3>
+                  To set the terms & conditions of ESOP please connect company manages&apos;s
+                  account {ESOPState.companyAddress} configured during deployment process
+                </h3>
               </div>
             </div>
             :

@@ -1,12 +1,10 @@
 import React from 'react';
-import './App.scss';
-
-import muiTheme from '../muiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
-
+import './App.scss';
+import muiTheme from '../muiTheme';
 import Header from '../components/Header';
 import Esop from './Esop';
 import Waiting from './Waiting';
@@ -82,7 +80,8 @@ export default class App extends React.Component {
               open={UIstate.confirmTransactionDialog}
             >
               <div>
-                            Confirm operation and wait for Ethereum network to mine it. It might take a minute or two.
+                Confirm operation and wait for Ethereum network to mine it. It might take a minute
+                or two.
               </div>
               <div className="dialog_transaction_progress">
                 <CircularProgress />
@@ -95,7 +94,10 @@ export default class App extends React.Component {
               open={UIstate.errorDialog}
               actions={closeActions}
             >
-              <p>Below you will find more information about what caused problem. If information is not clear contact tech team.</p>
+              <p>
+                Below you will find more information about what caused problem. If information
+                is not clear contact tech team.
+              </p>
               <pre>
                 {UIstate.errorDialogMsg}
               </pre>

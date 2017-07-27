@@ -1,14 +1,17 @@
+import contractBuilder from 'truffle-contract';
 import { web3 } from './web3';
 import { toPromise } from './utils';
 import Config from './config';
-import contractBuilder from 'truffle-contract';
 import ContractUtils from './ContractUtils';
 
+/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved, import/no-unresolved,
+ import/first */
 // TODO: actually we need just ABI contracts here - find way to provide those during build process
 import RoTDef from 'truffle-artifacts/RoT.json';
 import ESOPDef from 'truffle-artifacts/ESOP.json';
 import EmployeesListDef from 'truffle-artifacts/EmployeesList.json';
 import OptionsCalculatorDef from 'truffle-artifacts/OptionsCalculator.json';
+/* eslint-enable  */
 
 export default class ContractComService {
   constructor(store) {
@@ -21,6 +24,7 @@ export default class ContractComService {
       gasPrice: Config.gasPriceLimit,
     });
 
+    // eslint-disable-next-line max-len
     // TODO: it should be not deployed but .at() with address set through configuration created build deployment
     this.RoTContract = this.RoTContractAbstr.deployed();
 
@@ -63,7 +67,8 @@ export default class ContractComService {
       // this.ESOPContract = this.ESOPContractAbstr.at(ESOPAddress);
 
       const EmployeesListAddress = await this.ESOPContract.then(contract => contract.employees());
-      const OptionsCalculatorAddress = await this.ESOPContract.then(contract => contract.optionsCalculator());
+      const OptionsCalculatorAddress = await this.ESOPContract
+        .then(contract => contract.optionsCalculator());
 
       this.store.dispatch({
         type: 'SET_CONTRACT_ADDRESS',
@@ -121,7 +126,8 @@ export default class ContractComService {
         contract.maxFadeoutPromille(), // maximum promille that can fade out
         contract.residualAmountPromille(), // minimal options after fadeout
         contract.bonusOptionsPromille(), // exit bonus promille
-        contract.newEmployeePoolPromille(), // per mille of unassigned poolOptions that new employee gets
+        // per mille of unassigned poolOptions that new employee gets
+        contract.newEmployeePoolPromille(),
         contract.optionsPerShare(), // per mille of unassigned poolOptions that new employee gets
         contract.STRIKE_PRICE(), // options strike price
       ];
@@ -144,7 +150,7 @@ export default class ContractComService {
 
       const employeeAddresses = await this.EmployeesListContract.then((contract) => {
         const dataPromises = [];
-        for (let i = 0; i < employeeNumber; i++) {
+        for (let i = 0; i < employeeNumber; i += 1) {
           dataPromises.push(contract.addresses(i));
         }
         return Promise.all(dataPromises);
@@ -152,7 +158,7 @@ export default class ContractComService {
 
       return this.EmployeesListContract.then((contract) => {
         const dataPromises = [];
-        for (let i = 0; i < employeeNumber; i++) {
+        for (let i = 0; i < employeeNumber; i += 1) {
           const employeeAddress = employeeAddresses[i];
           dataPromises.push(contract.getEmployee(employeeAddress).then(employee => ({
             address: employeeAddress,
@@ -175,17 +181,23 @@ export default class ContractComService {
       })));
     };
 
-    parseEmployeesList = data => data.filter(employee => parseInt(employee.address, 16) != 0).map(employee => ({
-      address: employee.address,
-      issueDate: employee.data[0].toNumber(), // when vesting starts
-      timeToSign: employee.data[1].toNumber(), // wait for employee signature until that time
-      terminatedAt: employee.data[2].toNumber(), // date when employee was terminated, 0 for not terminated
-      fadeoutStarts: employee.data[3].toNumber(),
-      poolOptions: employee.data[4].toNumber(), // poolOptions employee gets (exit bonus not included)
-      extraOptions: employee.data[5].toNumber(),
-      suspendedAt: employee.data[6].toNumber(), // time at which employee got suspended, 0 - not suspended
-      state: employee.data[7].toNumber(), // (0)NotSet, (1)WaitingForSignature, (2)Employed, (3)Terminated, (4)OptionsExercised
-    }));
+    parseEmployeesList = data => data
+      .filter(employee => parseInt(employee.address, 16) !== 0)
+      .map(employee => ({
+        address: employee.address,
+        issueDate: employee.data[0].toNumber(), // when vesting starts
+        timeToSign: employee.data[1].toNumber(), // wait for employee signature until that time
+        // date when employee was terminated, 0 for not terminated
+        terminatedAt: employee.data[2].toNumber(),
+        fadeoutStarts: employee.data[3].toNumber(),
+        // poolOptions employee gets (exit bonus not included)
+        poolOptions: employee.data[4].toNumber(),
+        extraOptions: employee.data[5].toNumber(),
+        // time at which employee got suspended, 0 - not suspended
+        suspendedAt: employee.data[6].toNumber(),
+        // (0)NotSet, (1)WaitingForSignature, (2)Employed, (3)Terminated, (4)OptionsExercised
+        state: employee.data[7].toNumber(),
+      }));
 
     getNewEmployeePoolOptions = remainingPoolOptions => this.OptionsCalculatorContract
       .then(contract => contract.calcNewEmployeePoolOptions(remainingPoolOptions));
@@ -237,7 +249,8 @@ export default class ContractComService {
         .then(result => this.parseEmployeesList(result))
         .then(result => this.getEmployeesVestedOptions(result));
 
-      ESOPData.newEmployeePoolOption = (await this.getNewEmployeePoolOptions(ESOPData.remainingPoolOptions)).toNumber();
+      ESOPData.newEmployeePoolOption =
+        (await this.getNewEmployeePoolOptions(ESOPData.remainingPoolOptions)).toNumber();
       ESOPData.currentBlockHash = await this.getBlockHash();
       ESOPData.networkId = Number(await this.getNetworkId());
 
@@ -291,7 +304,7 @@ export default class ContractComService {
         .then(contract => contract.openESOP(totalPoolOptions, ESOPLegalWrapperIPFSHash))
         .then(
           success => new Promise((resolve, reject) => {
-            if (success.logs[0].event == 'ESOPOpened') {
+            if (success.logs[0].event === 'ESOPOpened') {
               resolve(success);
             } else {
               reject(ContractUtils.formatErrorFromReturnCode('openESOP', success));
@@ -305,17 +318,20 @@ export default class ContractComService {
         );
     }
 
-    setParametersOptional(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare, hasSetParameters) {
+    setParametersOptional(cliffPeriod, vestingPeriod, residualAmount, bonusOptions,
+      newEmployeePool, optionsPerShare, hasSetParameters) {
       if (hasSetParameters) {
         // return empty promise
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           resolve('params already set');
         });
       }
-      return this.setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare);
+      return this.setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions,
+        newEmployeePool, optionsPerShare);
     }
 
-    setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare) {
+    setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool,
+      optionsPerShare) {
       const userState = this.store.getState().user;
 
       this.OptionsCalculatorAbstr.defaults({
@@ -325,7 +341,8 @@ export default class ContractComService {
       });
 
       return this.OptionsCalculatorAbstr.deployed()
-        .then(contract => contract.setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare))
+        .then(contract => contract.setParameters(cliffPeriod, vestingPeriod, residualAmount,
+          bonusOptions, newEmployeePool, optionsPerShare))
         .then(
           success => Promise.resolve(success)
           /* TODO: add return value to logs of OptionsCalculator.setParameters
@@ -364,7 +381,7 @@ export default class ContractComService {
 
       return this.ESOPContractAbstr.deployed()
         .then((contract) => {
-          if (extraOptions == 0) {
+          if (extraOptions === 0) {
             return contract.offerOptionsToEmployee(
               employeePublicKey,
               issueDate,
@@ -380,7 +397,7 @@ export default class ContractComService {
         })
         .then(
           success => new Promise((resolve, reject) => {
-            if (success.logs[0].event == 'ESOPOffered') {
+            if (success.logs[0].event === 'ESOPOffered') {
               resolve(success);
             } else {
               reject(ContractUtils.formatErrorFromReturnCode('offerOptionsToEmployee', success));
@@ -407,7 +424,7 @@ export default class ContractComService {
         .then(contract => contract.employeeSignsToESOP())
         .then(
           success => new Promise((resolve, reject) => {
-            if (success.logs[0].event == 'EmployeeSignedToESOP') {
+            if (success.logs[0].event === 'EmployeeSignedToESOP') {
               resolve(success);
             } else {
               reject(ContractUtils.formatErrorFromReturnCode('employeeSignsToESOP', success));
@@ -440,8 +457,8 @@ export default class ContractComService {
         .then(contract => contract.toggleEmployeeSuspension(employeePublicKey, toggledAt))
         .then(
           success => new Promise((resolve, reject) => {
-            if (success.logs[0].event == 'SuspendEmployee'
-                        || success.logs[0].event == 'ContinueSuspendedEmployee') {
+            if (success.logs[0].event === 'SuspendEmployee'
+                        || success.logs[0].event === 'ContinueSuspendedEmployee') {
               resolve(success);
             } else {
               reject(ContractUtils.formatErrorFromReturnCode('toggleEmployeeSuspension', success));
@@ -472,10 +489,11 @@ export default class ContractComService {
       });
 
       return this.ESOPContractAbstr.deployed()
-        .then(contract => contract.terminateEmployee(employeePublicKey, terminatedAt, terminationType))
+        .then(contract => contract.terminateEmployee(employeePublicKey, terminatedAt,
+          terminationType))
         .then(
           success => new Promise((resolve, reject) => {
-            if (success.logs[0].event == 'TerminateEmployee') {
+            if (success.logs[0].event === 'TerminateEmployee') {
               resolve(success);
             } else {
               reject(ContractUtils.formatErrorFromReturnCode('terminateEmployee', success));
@@ -502,7 +520,7 @@ export default class ContractComService {
         .then(contract => contract.offerOptionsConversion(optionsConverterAddress))
         .then(
           success => new Promise((resolve, reject) => {
-            if (success.logs[0].event == 'OptionsConversionOffered') {
+            if (success.logs[0].event === 'OptionsConversionOffered') {
               resolve(success);
             } else {
               reject(ContractUtils.formatErrorFromReturnCode('offerOptionsConversion', success));
@@ -513,7 +531,8 @@ export default class ContractComService {
     }
 
     /**
-     * Resurns promise that is resolved when transaction with provided hash has at least Config.numberOfConfirmations.
+     * Resurns promise that is resolved when transaction with provided hash has at least
+     * Config.numberOfConfirmations.
      * @param transactionHash
      * @returns {Promise}
      */
@@ -523,7 +542,8 @@ export default class ContractComService {
         let prevBlockNo = -1;
         let startingBlock = -1;
         const ESOPState = this.store.getState().ESOP;
-        const requiredConfirmations = ContractUtils.isMiningNetwork(ESOPState.networkId) ? Config.numberOfConfirmations : 0;
+        const requiredConfirmations = ContractUtils.isMiningNetwork(ESOPState.networkId)
+          ? Config.numberOfConfirmations : 0;
         const poll = async () => {
           let currentBlockNo;
           try {
@@ -533,7 +553,7 @@ export default class ContractComService {
             console.log(e);
             return reject(e);
           }
-          if (startingBlock == -1) {
+          if (startingBlock === -1) {
             startingBlock = currentBlockNo;
           }
           if (currentBlockNo - startingBlock >= Config.maxNumberOfBlocksToWait) {
@@ -541,13 +561,13 @@ export default class ContractComService {
           }
 
           // console.log(`got block number ${currentBlockNo} prev block number ${prevBlockNo}`);
-          if (currentBlockNo != prevBlockNo) {
+          if (currentBlockNo !== prevBlockNo) {
             prevBlockNo = currentBlockNo;
 
             try {
               const transaction = await toPromise(web3.eth.getTransaction, transactionHash);
               // console.log(`got transaction with block number: ${transaction.blockNumber}`);
-              if (transaction.blockNumber != null) {
+              if (transaction.blockNumber !== null) {
                 if (currentBlockNo - transaction.blockNumber >= requiredConfirmations) {
                   // console.log('we have enough confirmations we can move on');
                   return resolve();
@@ -566,7 +586,8 @@ export default class ContractComService {
     }
 
     /**
-     * Primitive error handler. Now it handle out of gas for nano ledger and transaction rejection in metamask and ledger
+     * Primitive error handler. Now it handle out of gas for nano ledger and transaction rejection
+     * in metamask and ledger
      * @param error
      * @returns {Promise.<*>}
      */

@@ -1,6 +1,5 @@
 import React from 'react';
 import './Esop.scss';
-
 import EmployeeList from '../components/EmployeeList';
 import EmployeeAdd from '../components/EmployeeAdd';
 import EmployeeListDetails from '../components/EmployeeListDetails';
@@ -10,11 +9,6 @@ import ContractStatus from '../components/ContractStatus';
 import ConversionStatus from '../components/ConversionStatus';
 import ContractParameters from '../components/ContractParameters';
 import ConvertOptions from '../components/ConvertOptions';
-
-import FontIcon from 'material-ui/FontIcon';
-import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
-import Dialog from 'material-ui/Dialog';
 
 export default class Esop extends React.Component {
   constructor(props) {
@@ -52,13 +46,13 @@ export default class Esop extends React.Component {
                 </div>
               </div>
 
-              {(userState.userType == 'employee') &&
+              {(userState.userType === 'employee') &&
               <EmployeeDetails services={this.services} store={this.store} />
               }
 
               <ContractStatus contractState={ESOPState} />
 
-              {ESOPState.conversionOfferedAt != 0 &&
+              {ESOPState.conversionOfferedAt !== 0 &&
               <ConversionStatus contractState={ESOPState} />
               }
               <ContractAddresses
