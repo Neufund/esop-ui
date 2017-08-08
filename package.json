@@ -35,7 +35,7 @@
     "truffle-contract": "^2.0.0",
     "url-loader": "^0.5.8",
     "web3": "^0.18.4",
-    "webpack": "^2.2.1",
+    "webpack": "^3.5.0",
     "webpack-dev-server": "^2.4.2"
   },
   "scripts": {
