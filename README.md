@@ -35,8 +35,8 @@ deployed to Ethereum testnet, so you have to use testnet endpoint data ex. ```ht
 switch into ESOP-ui directory, download dependencies and run webpack in development mode.
 
     cd ESOP-ui
-    npm i  
-    npm run dev
+    yarn 
+    yarn dev
 
 This will fire local development webserver that will compile and display DAPP connected to Neufund ESOP demo contract.    
 
@@ -56,7 +56,7 @@ tricky).
 * You can define your own ```derivationPath```. If none (or empty string) is provided dapp will use default from [ledger-wallet-provider](https://github.com/Neufund/ledger-wallet-provider) project.  
 
 ## Build
-Issue ```npm run build``` command and Webpack will compile build into ```./ESOP-ui/build``` directory. 
+Issue ```yarn build``` command and Webpack will compile build into ```./ESOP-ui/build``` directory. 
 
 ## Deployment
 Put contents of ```./ESOP-ui/build``` directory on any https capable webserver. Github pages etc. are also good.
@@ -119,7 +119,7 @@ at least [development](https://github.com/Neufund/ESOP#development) part.
 * migrate contracts (you need to install whole truffle framework) to local development chain ```cd ESOP; truffle migrate --networks paritydev```
 * edit ```ESOP-ui/config.js``` and set keys to local values - we provided commented correct ones. We included proxy rule in
 webpack dev server configuration so you won't have problems with CORS, SSL.
-* **after** that compile and run app ```npm run dev``` - you need to restart webpack run dev after every contract deployment
+* **after** that compile and run app ```yarn dev``` - you need to restart webpack after every contract deployment
 * have fun
 
 ## Contact
