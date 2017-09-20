@@ -60,10 +60,6 @@ Issue ```npm run build``` command and Webpack will compile build into ```./ESOP-
 
 ## Deployment
 Put contents of ```./ESOP-ui/build``` directory on any https capable webserver. Github pages etc. are also good.
-    
-At Neufund we use [Docker](https://www.docker.com/) to host our code. So you can also use our compose / docker files.
-As compiled app is so simple also docker files are trivial. Just issue ```docker-compose up``` command after building app
-and you will have running nginx container with ESOP-ui listening on port 8080.
 
 ## Implementation details
 Project is not very complicated. We use standard standard JS frameworks [React](https://facebook.github.io/react/),
