@@ -4141,9 +4141,9 @@ react-redux@^5.0.3:
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
 
-react-tap-event-plugin@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-tap-event-plugin/-/react-tap-event-plugin-2.0.1.tgz#316beb3bc6556e29ec869a7293e89c826a9074d2"
+react-tap-event-plugin@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-tap-event-plugin/-/react-tap-event-plugin-3.0.1.tgz#8dd698e7063587ec7c7c29197e1f7a4f2d3e3053"
   dependencies:
     fbjs "^0.8.6"
 
