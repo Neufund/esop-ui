@@ -11,13 +11,21 @@ import {createDevTools} from 'redux-devtools'
 import reducersUser from './reducers/reducersUser';
 import reducersESOP from './reducers/reducersESOP';
 import reducersUI from './reducers/reducersUI';
-
 import ContractComService from './ContractComService';
 import UserManagment from './UserManagment'
-
 import platform from 'platform';
+import config from './config';
+import ReactGA from 'react-ga';
+import ReactPixel from 'react-facebook-pixel';
 
 (async function app() {
+    ReactGA.initialize(config.GA_ID);
+    ReactGA.set({ page: window.location.pathname + window.location.search });
+    ReactGA.pageview(window.location.pathname + window.location.search);
+
+    ReactPixel.init(config.FB_PIXEL_ID);
+    ReactPixel.pageView();
+
     injectTapEventPlugin();
     const reducer = combineReducers({
         ESOP: reducersESOP,
