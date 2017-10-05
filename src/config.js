@@ -28,5 +28,7 @@ export default {
         "repo-url": "git@github.com:Neufund/ESOP.git",
         "commit-id": "962acdce986897c39677a2293e03dd7e54ee5394",
         "court-city": "Berlin"
-    }
+    },
+    GA_ID: "UA-00000000-0",
+    FB_PIXEL_ID: "00000000"
 }
