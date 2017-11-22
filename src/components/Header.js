@@ -38,7 +38,7 @@ export default ({userPK, userETH, userType, networkId}) => {
                             </div>
                             <div className="col-xs-12 col-sm-4 col_middle">
                                 <p className="column_title">For other startups</p>
-                                <p className="column_text">If you want to build your employee stock option plan based on Neufund’s solution <a href="https://github.com/Neufund/ESOP">go to GitHub</a>. Neufund ESOP smart contract is open sourced and available to anyone on the MIT license. Instructions are provided on the GitHub page, if you have any questions go to <a href="https://neufundorg.signup.team/">Slack</a>  or <a href="https://gitter.im/Neufund">Gitter</a>.</p>
+                                <p className="column_text">If you want to build your employee stock option plan based on Neufund’s solution <a href="https://github.com/Neufund/ESOP">go to GitHub</a>. Neufund ESOP smart contract is open sourced and available to anyone on the MIT license. Instructions are provided on the GitHub page, if you have any questions go to <a href="https://neufund.org/slack">Slack</a>  or <a href="https://t.me/neufund">Telegram</a>.</p>
                             </div>
                             <div className="col-xs-12 col-sm-4 col_last">
                                 <p className="column_title">For others</p>
