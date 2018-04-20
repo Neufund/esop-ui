@@ -42,11 +42,18 @@
   },
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server --https --open --colors --progress --history-api-fallback"
+    "dev": "webpack-dev-server --https --open --colors --progress --history-api-fallback",
+    "eslint": "eslint --ignore-path .gitignore ."
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "babel-plugin-webpack-alias": "^2.1.2",
     "babel-register": "^6.24.1",
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
     "node-sass": "^4.5.0",
     "sass-loader": "^6.0.3"
   }
