@@ -2,6 +2,7 @@ import Web3 from 'web3';
 import ProviderEngine from 'web3-provider-engine';
 import RpcSubprovider from 'web3-provider-engine/subproviders/rpc';
 import LedgerWalletSubproviderFactory from 'ledger-wallet-provider';
+import { promisify } from "bluebird";
 
 import Config from './config';
 
@@ -15,14 +16,12 @@ const initWeb3 = async function () {
     console.info('web3 already exists');
     externalWeb3 = true;
   } else {
-    const engine = new ProviderEngine();
-    let ledgerWalletSubProvider;
+    const dummyWeb3 = new Web3(new Web3.providers.HttpProvider(NODE_URL));
+    const getNetworkId = promisify(dummyWeb3.version.getNetwork);
 
-    if (Config.derivationPath !== undefined && Config.derivationPath !== '') {
-      ledgerWalletSubProvider = await LedgerWalletSubproviderFactory(Config.derivationPath);
-    } else {
-      ledgerWalletSubProvider = await LedgerWalletSubproviderFactory();
-    }
+    const engine = new ProviderEngine();
+    const ledgerWalletSubProvider = await LedgerWalletSubproviderFactory(getNetworkId, Config.derivationPath, true);
+
     ledger = ledgerWalletSubProvider.ledger;
     engine.addProvider(ledgerWalletSubProvider);
     engine.addProvider(new RpcSubprovider({
