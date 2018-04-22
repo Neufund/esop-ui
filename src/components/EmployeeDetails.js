@@ -113,7 +113,7 @@ export default class EmployeeDetails extends React.Component {
       const userState = this.store.getState().user;
       const ESOPState = this.store.getState().ESOP;
 
-      const employee = ESOPState.employees.find(e => e.address === userState.userPK);
+      const employee = ESOPState.employees.find(e => e.address.toLowerCase() === userState.userPK.toLowerCase());
 
       return (
         <div>
