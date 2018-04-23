@@ -2,7 +2,7 @@ export default {
   derivationPath: "44'/60'/104'/0",
   // derivationPath: "44'/60'/0'/0",
   gas: 4300000, // close to current mainnet limit
-  gasPriceLimit: 8 * 1000000000, // in gwei you can use http://ethgasstation.info/json/ethgasAPI.json
+  gasPriceLimit: 4 * 1000000000, // in gwei you can use http://ethgasstation.info/json/ethgasAPI.json
   numberOfConfirmations: 2, // number of blocks that need to be mined so we assume transaction is mined
   maxNumberOfBlocksToWait: 30, // maximum number of blocks for waiting to transaction to be mined
   dateFormat: 'YY-MM-DD',
