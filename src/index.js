@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import 'flexboxgrid';
 import ReactGA from 'react-ga';
-import ReactPixel from 'react-facebook-pixel';
 import { createStore, combineReducers } from 'redux';
 import platform from 'platform';
 
@@ -23,9 +22,6 @@ import './index.scss';
   ReactGA.initialize(config.GA_ID);
   ReactGA.set({ page: window.location.pathname + window.location.search });
   ReactGA.pageview(window.location.pathname + window.location.search);
-
-  ReactPixel.init(config.FB_PIXEL_ID);
-  ReactPixel.pageView();
 
   injectTapEventPlugin();
   const reducer = combineReducers({

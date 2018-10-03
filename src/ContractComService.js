@@ -143,7 +143,7 @@ export default class ContractComService {
     getEmployeesList = async () => {
       const employeeNumber = await this.EmployeesListContract.then(contract => contract.size());
 
-      const employeeAddresses = await this.EmployeesListContract.then((contract) => {
+      let employeeAddresses = await this.EmployeesListContract.then((contract) => {
         const dataPromises = [];
         for (let i = 0; i < employeeNumber; i++) {
           dataPromises.push(contract.addresses(i));
@@ -151,9 +151,11 @@ export default class ContractComService {
         return Promise.all(dataPromises);
       });
 
+      employeeAddresses = employeeAddresses.filter(address => address !== '0x0000000000000000000000000000000000000000');
+
       return this.EmployeesListContract.then((contract) => {
         const dataPromises = [];
-        for (let i = 0; i < employeeNumber; i++) {
+        for (let i = 0; i < employeeAddresses.length; i++) {
           const employeeAddress = employeeAddresses[i];
           dataPromises.push(contract.getEmployee(employeeAddress).then(employee => ({
             address: employeeAddress,

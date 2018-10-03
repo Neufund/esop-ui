@@ -27,7 +27,6 @@
     "promise-timeout": "^1.1.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-facebook-pixel": "^0.1.0",
     "react-ga": "^2.3.5",
     "react-redux": "^5.0.3",
     "react-tap-event-plugin": "^2.0.1",
