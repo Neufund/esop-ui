@@ -31,4 +31,5 @@ export default {
   },
   GA_ID: 'UA-00000000-0',
   FB_PIXEL_ID: '00000000',
+  IPFS_HOST: 'https://ipfs.neufund.org',
 };

@@ -77,7 +77,7 @@ function epochAsYears(timeDuration) {
  */
 const validateDoc = function (ESOPLegalWrapperIPFSHash, callback) {
   if (ESOPLegalWrapperIPFSHash) {
-    axios.get(`https://ipfs.io/ipfs/${ESOPLegalWrapperIPFSHash}`)
+    axios.get(`${Config.IPFS_HOST}/ipfs/${ESOPLegalWrapperIPFSHash}`)
       .then((response) => {
         let data = response.data;
 
