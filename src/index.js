@@ -4,11 +4,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import 'flexboxgrid';
 import ReactGA from 'react-ga';
 import { createStore, combineReducers } from 'redux';
-import platform from 'platform';
 
-import App from './app/App.js';
-import { externalWeb3, initWeb3 } from './web3';
-import LedgerLoginProvider from './ledgerLoginProvider';
+import App from './app/App';
+import { initWeb3 } from './web3';
 import reducersUser from './reducers/reducersUser';
 import reducersESOP from './reducers/reducersESOP';
 import reducersUI from './reducers/reducersUI';
@@ -33,10 +31,9 @@ import './index.scss';
   const store = createStore(reducer);
   const services = {};
 
-  ReactDOM.render((
-    <App store={store} services={services} />
-  ),
-  document.getElementById('root')
+  ReactDOM.render(
+    <App store={store} services={services} />,
+    document.getElementById('root')
   );
 
   try {
@@ -63,61 +60,34 @@ import './index.scss';
     throw exception;
   }
 
-  // TODO: we need real feature / browser detection.
-  if (platform.os.toString() !== 'iOS 10.0') {
-    if (externalWeb3) {
-      services.userManagment.getAccount()
-        .then(
-          (success) => {
-            services.ESOPService.getBalance(success).then(balance =>
-              store.dispatch({
-                type: 'SET_USER_ETH',
-                userETH: balance,
-              }));
-          });
-    } else {
-      // /TODO: here we handle nano - it should be moved to separate place
-      LedgerLoginProvider.start();
-      LedgerLoginProvider.onConnect(() => {
-        LedgerLoginProvider.stop();
+  services.userManagment.getAccount()
+    .then(
+      (success) => {
+        services.ESOPService.getBalance(success).then(balance =>
+          store.dispatch({
+            type: 'SET_USER_ETH',
+            userETH: balance,
+          }));
+      },
+      (error) => {
+        const msg = (<div>
+          <p>There was a problem with nano</p>
+        </div>);
         store.dispatch({
-          type: 'SHOW_NANO_CONFIRM_ACCOUNT_DIALOG',
-          nanoConfirmAccountDialog: true,
+          type: 'SET_ERROR_DIALOG_MSG',
+          errorDialogMsg: msg,
         });
-
-        services.userManagment.getAccount()
-          .then(
-            (success) => {
-              services.ESOPService.getBalance(success).then(balance =>
-                store.dispatch({
-                  type: 'SET_USER_ETH',
-                  userETH: balance,
-                }));
-            },
-            (error) => {
-              if (error === 'Invalid status 6985') { console.log('Rejected account confirmation on Nano'); } else if (error.errorCode !== undefined && error.errorCode === 5) {
-                const msg = (<div>
-                  <p>There is timeout on your Nano.</p>
-                  <p>Please reconnect it and reload ESOP page.</p>
-                </div>);
-                store.dispatch({
-                  type: 'SET_ERROR_DIALOG_MSG',
-                  errorDialogMsg: msg,
-                });
-                store.dispatch({
-                  type: 'SHOW_ERROR_DIALOG',
-                  errorDialog: true,
-                });
-              } else { throw (error); }
-            }
-          )
-          .then(
-            () => store.dispatch({
-              type: 'SHOW_NANO_CONFIRM_ACCOUNT_DIALOG',
-              nanoConfirmAccountDialog: false,
-            })
-          );
-      });
-    }
-  }
+        store.dispatch({
+          type: 'SHOW_ERROR_DIALOG',
+          errorDialog: true,
+        });
+        console.log(error);
+      }
+    )
+    .then(
+      () => store.dispatch({
+        type: 'SHOW_NANO_CONFIRM_ACCOUNT_DIALOG',
+        nanoConfirmAccountDialog: false,
+      })
+    );
 }());
