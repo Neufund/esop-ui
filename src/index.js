@@ -6,7 +6,7 @@ import ReactGA from 'react-ga';
 import { createStore, combineReducers } from 'redux';
 
 import App from './app/App';
-import { initWeb3 } from './web3';
+import { web3Init } from './web3Init';
 import reducersUser from './reducers/reducersUser';
 import reducersESOP from './reducers/reducersESOP';
 import reducersUI from './reducers/reducersUI';
@@ -37,7 +37,7 @@ import './index.scss';
   );
 
   try {
-    await initWeb3();
+    await web3Init();
     services.userManagment = new UserManagment(store);
     services.ESOPService = new ContractComService(store);
     await services.ESOPService.obtainContractAddresses();

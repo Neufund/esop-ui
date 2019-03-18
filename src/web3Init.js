@@ -1,17 +1,15 @@
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import createLedgerSubprovider from '@ledgerhq/web3-subprovider';
-import * as Web3 from 'web3';
-import * as Web3ProviderEngine from 'web3-provider-engine';
-import * as RpcSubprovider from 'web3-provider-engine/subproviders/rpc';
+import Web3 from 'web3';
+import Web3ProviderEngine from 'web3-provider-engine';
+import RpcSubprovider from 'web3-provider-engine/subproviders/rpc';
 import { promisify } from 'bluebird';
 
 import Config from './config';
 
 const NODE_URL = Config.ethEndpoint;
 
-export default async function () {
-
-
+export const web3Init = async () => {
   const dummyWeb3 = new Web3(new Web3.providers.HttpProvider(NODE_URL));
   const getNetworkId = promisify(dummyWeb3.version.getNetwork);
   const networkId = await getNetworkId();
@@ -31,4 +29,4 @@ export default async function () {
   );
   engine.start();
   window.web3 = new Web3(engine);
-}
+};

@@ -6,7 +6,6 @@ import ESOPDef from 'truffle-artifacts/ESOP.json';
 import EmployeesListDef from 'truffle-artifacts/EmployeesList.json';
 import OptionsCalculatorDef from 'truffle-artifacts/OptionsCalculator.json';
 
-import { web3 } from './web3';
 import { toPromise } from './utils';
 import Config from './config';
 import ContractUtils from './ContractUtils';
@@ -16,7 +15,7 @@ export default class ContractComService {
     this.store = store;
 
     this.RoTContractAbstr = contractBuilder(RoTDef);
-    this.RoTContractAbstr.setProvider(web3.currentProvider);
+    this.RoTContractAbstr.setProvider(window.web3.currentProvider);
     this.RoTContractAbstr.defaults({
       gas: Config.gas,
       gasPrice: Config.gasPriceLimit,
@@ -26,21 +25,21 @@ export default class ContractComService {
     this.RoTContract = this.RoTContractAbstr.deployed();
 
     this.ESOPContractAbstr = contractBuilder(ESOPDef);
-    this.ESOPContractAbstr.setProvider(web3.currentProvider);
+    this.ESOPContractAbstr.setProvider(window.web3.currentProvider);
     this.ESOPContractAbstr.defaults({
       gas: Config.gas,
       gasPrice: Config.gasPriceLimit,
     });
 
     this.EmployeesListContractAbstr = contractBuilder(EmployeesListDef);
-    this.EmployeesListContractAbstr.setProvider(web3.currentProvider);
+    this.EmployeesListContractAbstr.setProvider(window.web3.currentProvider);
     this.EmployeesListContractAbstr.defaults({
       gas: Config.gas,
       gasPrice: Config.gasPriceLimit,
     });
 
     this.OptionsCalculatorAbstr = contractBuilder(OptionsCalculatorDef);
-    this.OptionsCalculatorAbstr.setProvider(web3.currentProvider);
+    this.OptionsCalculatorAbstr.setProvider(window.web3.currentProvider);
     this.OptionsCalculatorAbstr.defaults({
       gas: Config.gas,
       gasPrice: Config.gasPriceLimit,
@@ -194,7 +193,7 @@ export default class ContractComService {
       .then(contract => contract.calcNewEmployeePoolOptions(remainingPoolOptions));
 
     getCurrentBlockNumber = () => new Promise((resolve, reject) => {
-      web3.eth.getBlockNumber((error, result) => {
+      window.web3.eth.getBlockNumber((error, result) => {
         if (error) {
           reject(error);
         }
@@ -204,7 +203,7 @@ export default class ContractComService {
 
     getBlockHash = () => new Promise((resolve, reject) => {
       this.getCurrentBlockNumber().then((blockNumber) => {
-        web3.eth.getBlock(blockNumber, false, (error, result) => {
+        window.web3.eth.getBlock(blockNumber, false, (error, result) => {
           if (error) {
             reject(error);
           }
@@ -214,7 +213,7 @@ export default class ContractComService {
     });
 
     getNetworkId = () => new Promise((resolve, reject) => {
-      web3.version.getNetwork((error, result) => {
+      window.web3.version.getNetwork((error, result) => {
         if (error) {
           reject(error);
         }
@@ -223,11 +222,11 @@ export default class ContractComService {
     });
 
     getBalance = address => new Promise((resolve, reject) => {
-      web3.eth.getBalance(address, (error, result) => {
+      window.web3.eth.getBalance(address, (error, result) => {
         if (error) {
           reject(error);
         }
-        const eth = web3.fromWei(result, 'ether').toNumber();
+        const eth = window.web3.fromWei(result, 'ether').toNumber();
         resolve(eth);
       });
     });
@@ -548,7 +547,7 @@ export default class ContractComService {
             prevBlockNo = currentBlockNo;
 
             try {
-              const transaction = await toPromise(web3.eth.getTransaction, transactionHash);
+              const transaction = await toPromise(window.web3.eth.getTransaction, transactionHash);
               // console.log(`got transaction with block number: ${transaction.blockNumber}`);
               if (transaction.blockNumber != null) {
                 if (currentBlockNo - transaction.blockNumber >= requiredConfirmations) {

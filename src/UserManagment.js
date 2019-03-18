@@ -1,12 +1,10 @@
-import { web3 } from './web3';
-
 export default class UserManagment {
   constructor(store) {
     this.store = store;
   }
 
     getAccount = () => new Promise((resolve, reject) => {
-      web3.eth.getAccounts((error, result) => {
+      window.web3.eth.getAccounts((error, result) => {
         if (error) {
           reject(error);
         }

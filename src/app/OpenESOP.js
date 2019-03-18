@@ -4,7 +4,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 
-import { web3 } from '../web3';
 import { validateDoc } from '../utils';
 import IPFSDialog from '../components/IPFSDialog';
 import Texting from '../texting';
@@ -177,7 +176,7 @@ export default class Init extends React.Component {
       const year = 365 * 24 * 60 * 60;
 
       const totalPoolOptions = parseInt(this.state.totalPoolOptions, 10);
-      const ESOPLegalWrapperIPFSHash = web3.toBigNumber(`0x${new Buffer(this.state.ESOPLegalWrapperIPFSHash, 'ascii').toString('hex')}`);
+      const ESOPLegalWrapperIPFSHash = window.web3.toBigNumber(`0x${new Buffer(this.state.ESOPLegalWrapperIPFSHash, 'ascii').toString('hex')}`);
       const cliffPeriod = Number.parseInt(this.state.cliffPeriod, 10) * year;
       const vestingPeriod = Number.parseInt(this.state.vestingPeriod, 10) * year;
       const residualAmount = parseInt(this.state.residualAmount, 10) * 100;

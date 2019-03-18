@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment';
 
 import EmployeeSignESOP from './EmployeeSignESOP';
-import { web3 } from '../web3';
 import { validateDoc, epochAsYears } from '../utils';
 import IPFSDialog from '../components/IPFSDialog';
 import Config from '../config';
@@ -87,7 +86,7 @@ export default class EmployeeDetails extends React.Component {
         'residual-amount': `${ESOPState.residualAmountPromille / 100}%`,
       };
 
-      const ipfsHash = web3.toAscii(web3.toHex(web3.toBigNumber(ESOPState.ESOPLegalWrapperIPFSHash.replace(new RegExp('"', 'g'), ''))));
+      const ipfsHash = window.web3.toAscii(window.web3.toHex(window.web3.toBigNumber(ESOPState.ESOPLegalWrapperIPFSHash.replace(new RegExp('"', 'g'), ''))));
       this.setState({
         ipfsHash,
       });
