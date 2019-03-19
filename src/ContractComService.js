@@ -484,8 +484,8 @@ export default class ContractComService {
     // no enough gas when using nano ledger (
     if (error.code !== undefined
       && error.message !== undefined
-      && error.code === -32010
-      && error.message.startsWith('Insufficient funds. The account you tried to send transaction')) {
+      && error.code === -32000
+      && error.message.startsWith('insufficient funds')) {
       return 'Your account has not enough ETH.';
     }
 
