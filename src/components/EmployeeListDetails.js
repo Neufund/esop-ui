@@ -153,7 +153,13 @@ export default class EmployeeListDetails extends React.Component {
             type: 'SHOW_CONFIRM_TRANSACTION_DIALOG',
             confirmTransactionDialog: false,
           });
-          this.setState({terminateDate: undefined});
+
+          this.store.dispatch({
+            type: 'SHOW_TX_SUCCESS_DIALOG',
+            txHash: success,
+          });
+
+          this.setState({ terminateDate: undefined });
 
           this.store.dispatch({
             type: 'SET_SELECTED_USER',
@@ -273,10 +279,10 @@ export default class EmployeeListDetails extends React.Component {
         <h3>Employee details:</h3>
         <p>Employee address: {employee.address}</p>
         <div>
-          <RaisedButton label="Show agreement" onTouchTap={this.showPaperCopyHandler}/>
+          <RaisedButton label="Show agreement" onTouchTap={this.showPaperCopyHandler} />
         </div>
-        <TwoColumnParametersList parameters={parameters}/>
-        <br/>
+        <TwoColumnParametersList parameters={parameters} />
+        <br />
         {userState.userType === 'ceo' &&
         <div>
           {showSuspendButton &&
@@ -295,9 +301,9 @@ export default class EmployeeListDetails extends React.Component {
               value={this.state.terminateDate}
               onChange={(event, newValue) => this.setState({ terminateDate: newValue })}
             />
-            <RaisedButton label="Bad Leaver" onTouchTap={this.handleTerminateUserButton('BadLeaver')}/>
+            <RaisedButton label="Bad Leaver" onTouchTap={this.handleTerminateUserButton('BadLeaver')} />
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <RaisedButton label="Terminate" onTouchTap={this.handleTerminateUserButton('Regular')}/>
+            <RaisedButton label="Terminate" onTouchTap={this.handleTerminateUserButton('Regular')} />
           </div>
           }
         </div>

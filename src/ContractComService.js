@@ -66,14 +66,14 @@ export default class ContractComService {
 
     this.store.dispatch({
       type: 'SET_CONTRACT_ADDRESS',
-      address: {EmployeesListAddress},
+      address: { EmployeesListAddress },
     });
     this.EmployeesListContract = this.EmployeesListContractAbstr.deployed();
     // this.EmployeesListContract = this.EmployeesListContractAbstr.at(EmployeesListAddress);
 
     this.store.dispatch({
       type: 'SET_CONTRACT_ADDRESS',
-      address: {OptionsCalculatorAddress},
+      address: { OptionsCalculatorAddress },
     });
     this.OptionsCalculatorContract = this.OptionsCalculatorAbstr.deployed();
     // this.OptionsCalculatorContract = this.OptionsCalculatorAbstr.at(EmployeesListAddress);
@@ -127,7 +127,7 @@ export default class ContractComService {
     return Promise.all(dataPromises);
   });
 
-  perseOptionsData = data => ({
+  parseOptionsData = data => ({
     cliffPeriod: data[0].toNumber(),
     vestingPeriod: data[1].toNumber(),
     maxFadeoutPromille: data[2].toNumber(),
@@ -233,7 +233,7 @@ export default class ContractComService {
   async obtainESOPData() {
     const companyAddress = this.getCompanyAddress(this.RoTContract);
     const ESOPData = await this.getESOPData().then(result => this.parseESOPData(result));
-    const OptionsData = this.getOptionsData().then(result => this.perseOptionsData(result));
+    const OptionsData = this.getOptionsData().then(result => this.parseOptionsData(result));
     const employees = this.getEmployeesList()
       .then(result => this.parseEmployeesList(result))
       .then(result => this.getEmployeesVestedOptions(result));
@@ -293,17 +293,12 @@ export default class ContractComService {
       .then(
         success => new Promise((resolve, reject) => {
           if (success.logs[0].event === 'ESOPOpened') {
-            resolve(success);
+            resolve(success.tx);
           } else {
             reject(ContractUtils.formatErrorFromReturnCode('openESOP', success));
           }
         }),
-        error => Promise.reject(ContractComService.processCommonErrors(error)))
-      .then(
-        success => this.transactionConfirmation(success.tx)
-        ,
-        error => Promise.reject(error)
-      );
+        error => Promise.reject(ContractComService.processCommonErrors(error)));
   }
 
   setParametersOptional(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare, hasSetParameters) {
@@ -328,22 +323,9 @@ export default class ContractComService {
     return this.OptionsCalculatorAbstr.deployed()
       .then(contract => contract.setParameters(cliffPeriod, vestingPeriod, residualAmount, bonusOptions, newEmployeePool, optionsPerShare))
       .then(
-        success => Promise.resolve(success)
-        /* TODO: add return value to logs of OptionsCalculator.setParameters
-               return new Promise((resolve, reject) => {
-               if (success.logs[0].event == "xxx") {
-               resolve(success);
-               } else {
-               reject(success);
-               }
-               }); */
+        success => Promise.resolve(success.tx)
         ,
-        error => ContractComService.processCommonErrors(error))
-      .then(
-        success => this.transactionConfirmation(success.tx)
-        ,
-        error => Promise.reject(error)
-      );
+        error => Promise.reject(ContractComService.processCommonErrors(error)));
   }
 
   /**
@@ -387,7 +369,7 @@ export default class ContractComService {
             reject(ContractUtils.formatErrorFromReturnCode('offerOptionsToEmployee', success));
           }
         }),
-        error => ContractComService.processCommonErrors(error));
+        error => Promise.reject(ContractComService.processCommonErrors(error)));
   }
 
   employeeSignsToESOP() {
@@ -409,7 +391,7 @@ export default class ContractComService {
             reject(ContractUtils.formatErrorFromReturnCode('employeeSignsToESOP', success));
           }
         }),
-        error => ContractComService.processCommonErrors(error))
+        error => Promise.reject(ContractComService.processCommonErrors(error)));
   }
 
   /**
@@ -467,7 +449,7 @@ export default class ContractComService {
             reject(ContractUtils.formatErrorFromReturnCode('terminateEmployee', success));
           }
         }),
-        error => Promise.reject(ContractComService.processCommonErrors(error)))
+        error => Promise.reject(ContractComService.processCommonErrors(error)));
   }
 
   offerOptionsConversion(optionsConverterAddress) {
@@ -489,8 +471,7 @@ export default class ContractComService {
             reject(ContractUtils.formatErrorFromReturnCode('offerOptionsConversion', success));
           }
         }),
-        error => ContractComService.processCommonErrors(error)
-      );
+        error => Promise.reject(ContractComService.processCommonErrors(error)));
   }
 
 

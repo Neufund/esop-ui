@@ -132,6 +132,10 @@ export default class EmployeeAdd extends React.Component {
           type: 'SHOW_CONFIRM_TRANSACTION_DIALOG',
           confirmTransactionDialog: false,
         });
+        this.store.dispatch({
+          type: 'SHOW_TX_SUCCESS_DIALOG',
+          txHash: success,
+        });
       },
       (error) => {
         this.store.dispatch({
