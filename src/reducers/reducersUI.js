@@ -2,9 +2,10 @@ export default (state = {
   waitingForData: true,
   errorDialog: false,
   errorDialogMsg: '',
-  nanoConfirmAccountDialog: false,
   confirmTransactionDialog: false,
   selectedUser: undefined,
+  txSuccessDialog: false,
+  txHash: '',
 }, action) => {
   switch (action.type) {
     case 'SHOW_ERROR_DIALOG':
@@ -16,11 +17,6 @@ export default (state = {
       return {
         ...state,
         errorDialogMsg: action.errorDialogMsg,
-      };
-    case 'SHOW_NANO_CONFIRM_ACCOUNT_DIALOG':
-      return {
-        ...state,
-        nanoConfirmAccountDialog: action.nanoConfirmAccountDialog,
       };
     case 'SHOW_CONFIRM_TRANSACTION_DIALOG':
       return {
@@ -36,6 +32,18 @@ export default (state = {
       return {
         ...state,
         waitingForData: action.waitingForData,
+      };
+    case 'SHOW_TX_SUCCESS_DIALOG':
+      return {
+        ...state,
+        txSuccessDialog: true,
+        txHash: action.txHash,
+      };
+    case 'HIDE_TX_SUCCESS_DIALOG':
+      return {
+        ...state,
+        txSuccessDialog: false,
+        txHash: '',
       };
     default:
       return state;

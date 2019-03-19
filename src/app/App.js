@@ -28,80 +28,103 @@ export default class App extends React.Component {
     this.unsubscribe();
   }
 
-    handleCloseErrorDialog = () => {
-      this.store.dispatch({
-        type: 'SHOW_ERROR_DIALOG',
-        errorDialog: false,
-      });
+  handleCloseErrorDialog = () => {
+    this.store.dispatch({
+      type: 'SHOW_ERROR_DIALOG',
+      errorDialog: false,
+    });
 
-      this.store.dispatch({
-        type: 'SET_ERROR_DIALOG_MSG',
-        errorDialogMsg: '',
-      });
-    };
+    this.store.dispatch({
+      type: 'SET_ERROR_DIALOG_MSG',
+      errorDialogMsg: '',
+    });
+  };
 
-    render() {
-      const ESOPstate = this.store.getState().ESOP;
-      const UIstate = this.store.getState().UI;
-      const userState = this.store.getState().user;
+  handleCloseTxSuccessDialog = () => {
+    this.store.dispatch({
+      type: 'HIDE_TX_SUCCESS_DIALOG',
+      errorDialog: false,
+    });
 
-      let componentToRender;
-      if (UIstate.waitingForData) {
-        componentToRender = <Waiting />;
-      } else if (ESOPstate.esopState === undefined) {
-        componentToRender = <FailedToLoad />;
-      } else if (ESOPstate.esopState === 0) {
-        componentToRender = <OpenESOP store={this.store} services={this.services} />;
-      } else {
-        componentToRender = <Esop store={this.store} services={this.services} />;
-      }
+    this.store.dispatch({
+      type: 'SET_ERROR_DIALOG_MSG',
+      errorDialogMsg: '',
+    });
+  };
 
-      const closeActions = [<FlatButton label="I got it" onTouchTap={this.handleCloseErrorDialog} />];
+  render() {
+    const ESOPstate = this.store.getState().ESOP;
+    const UIstate = this.store.getState().UI;
+    const userState = this.store.getState().user;
 
-      return (
-        <MuiThemeProvider muiTheme={muiTheme}>
-          <div>
-            <Header
-              userPK={userState.userPK}
-              userETH={userState.userETH}
-              userType={userState.userType}
-              networkId={ESOPstate.networkId}
-            />
-            <a name="esop_dapp" />
-            {componentToRender}
-
-            <Dialog
-              title="Please confirm access to your account on your Nano Ledger"
-              modal
-              open={UIstate.nanoConfirmAccountDialog}
-            />
-
-            <Dialog
-              title="Please confirm transaction using your wallet!"
-              modal
-              open={UIstate.confirmTransactionDialog}
-            >
-              <div>
-                            Confirm operation and wait for Ethereum network to mine it. It might take a minute or two.
-              </div>
-              <div className="dialog_transaction_progress">
-                <CircularProgress />
-              </div>
-            </Dialog>
-
-            <Dialog
-              title="Ups, we have a problem"
-              modal
-              open={UIstate.errorDialog}
-              actions={closeActions}
-            >
-              <p>Below you will find more information about what caused problem. If information is not clear contact tech team.</p>
-              <pre>
-                {UIstate.errorDialogMsg}
-              </pre>
-            </Dialog>
-          </div>
-        </MuiThemeProvider>
-      );
+    let componentToRender;
+    if (UIstate.waitingForData) {
+      componentToRender = <Waiting />;
+    } else if (ESOPstate.esopState === undefined) {
+      componentToRender = <FailedToLoad />;
+    } else if (ESOPstate.esopState === 0) {
+      componentToRender = <OpenESOP store={this.store} services={this.services} />;
+    } else {
+      componentToRender = <Esop store={this.store} services={this.services} />;
     }
+
+    const closeActions = [<FlatButton label="I got it" onTouchTap={this.handleCloseErrorDialog} />];
+    const closeTxActions = [<FlatButton label="I got it" onTouchTap={this.handleCloseTxSuccessDialog} />];
+
+    return (
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div>
+          <Header
+            userPK={userState.userPK}
+            userETH={userState.userETH}
+            userType={userState.userType}
+            networkId={ESOPstate.networkId}
+          />
+          <a name="esop_dapp" />
+          {componentToRender}
+
+          <Dialog
+            title="Please confirm transaction using your wallet!"
+            modal
+            open={UIstate.confirmTransactionDialog}
+          >
+            <div>
+              Confirm operation and wait for Ethereum network to mine it. It might take a minute or two.
+            </div>
+            <div className="dialog_transaction_progress">
+              <CircularProgress />
+            </div>
+          </Dialog>
+
+          <Dialog
+            title="Ups, we have a problem"
+            modal
+            open={UIstate.errorDialog}
+            actions={closeActions}
+          >
+            <p>
+              Below you will find more information about what caused problem. If information is not clear contact tech team.
+            </p>
+            <pre>
+              {UIstate.errorDialogMsg}
+            </pre>
+          </Dialog>
+
+          <Dialog
+            title="Transaction was send"
+            modal
+            open={UIstate.txSuccessDialog}
+            actions={closeTxActions}
+          >
+            <p>
+              Your transaction was send. You can check etherscan to see when it is mined.
+            </p>
+            <pre>
+              {UIstate.txHash}
+            </pre>
+          </Dialog>
+        </div>
+      </MuiThemeProvider>
+    );
+  }
 }

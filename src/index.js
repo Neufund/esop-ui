@@ -70,24 +70,9 @@ import './index.scss';
           }));
       },
       (error) => {
-        const msg = (<div>
-          <p>There was a problem with nano</p>
-        </div>);
-        store.dispatch({
-          type: 'SET_ERROR_DIALOG_MSG',
-          errorDialogMsg: msg,
-        });
-        store.dispatch({
-          type: 'SHOW_ERROR_DIALOG',
-          errorDialog: true,
-        });
+        console.log('getAccount didn\'t return any accounts. If ledger is not connected that is correct and you can ignore following error');
         console.log(error);
+        // TODO: create some action to display info that ledger wasn't detected connect and reload and if any error run to dev
       }
-    )
-    .then(
-      () => store.dispatch({
-        type: 'SHOW_NANO_CONFIRM_ACCOUNT_DIALOG',
-        nanoConfirmAccountDialog: false,
-      })
     );
 }());
