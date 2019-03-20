@@ -81,6 +81,10 @@ export default class ContractUtils {
     return `https://${this.networkIdToEtherscan(networkId)}etherscan.io/address/${address}`;
   }
 
+  static formatEtherscanTxUrl(address, networkId) {
+    return `https://${this.networkIdToEtherscan(networkId)}etherscan.io/tx/${address}`;
+  }
+
   /**
    * Formats error string from returned transaction receipt
    * @param {string} okEvent event name on success that identifies which method was called

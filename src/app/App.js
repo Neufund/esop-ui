@@ -12,6 +12,7 @@ import OpenESOP from './OpenESOP';
 import FailedToLoad from '../components/FailedToLoad';
 
 import './App.scss';
+import ContractUtils from '../ContractUtils';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -90,7 +91,7 @@ export default class App extends React.Component {
             open={UIstate.confirmTransactionDialog}
           >
             <div>
-              Confirm operation and wait for Ethereum network to mine it. It might take a minute or two.
+              Confirm operation and wait for it being send to Ethereum network. It might take a minute or two.
             </div>
             <div className="dialog_transaction_progress">
               <CircularProgress />
@@ -117,12 +118,8 @@ export default class App extends React.Component {
             open={UIstate.txSuccessDialog}
             actions={closeTxActions}
           >
-            <p>
-              Your transaction was send. You can check etherscan to see when it is mined.
-            </p>
-            <pre>
-              {UIstate.txHash}
-            </pre>
+            <p>Your transaction was send and it&apos;s hash is: {UIstate.txHash}</p>
+            <p>You can use this <a target="_blank" href={ContractUtils.formatEtherscanTxUrl(UIstate.txHash, ESOPstate.networkId)}>link</a> to etherscan.io to follow it.</p>
           </Dialog>
         </div>
       </MuiThemeProvider>
