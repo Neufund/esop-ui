@@ -1,17 +1,17 @@
 import React from 'react';
 import moment from 'moment';
 import FontIcon from 'material-ui/FontIcon';
-import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
+import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import ContractUtils from '../ContractUtils';
-import { epochAsYears } from '../utils';
+import {epochAsYears} from '../utils';
 import Config from '../config';
 import Texting from '../texting';
 
 import './EmployeeSignESOP.scss';
 
-export default ({ employee, ESOPState, signHandler, showPaperCopyHandler }) => {
+export default ({employee, ESOPState, signHandler, showPaperCopyHandler}) => {
   const numberFormatter = new Intl.NumberFormat();
 
   /* If you want to use HTML elements you need to wrap them in div. Reason is you are writing code in JSX which is
@@ -145,19 +145,19 @@ export default ({ employee, ESOPState, signHandler, showPaperCopyHandler }) => {
       </div>
       <div className="row">
         <div className="col-xs-12">
-          <RaisedButton label="Show paper copy" onTouchTap={showPaperCopyHandler} />
+          <RaisedButton label="Show paper copy" onTouchTap={showPaperCopyHandler}/>
         </div>
       </div>
       <div className="row">
         <p className="col-xs-12">
-                    I hereby subscribe for the Issued Options for shares in {Config.ipfs_tags.company} under the terms
-                    and conditions as set out in the ESOP Smart Contract at address {ESOPState.RoTAddress} and made
-                    available to me in {Texting.termsDocumentTitle}
+          I hereby subscribe for the Issued Options for shares in {Config.ipfs_tags.company} under the terms
+          and conditions as set out in the ESOP Smart Contract at address {ESOPState.RoTAddress} and made
+          available to me in {Texting.termsDocumentTitle}
         </p>
       </div>
       <div className="row">
         <div className="col-xs-12">
-          <RaisedButton label="Sign ESOP" onTouchTap={signHandler} />
+          <RaisedButton label="Sign ESOP" onTouchTap={signHandler}/>
         </div>
       </div>
     </div>

@@ -13,18 +13,22 @@ export default class ContractUtils {
   }
 
   static getEmployeeStateName(employeeState, suspendedAt, timeToSignExpired) {
-    if (suspendedAt !== 0) { return 'Suspended'; }
+    if (suspendedAt !== 0) {
+      return 'Suspended';
+    }
 
-    if (employeeState === 1 && timeToSignExpired) { return 'Signature expired'; }
+    if (employeeState === 1 && timeToSignExpired) {
+      return 'Signature expired';
+    }
 
     return this.getEmployeeContractStateName(employeeState);
   }
 
   /**
-     * Translate contract employee state from int to human readable name
-     * @param EmployeeState
-     * @returns {String}
-     */
+   * Translate contract employee state from int to human readable name
+   * @param EmployeeState
+   * @returns {String}
+   */
   static getEmployeeContractStateName(EmployeeState) {
     switch (EmployeeState) {
       case 0:
@@ -78,17 +82,19 @@ export default class ContractUtils {
   }
 
   /**
-     * Formats error string from returned transaction receipt
-     * @param {string} okEvent event name on success that identifies which method was called
-     * @param {tx} receipt transaction receipt containing logs
-     * @returns {string}
-     */
+   * Formats error string from returned transaction receipt
+   * @param {string} okEvent event name on success that identifies which method was called
+   * @param {tx} receipt transaction receipt containing logs
+   * @returns {string}
+   */
   static formatErrorFromReturnCode(funcname, tx) {
     if (tx.logs[0].event == 'ReturnCode') {
       const rc = Number(tx.logs[0].args.rc);
       switch (funcname) {
         case 'employeeSignsToESOP':
-          if (rc == 2) { return 'Time to sign option-offer expired. The offer is void.'; }
+          if (rc == 2) {
+            return 'Time to sign option-offer expired. The offer is void.';
+          }
           break;
       }
       switch (rc) {

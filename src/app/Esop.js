@@ -27,75 +27,75 @@ export default class Esop extends React.Component {
     this.unsubscribe();
   }
 
-    handleEmployeeListClick = employee => this.store.dispatch({
-      type: 'SET_SELECTED_USER',
-      selectedUser: employee,
-    });
+  handleEmployeeListClick = employee => this.store.dispatch({
+    type: 'SET_SELECTED_USER',
+    selectedUser: employee,
+  });
 
-    render() {
-      const userState = this.store.getState().user;
-      const ESOPState = this.store.getState().ESOP;
-      const UIState = this.store.getState().UI;
+  render() {
+    const userState = this.store.getState().user;
+    const ESOPState = this.store.getState().ESOP;
+    const UIState = this.store.getState().UI;
 
-      return (
-        <div className="row">
-          <div className="col-xs-12 col-md-10 col-md-offset-1">
-            <div className="esop">
+    return (
+      <div className="row">
+        <div className="col-xs-12 col-md-10 col-md-offset-1">
+          <div className="esop">
 
-              <div className="row">
-                <div className="col-xs-12">
-                  <h1>Neufund’s ESOP overview</h1>
-                </div>
+            <div className="row">
+              <div className="col-xs-12">
+                <h1>Neufund’s ESOP overview</h1>
               </div>
-
-              {(userState.userType === 'employee') &&
-              <EmployeeDetails services={this.services} store={this.store} />
-              }
-
-              <ContractStatus contractState={ESOPState} />
-
-              {ESOPState.conversionOfferedAt !== 0 &&
-              <ConversionStatus contractState={ESOPState} />
-              }
-              <ContractAddresses
-                RoTAddress={ESOPState.RoTAddress}
-                ESOPAddress={ESOPState.ESOPAddress}
-                networkId={ESOPState.networkId}
-              />
-              <ContractParameters contractParameters={ESOPState} />
-
-              <div className="row">
-                <div className="col-xs-12">
-                  <h2>Employees:</h2>
-                </div>
-              </div>
-
-              <EmployeeList
-                employees={ESOPState.employees}
-                selectedUser={UIState.selectedUser}
-                currentBlockTimestamp={ESOPState.currentBlockTimestamp}
-                rowSelectAction={this.handleEmployeeListClick}
-                networkId={ESOPState.networkId}
-              />
-
-              {(UIState.selectedUser !== undefined) &&
-              <div className="row">
-                <div className="col-xs-12 ">
-                  <EmployeeListDetails store={this.store} services={this.services} />
-                </div>
-              </div>
-              }
-
-              {userState.userType === 'ceo' &&
-              <EmployeeAdd services={this.services} store={this.store} />
-              }
-
-              {(userState.userType === 'ceo' && ESOPState.esopState === 1 && false) &&
-              <ConvertOptions store={this.store} services={this.services} />
-              }
             </div>
+
+            {(userState.userType === 'employee') &&
+            <EmployeeDetails services={this.services} store={this.store} />
+            }
+
+            <ContractStatus contractState={ESOPState} />
+
+            {ESOPState.conversionOfferedAt !== 0 &&
+            <ConversionStatus contractState={ESOPState} />
+            }
+            <ContractAddresses
+              RoTAddress={ESOPState.RoTAddress}
+              ESOPAddress={ESOPState.ESOPAddress}
+              networkId={ESOPState.networkId}
+            />
+            <ContractParameters contractParameters={ESOPState} />
+
+            <div className="row">
+              <div className="col-xs-12">
+                <h2>Employees:</h2>
+              </div>
+            </div>
+
+            <EmployeeList
+              employees={ESOPState.employees}
+              selectedUser={UIState.selectedUser}
+              currentBlockTimestamp={ESOPState.currentBlockTimestamp}
+              rowSelectAction={this.handleEmployeeListClick}
+              networkId={ESOPState.networkId}
+            />
+
+            {(UIState.selectedUser !== undefined) &&
+            <div className="row">
+              <div className="col-xs-12 ">
+                <EmployeeListDetails store={this.store} services={this.services} />
+              </div>
+            </div>
+            }
+
+            {userState.userType === 'ceo' &&
+            <EmployeeAdd services={this.services} store={this.store} />
+            }
+
+            {(userState.userType === 'ceo' && ESOPState.esopState === 1 && false) &&
+            <ConvertOptions store={this.store} services={this.services} />
+            }
           </div>
         </div>
-      );
-    }
+      </div>
+    );
+  }
 }

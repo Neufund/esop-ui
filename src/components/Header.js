@@ -5,14 +5,12 @@ import { getUserTypeName } from '../utils';
 
 import './Header.scss';
 
-export default ({ userPK, userETH, userType, networkId }) => (
+export default ({ userPK, userETH, userType, networkId, failedToGetUser }) => (
   <div className="header">
     <div className="row">
       <div className="col-xs-12 col-md-10 col-md-offset-1 logo_section">
         <div className="logo" />
-        <div className="title">
-                        Employee Stock Option Plan Manager <span className="smaller">[on: {ContractUtils.getNetworkName(networkId)}]</span>
-        </div>
+        <div className="title">Employee Stock Option Plan Manager <span className="smaller">[on: {ContractUtils.getNetworkName(networkId)}]</span></div>
         {userType === 'anonymous' &&
         <div className="goTo"><a href="#esop_dapp">Go to DAPP</a></div>
         }
@@ -39,7 +37,7 @@ export default ({ userPK, userETH, userType, networkId }) => (
             </div>
             <div className="col-xs-12 col-sm-4 col_middle">
               <p className="column_title">For other startups</p>
-              <p className="column_text">If you want to build your employee stock option plan based on Neufund’s solution <a href="https://github.com/Neufund/ESOP">go to GitHub</a>. Neufund ESOP smart contract is open sourced and available to anyone on the MIT license. Instructions are provided on the GitHub page, if you have any questions go to <a href="https://neufund.org/slack">Slack</a>  or <a href="https://t.me/neufund">Telegram</a>.</p>
+              <p className="column_text">If you want to build your employee stock option plan based on Neufund’s solution <a href="https://github.com/Neufund/ESOP">go to GitHub</a>. Neufund ESOP smart contract is open sourced and available to anyone on the MIT license. Instructions are provided on the GitHub page, if you have any questions go to <a href="https://t.me/neufund">Telegram</a>.</p>
             </div>
             <div className="col-xs-12 col-sm-4 col_last">
               <p className="column_title">For others</p>
@@ -74,6 +72,14 @@ export default ({ userPK, userETH, userType, networkId }) => (
           }
         </div>
         }
+        <div>
+        {(failedToGetUser === null) &&
+          <p>Looking for connected Ledger it will take up to 30s</p>
+        }
+        {failedToGetUser &&
+          <p>We didn&apos;t found connected unlocked Ledger with opened Ethereum app. If you have opened ledger and still see this message it mean there is some problem and report it to us.</p>
+        }
+        </div>
       </div>
     </div>
   </div>
