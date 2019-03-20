@@ -79,6 +79,7 @@ export default class App extends React.Component {
             userETH={userState.userETH}
             userType={userState.userType}
             networkId={ESOPstate.networkId}
+            failedToGetUser={userState.failedToGetUser}
           />
           <a name="esop_dapp" />
           {componentToRender}

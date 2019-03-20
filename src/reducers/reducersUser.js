@@ -1,5 +1,15 @@
-export default (state = { userType: 'anonymous', userPK: undefined, userETH: undefined }, action) => {
+export default (state = {
+  userType: 'anonymous',
+  userPK: undefined,
+  userETH: undefined,
+  failedToGetUser: null,
+}, action) => {
   switch (action.type) {
+    case 'SET_FAILED_TO_GET_USER':
+      return {
+        ...state,
+        failedToGetUser: action.failedToGetUser,
+      };
     case 'SET_USER_PK':
       return {
         ...state,

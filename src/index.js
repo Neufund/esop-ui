@@ -68,11 +68,18 @@ import './index.scss';
             type: 'SET_USER_ETH',
             userETH: balance,
           }));
+        store.dispatch({
+          type: 'SET_FAILED_TO_GET_USER',
+          failedToGetUser: false,
+        });
       },
       (error) => {
         console.log('getAccount didn\'t return any accounts. If ledger is not connected that is correct and you can ignore following error');
         console.log(error);
-        // TODO: create some action to display info that ledger wasn't detected connect and reload and if any error run to dev
+        store.dispatch({
+          type: 'SET_FAILED_TO_GET_USER',
+          failedToGetUser: true,
+        });
       }
     );
 }());
