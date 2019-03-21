@@ -8,7 +8,7 @@ export default class UserManagment {
         if (error) {
           reject(error);
         } else {
-          const publicKey = result[0];
+          const publicKey = result[0].toLowerCase();
           this.store.dispatch({
             type: 'SET_USER_PK',
             userPK: publicKey,

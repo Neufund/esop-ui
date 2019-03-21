@@ -72,7 +72,7 @@ export default ({ userPK, userETH, userType, networkId, failedToGetUser }) => (
           }
         </div>
         }
-        <div>
+        <div className="notice">
         {(failedToGetUser === null) &&
           <p>Looking for connected Ledger it will take up to 30s</p>
         }
