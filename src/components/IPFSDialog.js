@@ -64,7 +64,7 @@ export default ({ showDocumentDialog, handleDialogRequestClose, title, documentH
     />,
   ];
 
-  if (Config.pdfRenderServer !== '') {
+  if (Config.pdfRenderServer !== '' && employeeData != null) {
     standardActions.push(<FlatButton
       label="Download PDF"
       primary
