@@ -6,7 +6,7 @@
     "@ledgerhq/hw-app-eth": "^4.45.0",
     "@ledgerhq/hw-transport-u2f": "^4.45.0",
     "@ledgerhq/web3-subprovider": "^4.45.0",
-    "axios": "^0.16.1",
+    "axios": "^0.21.1",
     "babel-core": "^6.24.0",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-class-properties": "^6.23.0",
