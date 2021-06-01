@@ -13,9 +13,9 @@ export default {
   // ethEndpoint: 'https://neufund.net/nodes/ropsten/',
   // ethEndpoint: 'https://ropsten.infura.io/',
   // ethEndpoint: 'https://mainnet.infura.io/',
-  truffleArtifacts: '../../ESOP/deployed_artifacts/mainnet', // where ABIs and addresses of smart contracts are, used by webpack
-  // truffleArtifacts: '../../ESOP/deployed_artifacts/ropsten', // where ABIs and addresses of smart contracts are, used by webpack
-  // truffleArtifacts: '../../ESOP/build/contracts',
+  truffleArtifacts: '../ESOP/deployed_artifacts/mainnet', // where ABIs and addresses of smart contracts are, used by webpack
+  // truffleArtifacts: '../ESOP/deployed_artifacts/ropsten', // where ABIs and addresses of smart contracts are, used by webpack
+  // truffleArtifacts: '../ESOP/build/contracts',
 
   // pdfRenderServer:'',
   pdfRenderServer: 'https://neufund.org/pdfrender/api/document',
