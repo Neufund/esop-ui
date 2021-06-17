@@ -1,0 +1,3 @@
+[submodule "ESOP"]
+	path = ESOP
+	url = https://github.com/Neufund/ESOP
