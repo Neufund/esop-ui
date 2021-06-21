@@ -18,7 +18,7 @@ export default {
   // truffleArtifacts: '../ESOP/build/contracts',
 
   // pdfRenderServer:'',
-  pdfRenderServer: 'https://neufund.org/pdfrender/api/document',
+  pdfRenderServer: 'https://platform.neufund.org/api/immutable-storage',
   // pdfRenderServer:'/pdfrender/',
 
   ipfs_tags: {
