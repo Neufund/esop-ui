@@ -7,7 +7,7 @@ export default {
   maxNumberOfBlocksToWait: 30, // maximum number of blocks for waiting to transaction to be mined
   dateFormat: 'YY-MM-DD',
   // ethEndpoint: '/api/',
-  ethEndpoint: 'https://neufund.org/nodes/mainnet/',
+  ethEndpoint: 'https://nd.neufund.org/',
   // ethEndpoint: 'https://neufund.net/nodes/mainnet/',
   // ethEndpoint: 'https://neufund.org/nodes/ropsten/',
   // ethEndpoint: 'https://neufund.net/nodes/ropsten/',
@@ -31,5 +31,5 @@ export default {
   },
   GA_ID: 'UA-00000000-0',
   FB_PIXEL_ID: '00000000',
-  IPFS_HOST: 'https://ipfs.neufund.org',
+  IPFS_HOST: 'https://cloudflare-ipfs.com',
 };
