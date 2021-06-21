@@ -95,18 +95,13 @@ const validateDoc = function (ESOPLegalWrapperIPFSHash, callback) {
 };
 
 const downloadFile = function (ESOPLegalWrapperIPFSHash, employeeData) {
-  // there was a change in printing service keys must have form of {key} - curly bracket is required
   const rawData = { ...Config.ipfs_tags, ...employeeData };
-  const data = {};
-  Object.keys(rawData).forEach((key) => {
-    data[`{${key}}`] = rawData[key];
-  });
   if (ESOPLegalWrapperIPFSHash) {
+    const url = `${Config.pdfRenderServer}/download/${ESOPLegalWrapperIPFSHash}?as_pdf=True&placeholders=${JSON.stringify(rawData)}`;
     jQuery.ajax({
-      type: 'POST',
-      url: `${Config.pdfRenderServer}?hash=${ESOPLegalWrapperIPFSHash}&type=html`,
+      type: 'GET',
+      url,
       contentType: 'application/json',
-      data: JSON.stringify(data),
       xhrFields: {
         responseType: 'blob',
       },
